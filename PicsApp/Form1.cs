@@ -14,21 +14,20 @@ namespace PicsApp
     public partial class Form1 : Form
     {
         private Button openFileButton;
-        public bool comparado = false;
-        public int vueltas = 0;
+        public bool compared = false;
+        public int spins = 0;
 
         public string filePath1;
         public string filePath2;
-        public string nombreArchivo1;
-        public string nombreArchivo2;
+
 
         public string imageResPath1;
         public string imageResPath2;
 
-        public string soloNombre1;
-        public string soloNombre2;
+        public string fileName1;
+        public string fileName2;
 
-        public string pesoArchivo1;
+        public string fileSize1;
 
         private bool isDragging;
         private Point offset;
@@ -42,6 +41,16 @@ namespace PicsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            formStyles(sender, e);
+            label1.MouseDown += TitleLabel_MouseDown;
+            label1.MouseMove += TitleLabel_MouseMove;
+            label1.MouseUp += TitleLabel_MouseUp;
+            btnruta1.Click += btnruta1_Click;
+            fileSize1 = filePath1;
+        }
+
+        private void formStyles(object sender, EventArgs e)
+        {
             this.FormBorderStyle = FormBorderStyle.None;
             this.ControlBox = false;
             btnruta1.FlatStyle = FlatStyle.Flat;
@@ -50,11 +59,14 @@ namespace PicsApp
             btnruta2.FlatAppearance.BorderSize = 0;
             btnclose.FlatStyle = FlatStyle.Flat;
             btnclose.FlatAppearance.BorderSize = 0;
+            btnCarpeta1.FlatStyle = FlatStyle.Flat;
+            btnCarpeta1.FlatAppearance.BorderSize = 0;
+            btnCarpeta2.FlatStyle = FlatStyle.Flat;
+            btnCarpeta2.FlatAppearance.BorderSize = 0;
             btnclose.BringToFront();
             btntobar.FlatStyle = FlatStyle.Flat;
             btntobar.BringToFront();
             btntobar.FlatAppearance.BorderSize = 0;
-
             lblRes1.Hide();
             lblRes2.Hide();
             lblFecha1.Hide();
@@ -63,22 +75,6 @@ namespace PicsApp
             lblPeso2.Hide();
             lblNombre1.Hide();
             lblNombre2.Hide();
-
-            //string imagePath1 = @"C:\Users\cread\OneDrive\Pictures\Screenshots\Captura de pantalla (5).png";
-            //pictureBox1.Image = Image.FromFile(imagePath1);
-            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-
-
-
-
-            label1.MouseDown += TitleLabel_MouseDown;
-            label1.MouseMove += TitleLabel_MouseMove;
-            label1.MouseUp += TitleLabel_MouseUp;
-
-            btnruta1.Click += btnruta1_Click;
-
-            pesoArchivo1 = filePath1;
-
         }
 
         private void btnclose_Click(object sender, EventArgs e)
@@ -120,20 +116,20 @@ namespace PicsApp
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    nombreArchivo1 = openFileDialog.FileName;
-                soloNombre1 = Path.GetFileName(nombreArchivo1);
+                    filePath1 = openFileDialog.FileName;
+                fileName1 = Path.GetFileName(filePath1);
                 btnruta1.BackColor = Color.Green;
-                if (comparado == false)
+                if (compared == false)
                 {
                     Comparar();
-                    if (vueltas > 2 && soloNombre1 != soloNombre2)
+                    if (spins > 2 && fileName1 != fileName2)
                     {
                         MessageBox.Show("Los archivos deben tener el mismo nombre", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         btnruta1.BackColor = Color.Red;
                         btnruta2.BackColor = Color.Red;
-                        vueltas = 0;
+                        spins = 0;
                     }
-                    comparado = false;
+                    compared = false;
                 }
             }
         }
@@ -144,20 +140,20 @@ namespace PicsApp
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    nombreArchivo2 = openFileDialog.FileName;
-                soloNombre2 = Path.GetFileName(nombreArchivo2);
-                btnruta1.BackColor = Color.Green;
-                if (comparado == false)
+                    filePath2 = openFileDialog.FileName;
+                fileName2 = Path.GetFileName(filePath2);
+                btnruta2.BackColor = Color.Green;
+                if (compared == false)
                 {
                     Comparar();
-                    if (vueltas > 2 && soloNombre1 != soloNombre2)
+                    if (spins > 2 && fileName1 != fileName2)
                     {
                         MessageBox.Show("Los archivos deben tener el mismo nombre", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         btnruta1.BackColor = Color.Red;
                         btnruta2.BackColor = Color.Red;
-                        vueltas = 0;
+                        spins = 0;
                     }
-                    comparado = false;
+                    compared = false;
                 }
             }
         }
@@ -165,7 +161,7 @@ namespace PicsApp
 
         public void Comparar()
         {
-            if (soloNombre1 == soloNombre2)
+            if (fileName1 == fileName2)
             {
                 lblRes1.Visible = true;
                 lblRes2.Visible = true;
@@ -176,9 +172,6 @@ namespace PicsApp
                 lblNombre1.Visible = true;
                 lblNombre2.Visible = true;
 
-
-                filePath1 = nombreArchivo1;
-                string imagePath1 = filePath1;
 
                 imageResPath1 = filePath1;
                 Size resolution = ObtenerResolucionImagen(imageResPath1);
@@ -206,9 +199,6 @@ namespace PicsApp
                     lblPeso1.Text = $"Peso: {fileSizeInMB.ToString("F2")} MB";
                 }
 
-                filePath2 = nombreArchivo2;
-                string imagePath2 = filePath2;
-
                 imageResPath2 = filePath2;
                 Size resolution2 = ObtenerResolucionImagen(imageResPath2);
                 lblRes2.Text = $"Resolucion: {resolution2.Width} x {resolution2.Height}";
@@ -235,18 +225,18 @@ namespace PicsApp
                     lblPeso2.Text = $"Peso: {fileSizeInMB2.ToString("F2")} MB";
                 }
 
-                lblNombre1.Text = $"Nombre:{soloNombre1.ToString()}";
-                lblNombre2.Text = $"Nombre:{soloNombre2.ToString()}";
+                lblNombre1.Text = $"Nombre:{fileName1.ToString()}";
+                lblNombre2.Text = $"Nombre:{fileName2.ToString()}";
 
                 if (filePath1 != filePath2)
                 {
-                    pictureBox1.Image = Image.FromFile(imagePath1);
+                    pictureBox1.Image = Image.FromFile(filePath1);
                     pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBox2.Image = Image.FromFile(imagePath2);
+                    pictureBox2.Image = Image.FromFile(filePath2);
                     pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                     btnruta1.BackColor = Color.Green;
                     btnruta2.BackColor = Color.Green;
-                    comparado = true;
+                    compared = true;
                 }
                 else
                 {
@@ -256,7 +246,7 @@ namespace PicsApp
                 }
 
             }
-            vueltas++;
+            spins++;
         }
 
         static Size ObtenerResolucionImagen(string imageResPath1)
@@ -277,5 +267,81 @@ namespace PicsApp
             return fileSizeInBytes;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public string shortPath;
+
+        private void btnCarpeta1_Click(object sender, EventArgs e)
+        {
+            pressedBtn = 1;
+            lblFecha1.Visible = true;
+            lblNombre1.Visible = true;
+            lblPeso1.Visible = true;
+            obtenerRuta();
+            ObtenerRutaCorta();
+        }
+
+        private void btnCarpeta2_Click(object sender, EventArgs e)
+        {
+            pressedBtn = 2;
+        }
+
+        public int pressedBtn = 0;
+
+        public void obtenerRuta()
+        {
+            if (pressedBtn == 1)
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        filePath1 = openFileDialog.FileName;
+                        fileName1 = Path.GetFileName(filePath1);
+                        lblNombre1.Text = fileName1;
+                        lblFecha1.Text = filePath1;
+                    }
+                }
+            }
+        }
+
+        private void ObtenerRutaCorta()
+        {
+            int indexUltimaDiagonal = filePath1.LastIndexOf('\\');
+
+            if (indexUltimaDiagonal != -1)
+            {
+                // Utiliza Substring para obtener la parte de la cadena hasta la última diagonal
+                shortPath = filePath1.Substring(0, indexUltimaDiagonal);
+                lblPeso1.Text = shortPath;
+            }
+        }
     }
 }

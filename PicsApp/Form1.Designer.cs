@@ -43,6 +43,8 @@
             this.lblRes2 = new System.Windows.Forms.Label();
             this.lblNombre1 = new System.Windows.Forms.Label();
             this.lblNombre2 = new System.Windows.Forms.Label();
+            this.btnCarpeta1 = new System.Windows.Forms.Button();
+            this.btnCarpeta2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -91,7 +93,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1300, 40);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Comparador de Imagenes";
+            this.label1.Text = "comparedr de Imagenes";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -115,7 +117,7 @@
             this.btnruta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnruta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnruta1.ForeColor = System.Drawing.Color.White;
-            this.btnruta1.Location = new System.Drawing.Point(628, 249);
+            this.btnruta1.Location = new System.Drawing.Point(628, 269);
             this.btnruta1.Name = "btnruta1";
             this.btnruta1.Size = new System.Drawing.Size(97, 62);
             this.btnruta1.TabIndex = 8;
@@ -127,7 +129,7 @@
             this.btnruta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnruta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnruta2.ForeColor = System.Drawing.Color.White;
-            this.btnruta2.Location = new System.Drawing.Point(628, 345);
+            this.btnruta2.Location = new System.Drawing.Point(628, 365);
             this.btnruta2.Name = "btnruta2";
             this.btnruta2.Size = new System.Drawing.Size(97, 62);
             this.btnruta2.TabIndex = 9;
@@ -223,12 +225,40 @@
             this.lblNombre2.TabIndex = 17;
             this.lblNombre2.Text = "Nombre: ";
             // 
+            // btnCarpeta1
+            // 
+            this.btnCarpeta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnCarpeta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCarpeta1.ForeColor = System.Drawing.Color.White;
+            this.btnCarpeta1.Location = new System.Drawing.Point(628, 178);
+            this.btnCarpeta1.Name = "btnCarpeta1";
+            this.btnCarpeta1.Size = new System.Drawing.Size(97, 62);
+            this.btnCarpeta1.TabIndex = 18;
+            this.btnCarpeta1.Text = "Carpeta #1";
+            this.btnCarpeta1.UseVisualStyleBackColor = false;
+            this.btnCarpeta1.Click += new System.EventHandler(this.btnCarpeta1_Click);
+            // 
+            // btnCarpeta2
+            // 
+            this.btnCarpeta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnCarpeta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCarpeta2.ForeColor = System.Drawing.Color.White;
+            this.btnCarpeta2.Location = new System.Drawing.Point(628, 458);
+            this.btnCarpeta2.Name = "btnCarpeta2";
+            this.btnCarpeta2.Size = new System.Drawing.Size(97, 62);
+            this.btnCarpeta2.TabIndex = 19;
+            this.btnCarpeta2.Text = "Carpeta #2";
+            this.btnCarpeta2.UseVisualStyleBackColor = false;
+            this.btnCarpeta2.Click += new System.EventHandler(this.btnCarpeta2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.btnCarpeta2);
+            this.Controls.Add(this.btnCarpeta1);
             this.Controls.Add(this.lblNombre2);
             this.Controls.Add(this.lblNombre1);
             this.Controls.Add(this.lblFecha2);
@@ -272,6 +302,8 @@
         private System.Windows.Forms.Label lblRes2;
         private System.Windows.Forms.Label lblNombre1;
         private System.Windows.Forms.Label lblNombre2;
+        private System.Windows.Forms.Button btnCarpeta1;
+        private System.Windows.Forms.Button btnCarpeta2;
     }
 }
 
