@@ -1,0 +1,10 @@
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\bin\Debug\PicsApp.exe.config
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\bin\Debug\PicsApp.exe
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\bin\Debug\PicsApp.pdb
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\obj\Debug\PicsApp.csproj.AssemblyReference.cache
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\obj\Debug\PicsApp.Form1.resources
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\obj\Debug\PicsApp.Properties.Resources.resources
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\obj\Debug\PicsApp.csproj.GenerateResource.cache
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\obj\Debug\PicsApp.csproj.CoreCompileInputs.cache
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\obj\Debug\PicsApp.exe
+C:\Users\cread\OneDrive\Documentos\Sharpjects\PicsApp\PicsApp\obj\Debug\PicsApp.pdb

@@ -1,0 +1,277 @@
+﻿namespace PicsApp
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Código generado por el Diseñador de Windows Forms
+
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.btnclose = new System.Windows.Forms.Button();
+            this.btntobar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnruta1 = new System.Windows.Forms.Button();
+            this.btnruta2 = new System.Windows.Forms.Button();
+            this.lblRes1 = new System.Windows.Forms.Label();
+            this.lblPeso1 = new System.Windows.Forms.Label();
+            this.lblFecha1 = new System.Windows.Forms.Label();
+            this.lblFecha2 = new System.Windows.Forms.Label();
+            this.lblPeso2 = new System.Windows.Forms.Label();
+            this.lblRes2 = new System.Windows.Forms.Label();
+            this.lblNombre1 = new System.Windows.Forms.Label();
+            this.lblNombre2 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // btnclose
+            // 
+            this.btnclose.BackColor = System.Drawing.Color.Red;
+            this.btnclose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnclose.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnclose.ForeColor = System.Drawing.Color.DarkRed;
+            this.btnclose.Location = new System.Drawing.Point(1260, -1);
+            this.btnclose.Margin = new System.Windows.Forms.Padding(0);
+            this.btnclose.Name = "btnclose";
+            this.btnclose.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnclose.Size = new System.Drawing.Size(40, 40);
+            this.btnclose.TabIndex = 0;
+            this.btnclose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnclose.UseVisualStyleBackColor = false;
+            this.btnclose.Click += new System.EventHandler(this.btnclose_Click);
+            // 
+            // btntobar
+            // 
+            this.btntobar.BackColor = System.Drawing.Color.LightBlue;
+            this.btntobar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btntobar.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btntobar.ForeColor = System.Drawing.Color.DarkRed;
+            this.btntobar.Location = new System.Drawing.Point(1220, -1);
+            this.btntobar.Margin = new System.Windows.Forms.Padding(0);
+            this.btntobar.Name = "btntobar";
+            this.btntobar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btntobar.Size = new System.Drawing.Size(40, 40);
+            this.btntobar.TabIndex = 2;
+            this.btntobar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btntobar.UseVisualStyleBackColor = false;
+            this.btntobar.Click += new System.EventHandler(this.btntobar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("AniMe Matrix - MB_EN", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.MinimumSize = new System.Drawing.Size(1300, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1300, 40);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Comparador de Imagenes";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(83, 129);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(448, 448);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(786, 129);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(448, 448);
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
+            // 
+            // btnruta1
+            // 
+            this.btnruta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnruta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnruta1.ForeColor = System.Drawing.Color.White;
+            this.btnruta1.Location = new System.Drawing.Point(628, 249);
+            this.btnruta1.Name = "btnruta1";
+            this.btnruta1.Size = new System.Drawing.Size(97, 62);
+            this.btnruta1.TabIndex = 8;
+            this.btnruta1.Text = "Imagen #1";
+            this.btnruta1.UseVisualStyleBackColor = false;
+            // 
+            // btnruta2
+            // 
+            this.btnruta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnruta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnruta2.ForeColor = System.Drawing.Color.White;
+            this.btnruta2.Location = new System.Drawing.Point(628, 345);
+            this.btnruta2.Name = "btnruta2";
+            this.btnruta2.Size = new System.Drawing.Size(97, 62);
+            this.btnruta2.TabIndex = 9;
+            this.btnruta2.Text = "Imagen #2";
+            this.btnruta2.UseVisualStyleBackColor = false;
+            this.btnruta2.Click += new System.EventHandler(this.btnruta2_Click_1);
+            // 
+            // lblRes1
+            // 
+            this.lblRes1.AutoSize = true;
+            this.lblRes1.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRes1.ForeColor = System.Drawing.Color.White;
+            this.lblRes1.Location = new System.Drawing.Point(79, 590);
+            this.lblRes1.Name = "lblRes1";
+            this.lblRes1.Size = new System.Drawing.Size(175, 23);
+            this.lblRes1.TabIndex = 10;
+            this.lblRes1.Text = "Resolucion: ";
+            // 
+            // lblPeso1
+            // 
+            this.lblPeso1.AutoSize = true;
+            this.lblPeso1.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPeso1.ForeColor = System.Drawing.Color.White;
+            this.lblPeso1.Location = new System.Drawing.Point(79, 610);
+            this.lblPeso1.Name = "lblPeso1";
+            this.lblPeso1.Size = new System.Drawing.Size(89, 23);
+            this.lblPeso1.TabIndex = 11;
+            this.lblPeso1.Text = "Peso: ";
+            // 
+            // lblFecha1
+            // 
+            this.lblFecha1.AutoSize = true;
+            this.lblFecha1.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFecha1.ForeColor = System.Drawing.Color.White;
+            this.lblFecha1.Location = new System.Drawing.Point(79, 630);
+            this.lblFecha1.Name = "lblFecha1";
+            this.lblFecha1.Size = new System.Drawing.Size(104, 23);
+            this.lblFecha1.TabIndex = 12;
+            this.lblFecha1.Text = "Fecha: ";
+            // 
+            // lblFecha2
+            // 
+            this.lblFecha2.AutoSize = true;
+            this.lblFecha2.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFecha2.ForeColor = System.Drawing.Color.White;
+            this.lblFecha2.Location = new System.Drawing.Point(782, 630);
+            this.lblFecha2.Name = "lblFecha2";
+            this.lblFecha2.Size = new System.Drawing.Size(104, 23);
+            this.lblFecha2.TabIndex = 15;
+            this.lblFecha2.Text = "Fecha: ";
+            // 
+            // lblPeso2
+            // 
+            this.lblPeso2.AutoSize = true;
+            this.lblPeso2.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPeso2.ForeColor = System.Drawing.Color.White;
+            this.lblPeso2.Location = new System.Drawing.Point(782, 610);
+            this.lblPeso2.Name = "lblPeso2";
+            this.lblPeso2.Size = new System.Drawing.Size(89, 23);
+            this.lblPeso2.TabIndex = 14;
+            this.lblPeso2.Text = "Peso: ";
+            // 
+            // lblRes2
+            // 
+            this.lblRes2.AutoSize = true;
+            this.lblRes2.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRes2.ForeColor = System.Drawing.Color.White;
+            this.lblRes2.Location = new System.Drawing.Point(782, 590);
+            this.lblRes2.Name = "lblRes2";
+            this.lblRes2.Size = new System.Drawing.Size(175, 23);
+            this.lblRes2.TabIndex = 13;
+            this.lblRes2.Text = "Resolucion: ";
+            // 
+            // lblNombre1
+            // 
+            this.lblNombre1.AutoSize = true;
+            this.lblNombre1.Font = new System.Drawing.Font("ROG Fonts", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre1.ForeColor = System.Drawing.Color.White;
+            this.lblNombre1.Location = new System.Drawing.Point(80, 101);
+            this.lblNombre1.Name = "lblNombre1";
+            this.lblNombre1.Size = new System.Drawing.Size(98, 18);
+            this.lblNombre1.TabIndex = 16;
+            this.lblNombre1.Text = "Nombre: ";
+            // 
+            // lblNombre2
+            // 
+            this.lblNombre2.AutoSize = true;
+            this.lblNombre2.Font = new System.Drawing.Font("ROG Fonts", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre2.ForeColor = System.Drawing.Color.White;
+            this.lblNombre2.Location = new System.Drawing.Point(783, 101);
+            this.lblNombre2.Name = "lblNombre2";
+            this.lblNombre2.Size = new System.Drawing.Size(98, 18);
+            this.lblNombre2.TabIndex = 17;
+            this.lblNombre2.Text = "Nombre: ";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
+            this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.lblNombre2);
+            this.Controls.Add(this.lblNombre1);
+            this.Controls.Add(this.lblFecha2);
+            this.Controls.Add(this.lblPeso2);
+            this.Controls.Add(this.lblRes2);
+            this.Controls.Add(this.lblFecha1);
+            this.Controls.Add(this.lblPeso1);
+            this.Controls.Add(this.lblRes1);
+            this.Controls.Add(this.btnruta2);
+            this.Controls.Add(this.btnruta1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btntobar);
+            this.Controls.Add(this.btnclose);
+            this.Controls.Add(this.label1);
+            this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button btnclose;
+        private System.Windows.Forms.Button btntobar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button btnruta1;
+        private System.Windows.Forms.Button btnruta2;
+        private System.Windows.Forms.Label lblRes1;
+        private System.Windows.Forms.Label lblPeso1;
+        private System.Windows.Forms.Label lblFecha1;
+        private System.Windows.Forms.Label lblFecha2;
+        private System.Windows.Forms.Label lblPeso2;
+        private System.Windows.Forms.Label lblRes2;
+        private System.Windows.Forms.Label lblNombre1;
+        private System.Windows.Forms.Label lblNombre2;
+    }
+}
+
