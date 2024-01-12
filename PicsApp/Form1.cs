@@ -336,26 +336,32 @@ namespace PicsApp
         {
             if (pressedBtn == 1)
             {
-                string[] archivos1 = Directory.GetFiles(shortPath1);
-                foreach (string archivo in archivos1)
+                if (shortPath1 != null)
                 {
-                    ObtenerResolucionImagenes(archivo);
-                    CalcularPeso(archivo);
-                    ObtenerFecha(archivo);
-                    CrearInstancias(archivo);
-                    MostrarImagenesEnListBox();
+                    string[] archivos1 = Directory.GetFiles(shortPath1);
+                    foreach (string archivo in archivos1)
+                    {
+                        ObtenerResolucionImagenes(archivo);
+                        CalcularPeso(archivo);
+                        ObtenerFecha(archivo);
+                        CrearInstancias(archivo);
+                        MostrarImagenesEnListBox();
+                    }
                 }
             }
             else if (pressedBtn == 2)
             {
-                string[] archivos2 = Directory.GetFiles(shortPath2);
-                foreach (string archivo in archivos2)
+                if (shortPath2 != null)
                 {
-                    ObtenerResolucionImagenes(archivo);
-                    CalcularPeso(archivo);
-                    ObtenerFecha(archivo);
-                    CrearInstancias(archivo);
-                    MostrarImagenesEnListBox();
+                    string[] archivos2 = Directory.GetFiles(shortPath2);
+                    foreach (string archivo in archivos2)
+                    {
+                        ObtenerResolucionImagenes(archivo);
+                        CalcularPeso(archivo);
+                        ObtenerFecha(archivo);
+                        CrearInstancias(archivo);
+                        MostrarImagenesEnListBox();
+                    }
                 }
             }
         }
@@ -410,20 +416,24 @@ namespace PicsApp
         {
             if (pressedBtn == 1)
             {
-                int indexUltimaDiagonal = filePath1.LastIndexOf('\\');
-
-                if (indexUltimaDiagonal != -1)
+                if (filePath1 != null)
                 {
-                    shortPath1 = filePath1.Substring(0, indexUltimaDiagonal);
+                    int indexUltimaDiagonal = filePath1.LastIndexOf('\\');
+                    if (indexUltimaDiagonal != -1)
+                    {
+                        shortPath1 = filePath1.Substring(0, indexUltimaDiagonal);
+                    }
                 }
             }
             else if (pressedBtn == 2)
             {
-                int indexUltimaDiagonal = filePath2.LastIndexOf('\\');
-
-                if (indexUltimaDiagonal != -1)
+                if (filePath2 != null)
                 {
-                    shortPath2 = filePath2.Substring(0, indexUltimaDiagonal);
+                    int indexUltimaDiagonal = filePath2.LastIndexOf('\\');
+                    if (indexUltimaDiagonal != -1)
+                    {
+                        shortPath2 = filePath2.Substring(0, indexUltimaDiagonal);
+                    }
                 }
             }
         }
@@ -434,31 +444,47 @@ namespace PicsApp
             ObtenerRutaCorta();
             if (pressedBtn == 1)
             {
-                string[] archivos = Directory.GetFiles(shortPath1);
-
-                listaArchivos.Clear();
-                listBox.Items.Clear();
-
-                foreach (string archivo in archivos)
+                if (shortPath1 != null)
                 {
-                    listaArchivos.Add(Path.GetFileName(archivo));
-                    //listBox.Items.Add(Path.GetFileName(archivo));
+                    string[] archivos = Directory.GetFiles(shortPath1);
+
+                    listaArchivos.Clear();
+                    listBox.Items.Clear();
+
+                    foreach (string archivo in archivos)
+                    {
+                        listaArchivos.Add(Path.GetFileName(archivo));
+                        //listBox.Items.Add(Path.GetFileName(archivo));
+                    }
+                    btnCarpeta1.BackColor = Color.Green;
                 }
-                btnCarpeta1.BackColor = Color.Green;
+                else
+                {
+                    MessageBox.Show("Seleccione una ruta valida", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnCarpeta1.BackColor = Color.Red;
+                }
             }
             else if (pressedBtn == 2) 
             {
-                string[] archivos = Directory.GetFiles(shortPath2);
-
-                listaArchivos.Clear();
-                listBox.Items.Clear();
-
-                foreach (string archivo in archivos)
+                if (shortPath2 != null)
                 {
-                    listaArchivos.Add(Path.GetFileName(archivo));
-                    //listBox.Items.Add(Path.GetFileName(archivo));
+                    string[] archivos = Directory.GetFiles(shortPath2);
+
+                    listaArchivos.Clear();
+                    listBox.Items.Clear();
+
+                    foreach (string archivo in archivos)
+                    {
+                        listaArchivos.Add(Path.GetFileName(archivo));
+                        //listBox.Items.Add(Path.GetFileName(archivo));
+                    }
+                    btnCarpeta2.BackColor = Color.Green;
                 }
-                btnCarpeta2.BackColor = Color.Green;
+                else
+                {
+                    MessageBox.Show("Seleccione una ruta valida", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnCarpeta2.BackColor = Color.Red;
+                }
             }
         }
 
