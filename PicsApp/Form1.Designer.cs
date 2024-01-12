@@ -45,6 +45,8 @@
             this.lblNombre2 = new System.Windows.Forms.Label();
             this.btnCarpeta1 = new System.Windows.Forms.Button();
             this.btnCarpeta2 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +95,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1300, 40);
             this.label1.TabIndex = 3;
-            this.label1.Text = "comparedr de Imagenes";
+            this.label1.Text = "comparador de Imagenes";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -251,12 +253,30 @@
             this.btnCarpeta2.UseVisualStyleBackColor = false;
             this.btnCarpeta2.Click += new System.EventHandler(this.btnCarpeta2_Click);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(83, 129);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(448, 446);
+            this.listBox1.TabIndex = 20;
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(786, 129);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(448, 446);
+            this.listBox2.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnCarpeta2);
             this.Controls.Add(this.btnCarpeta1);
             this.Controls.Add(this.lblNombre2);
@@ -304,6 +324,8 @@
         private System.Windows.Forms.Label lblNombre2;
         private System.Windows.Forms.Button btnCarpeta1;
         private System.Windows.Forms.Button btnCarpeta2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }
 
