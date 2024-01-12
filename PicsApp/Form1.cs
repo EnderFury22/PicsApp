@@ -342,7 +342,7 @@ namespace PicsApp
             {
                 spins = 0;
                 validImage = false;
-                listaDeImagenes.Clear();
+                listaDeImagenes1.Clear();
                 if (shortPath1 != null)
                 {
                     string[] archivos1 = Directory.GetFiles(shortPath1);
@@ -360,7 +360,7 @@ namespace PicsApp
             {
                 spins = 0;
                 validImage = false;
-                listaDeImagenes.Clear();
+                listaDeImagenes1.Clear();
                 if (shortPath2 != null)
                 {
                     string[] archivos2 = Directory.GetFiles(shortPath2);
@@ -502,8 +502,10 @@ namespace PicsApp
             }
         }
 
-        private List<Imagenes> listaDeImagenes = new List<Imagenes>();
-        List<string> imageNames = new List<string> { };
+        private List<Imagenes> listaDeImagenes1 = new List<Imagenes>();
+        List<string> imageNames1 = new List<string> { };
+        private List<Imagenes> listaDeImagenes2 = new List<Imagenes>();
+        List<string> imageNames2 = new List<string> { };
 
         public void CrearInstancias(string archivo)
         {
@@ -516,9 +518,9 @@ namespace PicsApp
                     Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
                     listBox1.Visible = true;
-                    imageNames.Add(archivo);
+                    imageNames1.Add(archivo);
 
-                    foreach (string name in imageNames)
+                    foreach (string name in imageNames1)
                     {
                         Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, name: name, date: fileDate1);
 
@@ -531,9 +533,9 @@ namespace PicsApp
                     newImage.Date
                 };
                         imageParameters.Add(parameters);
-                        listaDeImagenes.Add(newImage);
+                        listaDeImagenes1.Add(newImage);
                     }
-                    imageNames.Clear();
+                    imageNames1.Clear();
                     validImage = true;
                 }
                 if (validImage == false && spins < 1)
@@ -558,9 +560,9 @@ namespace PicsApp
                 {
                     listBox2.Visible = true;
 
-                    imageNames.Add(archivo);
+                    imageNames2.Add(archivo);
 
-                    foreach (string name in imageNames)
+                    foreach (string name in imageNames2)
                     {
                         Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, name: name, date: fileDate2);
 
@@ -573,9 +575,9 @@ namespace PicsApp
                         newImage.Date
                 };
                         imageParameters.Add(parameters);
-                        listaDeImagenes.Add(newImage);
+                        listaDeImagenes2.Add(newImage);
                     }
-                    imageNames.Clear();
+                    imageNames2.Clear();
                     validImage = true;
                 }
                 if (validImage == false && spins < 1)
@@ -694,7 +696,7 @@ namespace PicsApp
                 listBox1.Items.Clear();
 
                 // Agrega todas las instancias de Imagenes a la ListBox
-                foreach (Imagenes imagen in listaDeImagenes)
+                foreach (Imagenes imagen in listaDeImagenes1)
                 {
                     listBox1.Items.Add(imagen.Name);
                     listBox1.Items.Add(imagen.Date);
@@ -709,7 +711,7 @@ namespace PicsApp
                 listBox2.Items.Clear();
 
                 // Agrega todas las instancias de Imagenes a la ListBox
-                foreach (Imagenes imagen in listaDeImagenes)
+                foreach (Imagenes imagen in listaDeImagenes2)
                 {
                     listBox2.Items.Add(imagen.Name);
                     listBox2.Items.Add(imagen.Date);
