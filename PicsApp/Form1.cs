@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PicsApp
 {
@@ -179,8 +180,8 @@ namespace PicsApp
 
 
                 imageResPath1 = filePath1;
-                Size resolution = ObtenerResolucionImagen(imageResPath1);
-                lblRes1.Text = $"Resolucion: {resolution.Width} x {resolution.Height}";
+                //Size resolution = ObtenerResolucionImagen(imageResPath1);
+                //lblRes1.Text = $"Resolucion: {resolution.Width} x {resolution.Height}";
 
                 FileInfo fileInfo = new FileInfo(filePath1);
                 fileDate1 = fileInfo.CreationTime;
@@ -205,8 +206,8 @@ namespace PicsApp
                 }
 
                 imageResPath2 = filePath2;
-                Size resolution2 = ObtenerResolucionImagen(imageResPath2);
-                lblRes2.Text = $"Resolucion: {resolution2.Width} x {resolution2.Height}";
+                //Size resolution2 = ObtenerResolucionImagen(imageResPath2);
+                //lblRes2.Text = $"Resolucion: {resolution2.Width} x {resolution2.Height}";
 
                 FileInfo fileInfo2 = new FileInfo(filePath2);
                 fileDate2 = fileInfo2.CreationTime;
@@ -254,15 +255,15 @@ namespace PicsApp
             spins++;
         }
 
-        static Size ObtenerResolucionImagen(string imageResPath1)
+        /*static Size ObtenerResolucionImagen(string imageResPath1)
         {
             using (Image image = Image.FromFile(imageResPath1))
             {
                 return new Size(image.Width, image.Height);
             }
-        }
+        }*/
 
-        static long ObtenerPesoArchivo(string filePath)
+        public long ObtenerPesoArchivo(string filePath)
         {
             FileInfo fileInfo = new FileInfo(filePath);
 
@@ -319,6 +320,7 @@ namespace PicsApp
         {
             pressedBtn = 1;
             SeleccionarCarpeta(archivosCarpeta1, listBox1);
+            OrdenDeLasCosas();
             pressedBtn = 0;
         }
 
@@ -326,10 +328,39 @@ namespace PicsApp
         {
             pressedBtn = 2;
             SeleccionarCarpeta(archivosCarpeta2, listBox2);
+            OrdenDeLasCosas();
             pressedBtn = 0;
         }
 
-        public class Image1
+        public void OrdenDeLasCosas()
+        {
+            if (pressedBtn == 1)
+            {
+                string[] archivos1 = Directory.GetFiles(shortPath1);
+                foreach (string archivo in archivos1)
+                {
+                    ObtenerResolucionImagenes(archivo);
+                    CalcularPeso(archivo);
+                    ObtenerFecha(archivo);
+                    CrearInstancias(archivo);
+                    MostrarImagenesEnListBox();
+                }
+            }
+            else if (pressedBtn == 2)
+            {
+                string[] archivos2 = Directory.GetFiles(shortPath2);
+                foreach (string archivo in archivos2)
+                {
+                    ObtenerResolucionImagenes(archivo);
+                    CalcularPeso(archivo);
+                    ObtenerFecha(archivo);
+                    CrearInstancias(archivo);
+                    MostrarImagenesEnListBox();
+                }
+            }
+        }
+
+        public class Imagenes
         {
             // Propiedades de la clase
             public string ResolutionX { get; set; }
@@ -338,7 +369,7 @@ namespace PicsApp
             public string Name { get; set; }
             public DateTime Date { get; set; }
 
-            public Image1(string resolutionX, string resolutionY, double weight, string name, DateTime date)
+            public Imagenes(string resolutionX, string resolutionY, double weight, string name, DateTime date)
             {
                 ResolutionX = resolutionX;
                 ResolutionY = resolutionY;
@@ -384,7 +415,6 @@ namespace PicsApp
                 if (indexUltimaDiagonal != -1)
                 {
                     shortPath1 = filePath1.Substring(0, indexUltimaDiagonal);
-                    lblPeso1.Text = shortPath1;
                 }
             }
             else if (pressedBtn == 2)
@@ -394,7 +424,6 @@ namespace PicsApp
                 if (indexUltimaDiagonal != -1)
                 {
                     shortPath2 = filePath2.Substring(0, indexUltimaDiagonal);
-                    lblPeso1.Text = shortPath2;
                 }
             }
         }
@@ -407,13 +436,13 @@ namespace PicsApp
             {
                 string[] archivos = Directory.GetFiles(shortPath1);
 
-                //listaArchivos.Clear();
-                //listBox.Items.Clear();
+                listaArchivos.Clear();
+                listBox.Items.Clear();
 
                 foreach (string archivo in archivos)
                 {
                     listaArchivos.Add(Path.GetFileName(archivo));
-                    listBox.Items.Add(Path.GetFileName(archivo));
+                    //listBox.Items.Add(Path.GetFileName(archivo));
                 }
                 btnCarpeta1.BackColor = Color.Green;
             }
@@ -421,8 +450,8 @@ namespace PicsApp
             {
                 string[] archivos = Directory.GetFiles(shortPath2);
 
-                //listaArchivos.Clear();
-                //listBox.Items.Clear();
+                listaArchivos.Clear();
+                listBox.Items.Clear();
 
                 foreach (string archivo in archivos)
                 {
@@ -433,17 +462,22 @@ namespace PicsApp
             }
         }
 
-        public void CrearInstancias()
+        private List<Imagenes> listaDeImagenes = new List<Imagenes>();
+        List<string> imageNames = new List<string> { };
+
+        public void CrearInstancias(string archivo)
         {
-            List<string> imageNames = new List<string> {  };
-
-            List<Image> images = new List<Image>();
-
-            foreach (string name in imageNames)
+            if (pressedBtn == 1)
             {
-                Image1 newImage = new Image1(resolutionX: imageRes1X , resolutionY: imageRes1Y, weight: fileSize1, name: name, date: fileDate1);
+                listBox1.Visible = true;
+                
+                imageNames.Add(archivo);
 
-                List<object> parameters = new List<object>
+                foreach (string name in imageNames)
+                {
+                    Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, name: name, date: fileDate1);
+
+                    List<object> parameters = new List<object>
                 {
                     newImage.ResolutionX,
                     newImage.ResolutionY,
@@ -451,46 +485,46 @@ namespace PicsApp
                     newImage.Name,
                     newImage.Date
                 };
-                imageParameters.Add(parameters);
+                    imageParameters.Add(parameters);
+                    listaDeImagenes.Add(newImage);
+                }
             }
+            else if (pressedBtn == 2) 
+            {
+                List<string> imageNames = new List<string> { };
+
+                List<Image> images = new List<Image>();
+
+                foreach (string name in imageNames)
+                {
+                    Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, name: name, date: fileDate2);
+
+                    List<object> parameters = new List<object>
+                {
+                    newImage.ResolutionX,
+                    newImage.ResolutionY,
+                    newImage.Weight,
+                    newImage.Name,
+                    newImage.Date
+                };
+                    imageParameters.Add(parameters);
+                }
+            }
+
         }
 
-        public void CalcularPeso()
+        public void CalcularPeso(string rutaImagen)
         {
-            long fileSizeInBytes = ObtenerPesoArchivo(filePath1);
+            long fileSizeInBytes = ObtenerPesoArchivo(rutaImagen);
             double fileSizeInKB = fileSizeInBytes / 1024.0;
             double fileSizeInMB = fileSizeInKB / 1024.0;
 
             if (pressedBtn == 1)
             {
-                if (fileSizeInBytes <= 1023)
-                {
-                    lblPeso1.Text = $"Peso: {fileSizeInBytes.ToString("F2")} Bytes";
-                }
-                else if (fileSizeInKB <= 1023)
-                {
-                    lblPeso1.Text = $"Peso: {fileSizeInKB.ToString("F2")} KB";
-                }
-                else if (fileSizeInMB <= 1023)
-                {
-                    lblPeso1.Text = $"Peso: {fileSizeInMB.ToString("F2")} MB";
-                }
                 fileSize1 = fileSizeInMB;
             }
             else if (pressedBtn == 2) 
             {
-                if (fileSizeInBytes <= 1023)
-                {
-                    lblPeso2.Text = $"Peso: {fileSizeInBytes.ToString("F2")} Bytes";
-                }
-                else if (fileSizeInKB <= 1023)
-                {
-                    lblPeso2.Text = $"Peso: {fileSizeInKB.ToString("F2")} KB";
-                }
-                else if (fileSizeInMB <= 1023)
-                {
-                    lblPeso2.Text = $"Peso: {fileSizeInMB.ToString("F2")} MB";
-                }
                 fileSize2 = fileSizeInMB;
             }
         }
@@ -499,36 +533,65 @@ namespace PicsApp
         {
             if (pressedBtn == 1)
             {
-                using (Bitmap imagen = new Bitmap(rutaImagen))
+                if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
-                    imageRes1X = imagen.Width.ToString();
-                    imageRes1Y = imagen.Height.ToString();
+                    using (Bitmap imagen = new Bitmap(rutaImagen))
+                    {
+                        imageRes1X = imagen.Width.ToString();
+                        imageRes1Y = imagen.Height.ToString();
+                    }
                 }
             }
             else if (pressedBtn == 2)
             {
-                using (Bitmap imagen = new Bitmap(rutaImagen))
+                if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(rutaImagen).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
-                    // Obtén la resolución y almacénala en la variable pública
-                    imageRes2X = imagen.Width.ToString();
-                    imageRes2Y = imagen.Height.ToString();
+                    using (Bitmap imagen = new Bitmap(rutaImagen))
+                    {
+                        // Obtén la resolución y almacénala en la variable pública
+                        imageRes2X = imagen.Width.ToString();
+                        imageRes2Y = imagen.Height.ToString();
+                    }
                 }
             }
         }
 
-        public void ObtenerFecha()
+        
+
+        public void ObtenerFecha(string rutaImagen)
         {
             if (pressedBtn == 1)
             {
                 FileInfo fileInfo = new FileInfo(filePath1);
                 fileDate1 = fileInfo.CreationTime;
-                lblFecha1.Text = $"Fecha: {fileDate1.ToString()}";
             }
             else if (pressedBtn == 2)
             {
                 FileInfo fileInfo = new FileInfo(filePath2);
                 fileDate2 = fileInfo.CreationTime;
-                lblFecha2.Text = $"Fecha: {fileDate1.ToString()}";
+            }
+        }
+        private void MostrarImagenesEnListBox()
+        {
+            // Limpia la ListBox antes de volver a llenarla
+            listBox1.Items.Clear();
+
+            // Agrega todas las instancias de Imagenes a la ListBox
+            foreach (Imagenes imagen in listaDeImagenes)
+            {
+                listBox1.Items.Add(imagen.Name);
+                listBox1.Items.Add(imagen.Date);
+                listBox1.Items.Add(imagen.Weight);
+                listBox1.Items.Add(imagen.ResolutionX);
+                listBox1.Items.Add(imagen.ResolutionY);
             }
         }
     }
