@@ -456,7 +456,7 @@ namespace PicsApp
                 foreach (string archivo in archivos)
                 {
                     listaArchivos.Add(Path.GetFileName(archivo));
-                    listBox.Items.Add(Path.GetFileName(archivo));
+                    //listBox.Items.Add(Path.GetFileName(archivo));
                 }
                 btnCarpeta2.BackColor = Color.Green;
             }
@@ -488,12 +488,13 @@ namespace PicsApp
                     imageParameters.Add(parameters);
                     listaDeImagenes.Add(newImage);
                 }
+                imageNames.Clear();
             }
             else if (pressedBtn == 2) 
             {
-                List<string> imageNames = new List<string> { };
+                listBox2.Visible = true;
 
-                List<Image> images = new List<Image>();
+                imageNames.Add(archivo);
 
                 foreach (string name in imageNames)
                 {
@@ -509,6 +510,7 @@ namespace PicsApp
                 };
                     imageParameters.Add(parameters);
                 }
+                imageNames.Clear();
             }
         }
 
@@ -580,17 +582,34 @@ namespace PicsApp
         }
         private void MostrarImagenesEnListBox()
         {
-            // Limpia la ListBox antes de volver a llenarla
-            listBox1.Items.Clear();
-
-            // Agrega todas las instancias de Imagenes a la ListBox
-            foreach (Imagenes imagen in listaDeImagenes)
+            if (pressedBtn == 1)
             {
-                listBox1.Items.Add(imagen.Name);
-                listBox1.Items.Add(imagen.Date);
-                listBox1.Items.Add(imagen.Weight);
-                listBox1.Items.Add(imagen.ResolutionX);
-                listBox1.Items.Add(imagen.ResolutionY);
+                // Limpia la ListBox antes de volver a llenarla
+                listBox1.Items.Clear();
+
+                // Agrega todas las instancias de Imagenes a la ListBox
+                foreach (Imagenes imagen in listaDeImagenes)
+                {
+                    listBox1.Items.Add(imagen.Name);
+                    listBox1.Items.Add(imagen.Date);
+                    listBox1.Items.Add(imagen.Weight);
+                    listBox1.Items.Add(imagen.ResolutionX);
+                    listBox1.Items.Add(imagen.ResolutionY);
+                }
+            }
+            else if (pressedBtn == 2) 
+            {
+                listBox2.Items.Clear();
+
+                // Agrega todas las instancias de Imagenes a la ListBox
+                foreach (Imagenes imagen in listaDeImagenes)
+                {
+                    listBox2.Items.Add(imagen.Name);
+                    listBox2.Items.Add(imagen.Date);
+                    listBox2.Items.Add(imagen.Weight);
+                    listBox2.Items.Add(imagen.ResolutionX);
+                    listBox2.Items.Add(imagen.ResolutionY);
+                }
             }
         }
     }
