@@ -510,7 +510,6 @@ namespace PicsApp
                     imageParameters.Add(parameters);
                 }
             }
-
         }
 
         public void CalcularPeso(string rutaImagen)
