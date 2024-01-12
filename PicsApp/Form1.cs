@@ -304,6 +304,9 @@ namespace PicsApp
         public int pressedBtn = 0;
         public string shortPath1;
         public string shortPath2;
+        public string usedSize;
+
+        public bool validImage = false;
 
         public string imageRes1X;
         public string imageRes1Y;
@@ -336,6 +339,9 @@ namespace PicsApp
         {
             if (pressedBtn == 1)
             {
+                spins = 0;
+                validImage = false;
+                listaDeImagenes.Clear();
                 if (shortPath1 != null)
                 {
                     string[] archivos1 = Directory.GetFiles(shortPath1);
@@ -351,6 +357,9 @@ namespace PicsApp
             }
             else if (pressedBtn == 2)
             {
+                spins = 0;
+                validImage = false;
+                listaDeImagenes.Clear();
                 if (shortPath2 != null)
                 {
                     string[] archivos2 = Directory.GetFiles(shortPath2);
@@ -372,14 +381,16 @@ namespace PicsApp
             public string ResolutionX { get; set; }
             public string ResolutionY { get; set; }
             public double Weight { get; set; }
+            public string UsedSize { get; set; }
             public string Name { get; set; }
             public DateTime Date { get; set; }
 
-            public Imagenes(string resolutionX, string resolutionY, double weight, string name, DateTime date)
+            public Imagenes(string resolutionX, string resolutionY, double weight,string usedSize, string name, DateTime date)
             {
                 ResolutionX = resolutionX;
                 ResolutionY = resolutionY;
                 Weight = weight;
+                UsedSize = usedSize;
                 Name = name;
                 Date = date;
             }
@@ -456,7 +467,6 @@ namespace PicsApp
                         listaArchivos.Add(Path.GetFileName(archivo));
                         //listBox.Items.Add(Path.GetFileName(archivo));
                     }
-                    btnCarpeta1.BackColor = Color.Green;
                 }
                 else
                 {
@@ -478,7 +488,10 @@ namespace PicsApp
                         listaArchivos.Add(Path.GetFileName(archivo));
                         //listBox.Items.Add(Path.GetFileName(archivo));
                     }
-                    btnCarpeta2.BackColor = Color.Green;
+                    if (validImage == true)
+                    {
+                        btnCarpeta2.BackColor = Color.Green;
+                    }
                 }
                 else
                 {
@@ -495,15 +508,20 @@ namespace PicsApp
         {
             if (pressedBtn == 1)
             {
-                listBox1.Visible = true;
-                
-                imageNames.Add(archivo);
-
-                foreach (string name in imageNames)
+                if (Path.GetExtension(archivo).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
-                    Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, name: name, date: fileDate1);
+                    listBox1.Visible = true;
+                    imageNames.Add(archivo);
 
-                    List<object> parameters = new List<object>
+                    foreach (string name in imageNames)
+                    {
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize, name: name, date: fileDate1);
+
+                        List<object> parameters = new List<object>
                 {
                     newImage.ResolutionX,
                     newImage.ResolutionY,
@@ -511,22 +529,41 @@ namespace PicsApp
                     newImage.Name,
                     newImage.Date
                 };
-                    imageParameters.Add(parameters);
-                    listaDeImagenes.Add(newImage);
+                        imageParameters.Add(parameters);
+                        listaDeImagenes.Add(newImage);
+                    }
+                    imageNames.Clear();
+                    validImage = true;
                 }
-                imageNames.Clear();
+                if (validImage == false && spins < 1)
+                {
+                    listBox1.Items.Clear();
+                    MessageBox.Show("No hay archivos de imagen en la Ruta", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnCarpeta1.BackColor = Color.Red;
+                    spins++;
+                }
+                if (validImage)
+                {
+                    btnCarpeta1.BackColor = Color.Green;
+                }
             }
             else if (pressedBtn == 2) 
             {
-                listBox2.Visible = true;
-
-                imageNames.Add(archivo);
-
-                foreach (string name in imageNames)
+                if (Path.GetExtension(archivo).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
-                    Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, name: name, date: fileDate2);
+                    listBox2.Visible = true;
 
-                    List<object> parameters = new List<object>
+                    imageNames.Add(archivo);
+
+                    foreach (string name in imageNames)
+                    {
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize, name: name, date: fileDate2);
+
+                        List<object> parameters = new List<object>
                 {
                     newImage.ResolutionX,
                     newImage.ResolutionY,
@@ -534,9 +571,22 @@ namespace PicsApp
                     newImage.Name,
                     newImage.Date
                 };
-                    imageParameters.Add(parameters);
+                        imageParameters.Add(parameters);
+                    }
+                    imageNames.Clear();
+                    validImage = true;
                 }
-                imageNames.Clear();
+                if (validImage == false && spins < 1)
+                {
+                    listBox1.Items.Clear();
+                    MessageBox.Show("No hay archivos de imagen en la Ruta", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnCarpeta2.BackColor = Color.Red;
+                    spins++;
+                }
+                if (validImage) 
+                {
+                    btnCarpeta2.BackColor = Color.Green;
+                }
             }
         }
 
@@ -548,11 +598,36 @@ namespace PicsApp
 
             if (pressedBtn == 1)
             {
-                fileSize1 = fileSizeInMB;
+                if (fileSizeInBytes <= 1023)
+                {
+                    fileSize1 = fileSizeInBytes;
+                    usedSize = "B";
+                }
+                else if (fileSizeInKB <= 1023)
+                {
+                    fileSize1 = fileSizeInKB;
+                    usedSize = "KB";
+                }
+                else if (fileSizeInMB <= 1023)
+                {
+                    fileSize1 = fileSizeInMB;
+                    usedSize = "MB";
+                }
             }
             else if (pressedBtn == 2) 
             {
-                fileSize2 = fileSizeInMB;
+                if (fileSizeInBytes <= 1023)
+                {
+                    fileSize2 = fileSizeInBytes;
+                }
+                else if (fileSizeInKB <= 1023)
+                {
+                    fileSize2 = fileSizeInKB;
+                }
+                else if (fileSizeInMB <= 1023)
+                {
+                    fileSize2 = fileSizeInMB;
+                }
             }
         }
 
@@ -619,6 +694,7 @@ namespace PicsApp
                     listBox1.Items.Add(imagen.Name);
                     listBox1.Items.Add(imagen.Date);
                     listBox1.Items.Add(imagen.Weight);
+                    listBox1.Items.Add(imagen.UsedSize);
                     listBox1.Items.Add(imagen.ResolutionX);
                     listBox1.Items.Add(imagen.ResolutionY);
                 }
@@ -633,10 +709,78 @@ namespace PicsApp
                     listBox2.Items.Add(imagen.Name);
                     listBox2.Items.Add(imagen.Date);
                     listBox2.Items.Add(imagen.Weight);
+                    listBox2.Items.Add(imagen.UsedSize);
                     listBox2.Items.Add(imagen.ResolutionX);
                     listBox2.Items.Add(imagen.ResolutionY);
                 }
             }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        static double CalcularPorcentajeSimilitud(string[] lista1, string[] lista2)
+        {
+            int totalCaracteres = 0;
+            int caracteresCoincidentes = 0;
+
+            for (int i = 0; i < Math.Min(lista1.Length, lista2.Length); i++)
+            {
+                int distancia = LevenshteinDistance(lista1[i], lista2[i]);
+                totalCaracteres += Math.Max(lista1[i].Length, lista2[i].Length);
+                caracteresCoincidentes += Math.Max(lista1[i].Length, lista2[i].Length) - distancia;
+            }
+
+            if (totalCaracteres == 0)
+            {
+                return 100; // Listas vacías, consideradas iguales al 100%
+            }
+
+            double porcentajeSimilitud = (double)caracteresCoincidentes / totalCaracteres * 100;
+            return porcentajeSimilitud;
+        }
+
+        static int LevenshteinDistance(string s, string t)
+        {
+            int m = s.Length;
+            int n = t.Length;
+
+            int[,] d = new int[m + 1, n + 1];
+
+            for (int i = 0; i <= m; i++)
+            {
+                d[i, 0] = i;
+            }
+
+            for (int j = 0; j <= n; j++)
+            {
+                d[0, j] = j;
+            }
+
+            for (int j = 1; j <= n; j++)
+            {
+                for (int i = 1; i <= m; i++)
+                {
+                    int costo = (s[i - 1] == t[j - 1]) ? 0 : 1;
+
+                    d[i, j] = Math.Min(
+                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
+                        d[i - 1, j - 1] + costo
+                    );
+                }
+            }
+
+            return d[m, n];
         }
     }
 }
