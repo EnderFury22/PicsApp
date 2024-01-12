@@ -304,7 +304,8 @@ namespace PicsApp
         public int pressedBtn = 0;
         public string shortPath1;
         public string shortPath2;
-        public string usedSize;
+        public string usedSize1;
+        public string usedSize2;
 
         public bool validImage = false;
 
@@ -519,7 +520,7 @@ namespace PicsApp
 
                     foreach (string name in imageNames)
                     {
-                        Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize, name: name, date: fileDate1);
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, name: name, date: fileDate1);
 
                         List<object> parameters = new List<object>
                 {
@@ -561,24 +562,25 @@ namespace PicsApp
 
                     foreach (string name in imageNames)
                     {
-                        Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize, name: name, date: fileDate2);
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, name: name, date: fileDate2);
 
                         List<object> parameters = new List<object>
                 {
-                    newImage.ResolutionX,
-                    newImage.ResolutionY,
-                    newImage.Weight,
-                    newImage.Name,
-                    newImage.Date
+                        newImage.ResolutionX,
+                        newImage.ResolutionY,
+                        newImage.Weight,
+                        newImage.Name,
+                        newImage.Date
                 };
                         imageParameters.Add(parameters);
+                        listaDeImagenes.Add(newImage);
                     }
                     imageNames.Clear();
                     validImage = true;
                 }
                 if (validImage == false && spins < 1)
                 {
-                    listBox1.Items.Clear();
+                    listBox2.Items.Clear();
                     MessageBox.Show("No hay archivos de imagen en la Ruta", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta2.BackColor = Color.Red;
                     spins++;
@@ -601,17 +603,17 @@ namespace PicsApp
                 if (fileSizeInBytes <= 1023)
                 {
                     fileSize1 = fileSizeInBytes;
-                    usedSize = "B";
+                    usedSize1 = "B";
                 }
                 else if (fileSizeInKB <= 1023)
                 {
                     fileSize1 = fileSizeInKB;
-                    usedSize = "KB";
+                    usedSize1 = "KB";
                 }
                 else if (fileSizeInMB <= 1023)
                 {
                     fileSize1 = fileSizeInMB;
-                    usedSize = "MB";
+                    usedSize1 = "MB";
                 }
             }
             else if (pressedBtn == 2) 
@@ -619,14 +621,17 @@ namespace PicsApp
                 if (fileSizeInBytes <= 1023)
                 {
                     fileSize2 = fileSizeInBytes;
+                    usedSize2 = "B";
                 }
                 else if (fileSizeInKB <= 1023)
                 {
                     fileSize2 = fileSizeInKB;
+                    usedSize2 = "KB";
                 }
                 else if (fileSizeInMB <= 1023)
                 {
                     fileSize2 = fileSizeInMB;
+                    usedSize2 = "MB";
                 }
             }
         }
