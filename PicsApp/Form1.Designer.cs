@@ -48,6 +48,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.btnComparar = new System.Windows.Forms.Button();
+            this.btnMostrarIguales = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -283,12 +284,26 @@
             this.btnComparar.UseVisualStyleBackColor = false;
             this.btnComparar.Click += new System.EventHandler(this.btnComparar_Click);
             // 
+            // btnMostrarIguales
+            // 
+            this.btnMostrarIguales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnMostrarIguales.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMostrarIguales.ForeColor = System.Drawing.Color.White;
+            this.btnMostrarIguales.Location = new System.Drawing.Point(628, 539);
+            this.btnMostrarIguales.Name = "btnMostrarIguales";
+            this.btnMostrarIguales.Size = new System.Drawing.Size(97, 62);
+            this.btnMostrarIguales.TabIndex = 23;
+            this.btnMostrarIguales.Text = "Mostrar Iguales";
+            this.btnMostrarIguales.UseVisualStyleBackColor = false;
+            this.btnMostrarIguales.Click += new System.EventHandler(this.btnMostrarIguales_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.btnMostrarIguales);
             this.Controls.Add(this.btnComparar);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
@@ -342,6 +357,7 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button btnComparar;
+        private System.Windows.Forms.Button btnMostrarIguales;
     }
 }
 

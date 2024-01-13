@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,7 +38,50 @@ namespace PicsApp
         private bool isDragging;
         private Point offset;
 
+        public int pressedBtn = 0;
+        public string shortPath1;
+        public string shortPath2;
+        public bool carpetasSonIguales;
 
+        public string usedSize1;
+        public string usedSize2;
+
+        public string imagePath1;
+        public string imagePath2;
+        public string imageName1;
+        public string imageName2;
+
+        public int imageIndex1;
+        public int imageIndex2;
+        public int indexed1;
+        public int indexed2;
+
+        public int cont = 0;
+
+        public int rutasVerificadas;
+
+        public int indiceEnLista1;
+        public int indiceEnLista2;
+
+        public int duplicadoIndex1;
+        public int duplicadoIndex2;
+
+        public int cantidadDeRepetidos = 0;
+
+        public bool validImage1 = false;
+        public bool validImage2 = false;
+
+        List<string> nombresDuplicados = new List<string>();
+
+        public string imageRes1X;
+        public string imageRes1Y;
+        public string imageRes2X;
+        public string imageRes2Y;
+
+        private List<string> archivosCarpeta1 = new List<string>();
+        private List<string> archivosCarpeta2 = new List<string>();
+
+        List<List<object>> imageParameters = new List<List<object>>();
 
         public Form1()
         {
@@ -115,227 +159,6 @@ namespace PicsApp
             isDragging = false;
         }
 
-
-
-        private void btnruta1_Click(object sender, EventArgs e)
-        {
-            pressedBtn = 1;
-            MostrarImagen(10);
-            pressedBtn = 0;
-            /*
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    filePath1 = openFileDialog.FileName;
-                fileName1 = Path.GetFileName(filePath1);
-                btnruta1.BackColor = Color.Green;
-                if (compared == false)
-                {
-                    Comparar();
-                    if (spins > 2 && fileName1 != fileName2)
-                    {
-                        MessageBox.Show("Los archivos deben tener el mismo nombre", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        btnruta1.BackColor = Color.Red;
-                        btnruta2.BackColor = Color.Red;
-                        spins = 0;
-                    }
-                    compared = false;
-                }
-            }*/
-        }
-
-
-        private void btnruta2_Click_1(object sender, EventArgs e)
-        {
-            pressedBtn = 2;
-            MostrarImagen(10);
-            pressedBtn = 0;
-            /*
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    filePath2 = openFileDialog.FileName;
-                fileName2 = Path.GetFileName(filePath2);
-                btnruta2.BackColor = Color.Green;
-                if (compared == false)
-                {
-                    Comparar();
-                    if (spins > 2 && fileName1 != fileName2)
-                    {
-                        MessageBox.Show("Los archivos deben tener el mismo nombre", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        btnruta1.BackColor = Color.Red;
-                        btnruta2.BackColor = Color.Red;
-                        spins = 0;
-                    }
-                    compared = false;
-                }
-            }*/
-        }
-
-
-        public void Comparar()
-        {
-            if (fileName1 == fileName2)
-            {
-                lblRes1.Visible = true;
-                lblRes2.Visible = true;
-                lblFecha1.Visible = true;
-                lblFecha2.Visible = true;
-                lblPeso1.Visible = true;
-                lblPeso2.Visible = true;
-                lblNombre1.Visible = true;
-                lblNombre2.Visible = true;
-
-
-                imageResPath1 = filePath1;
-                //Size resolution = ObtenerResolucionImagen(imageResPath1);
-                //lblRes1.Text = $"Resolucion: {resolution.Width} x {resolution.Height}";
-
-                FileInfo fileInfo = new FileInfo(filePath1);
-                fileDate1 = fileInfo.CreationTime;
-                lblFecha1.Text = $"Fecha: {fileDate1.ToString()}";
-
-                long fileSizeInBytes = ObtenerPesoArchivo(filePath1);
-                double fileSizeInKB = fileSizeInBytes / 1024.0;
-                double fileSizeInMB = fileSizeInKB / 1024.0;
-
-
-                if (fileSizeInBytes <= 1023)
-                {
-                    lblPeso1.Text = $"Peso: {fileSizeInBytes.ToString("F2")} Bytes";
-                }
-                else if (fileSizeInKB <= 1023)
-                {
-                    lblPeso1.Text = $"Peso: {fileSizeInKB.ToString("F2")} KB";
-                }
-                else if (fileSizeInMB <= 1023)
-                {
-                    lblPeso1.Text = $"Peso: {fileSizeInMB.ToString("F2")} MB";
-                }
-
-                imageResPath2 = filePath2;
-                //Size resolution2 = ObtenerResolucionImagen(imageResPath2);
-                //lblRes2.Text = $"Resolucion: {resolution2.Width} x {resolution2.Height}";
-
-                FileInfo fileInfo2 = new FileInfo(filePath2);
-                fileDate2 = fileInfo2.CreationTime;
-                lblFecha2.Text = $"Fecha: {fileDate2.ToString()}";
-
-                long fileSizeInBytes2 = ObtenerPesoArchivo(filePath2);
-                double fileSizeInKB2 = fileSizeInBytes2 / 1024.0;
-                double fileSizeInMB2 = fileSizeInKB2 / 1024.0;
-
-
-                if (fileSizeInBytes2 <= 1023)
-                {
-                    lblPeso2.Text = $"Peso: {fileSizeInBytes2.ToString("F2")} Bytes";
-                }
-                else if (fileSizeInKB2 <= 1023)
-                {
-                    lblPeso2.Text = $"Peso: {fileSizeInKB2.ToString("F2")} KB";
-                }
-                else if (fileSizeInMB2 <= 1023)
-                {
-                    lblPeso2.Text = $"Peso: {fileSizeInMB2.ToString("F2")} MB";
-                }
-
-                lblNombre1.Text = $"Nombre:{fileName1.ToString()}";
-                lblNombre2.Text = $"Nombre:{fileName2.ToString()}";
-
-                if (filePath1 != filePath2)
-                {
-                    pictureBox1.Image = Image.FromFile(filePath1);
-                    pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBox2.Image = Image.FromFile(filePath2);
-                    pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-                    btnruta1.BackColor = Color.Green;
-                    btnruta2.BackColor = Color.Green;
-                    compared = true;
-                }
-                else
-                {
-                    MessageBox.Show("La carpeta no puede ser la misma", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    btnruta1.BackColor = Color.Red;
-                    btnruta2.BackColor = Color.Red;
-                }
-
-            }
-            spins++;
-        }
-
-        /*static Size ObtenerResolucionImagen(string imageResPath1)
-        {
-            using (Image image = Image.FromFile(imageResPath1))
-            {
-                return new Size(image.Width, image.Height);
-            }
-        }*/
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public int pressedBtn = 0;
-        public string shortPath1;
-        public string shortPath2;
-        public bool carpetasSonIguales;
-
-        public string usedSize1;
-        public string usedSize2;
-
-        public string imagePath1;
-        public string imagePath2;
-        public string imageName1;
-        public string imageName2;
-
-        public int imageIndex1;
-        public int imageIndex2;
-        public int indexed1;
-        public int indexed2;
-        public int rutasVerificadas;
-
-        public bool validImage1 = false;
-        public bool validImage2 = false;
-
-        List<string> nombresDuplicados = new List<string>();
-
-        public string imageRes1X;
-        public string imageRes1Y;
-        public string imageRes2X;
-        public string imageRes2Y;
-
-        private List<string> archivosCarpeta1 = new List<string>();
-        private List<string> archivosCarpeta2 = new List<string>();
-
-        List<List<object>> imageParameters = new List<List<object>>();
-
-
         private void btnCarpeta1_Click(object sender, EventArgs e)
         {
             pressedBtn = 1;
@@ -352,6 +175,21 @@ namespace PicsApp
             pressedBtn = 0;
         }
 
+        private void btnruta1_Click(object sender, EventArgs e)
+        {
+            pressedBtn = 1;
+            MostrarImagen(cont -1);
+            pressedBtn = 0;
+        }
+
+
+        private void btnruta2_Click_1(object sender, EventArgs e)
+        {
+            pressedBtn = 2;
+            MostrarImagen(cont -1);
+            pressedBtn = 0;
+        }
+
         private void btnComparar_Click(object sender, EventArgs e)
         {
             if (listaDeImagenes1 != null && listaDeImagenes2 != null)
@@ -359,11 +197,31 @@ namespace PicsApp
                 listBox1.Items.Clear();
                 nombresDuplicados.Clear();
                 BuscarDuplicados();
+                ALmacenarIguales();
                 foreach (string duplicado in nombresDuplicados)
                 {
                     listBox1.Items.Add(duplicado);
                 }
             }
+        }
+
+        private void btnMostrarIguales_Click(object sender, EventArgs e)
+        {
+            cantidadDeRepetidos = nombresDuplicados.Count;
+
+
+            if (cantidadDeRepetidos > cont)
+            {
+                cont++;
+            }
+            else if (cantidadDeRepetidos == cont)
+            {
+                cont = 1;
+            }
+            listBox1.Items.Add(cont);
+
+            btnruta1_Click(sender, e);
+            btnruta2_Click_1(sender, e);
         }
 
         public void OrdenDeLasCosas()
@@ -435,9 +293,6 @@ namespace PicsApp
             public string UsedSize { get; set; }
             public string ResolutionX { get; set; }
             public string ResolutionY { get; set; }
-
-
-
 
 
             public Imagenes(int index, string name, string path, DateTime date, double weight, string usedSize, string resolutionX, string resolutionY)
@@ -699,10 +554,7 @@ namespace PicsApp
         public long ObtenerPesoArchivo(string filePath)
         {
             FileInfo fileInfo = new FileInfo(filePath);
-
-            // Obtener el tamaño en bytes
             long fileSizeInBytes = fileInfo.Length;
-
             return fileSizeInBytes;
         }
 
@@ -733,15 +585,12 @@ namespace PicsApp
                 {
                     using (Bitmap imagen = new Bitmap(rutaImagen))
                     {
-                        // Obtén la resolución y almacénala en la variable pública
                         imageRes2X = imagen.Width.ToString();
                         imageRes2Y = imagen.Height.ToString();
                     }
                 }
             }
         }
-
-
 
         public void ObtenerFecha(string rutaImagen)
         {
@@ -760,10 +609,8 @@ namespace PicsApp
         {
             if (pressedBtn == 1)
             {
-                // Limpia la ListBox antes de volver a llenarla
                 listBox1.Items.Clear();
 
-                // Agrega todas las instancias de Imagenes a la ListBox
                 foreach (Imagenes imagen in listaDeImagenes1)
                 {
                     listBox1.Items.Add(imagen.Index);
@@ -780,7 +627,6 @@ namespace PicsApp
             {
                 listBox2.Items.Clear();
 
-                // Agrega todas las instancias de Imagenes a la ListBox
                 foreach (Imagenes imagen in listaDeImagenes2)
                 {
                     listBox2.Items.Add(imagen.Index);
@@ -869,7 +715,7 @@ namespace PicsApp
 
                 lblNombre2.Text = $"Nombre:{listaDeImagenes2[imagenABuscar].Name}";
                 lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso2.Text = $"Peso{listaDeImagenes2[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes2[imagenABuscar].UsedSize}";
+                lblPeso2.Text = $"Peso:{listaDeImagenes2[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes2[imagenABuscar].UsedSize}";
                 lblFecha2.Text = $"Fecha:{listaDeImagenes2[imagenABuscar].Date.ToString()}";
                 pictureBox2.Image = Image.FromFile(listaDeImagenes2[imagenABuscar].Path);
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -884,71 +730,23 @@ namespace PicsApp
             .Intersect(listaDeImagenes2.Select(m => m.Name))
             .ToList();
         }
-  
 
-
-
-
-
-
-
-
-
-
-
-        static double CalcularPorcentajeSimilitud(string[] lista1, string[] lista2)
+        public void ALmacenarIguales()
         {
-            int totalCaracteres = 0;
-            int caracteresCoincidentes = 0;
-
-            for (int i = 0; i < Math.Min(lista1.Length, lista2.Length); i++)
+            foreach (string duplicado in nombresDuplicados)
             {
-                int distancia = LevenshteinDistance(lista1[i], lista2[i]);
-                totalCaracteres += Math.Max(lista1[i].Length, lista2[i].Length);
-                caracteresCoincidentes += Math.Max(lista1[i].Length, lista2[i].Length) - distancia;
-            }
+                Imagenes objetoBuscado1 = listaDeImagenes1.FirstOrDefault(m => m.Name == duplicado);
+                Imagenes objetoBuscado2 = listaDeImagenes2.FirstOrDefault(m => m.Name == duplicado);
 
-            if (totalCaracteres == 0)
-            {
-                return 100; // Listas vacías, consideradas iguales al 100%
-            }
-
-            double porcentajeSimilitud = (double)caracteresCoincidentes / totalCaracteres * 100;
-            return porcentajeSimilitud;
-        }
-
-        static int LevenshteinDistance(string s, string t)
-        {
-            int m = s.Length;
-            int n = t.Length;
-
-            int[,] d = new int[m + 1, n + 1];
-
-            for (int i = 0; i <= m; i++)
-            {
-                d[i, 0] = i;
-            }
-
-            for (int j = 0; j <= n; j++)
-            {
-                d[0, j] = j;
-            }
-
-            for (int j = 1; j <= n; j++)
-            {
-                for (int i = 1; i <= m; i++)
+                if (objetoBuscado1 != null)
                 {
-                    int costo = (s[i - 1] == t[j - 1]) ? 0 : 1;
-
-                    d[i, j] = Math.Min(
-                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
-                        d[i - 1, j - 1] + costo
-                    );
+                    indiceEnLista1 = listaDeImagenes1.IndexOf(objetoBuscado1);
+                }
+                if (objetoBuscado2 != null)
+                {
+                    indiceEnLista2 = listaDeImagenes2.IndexOf(objetoBuscado2);
                 }
             }
-
-            return d[m, n];
         }
-        
     }
 }
