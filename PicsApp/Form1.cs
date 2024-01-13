@@ -265,15 +265,7 @@ namespace PicsApp
             }
         }*/
 
-        public long ObtenerPesoArchivo(string filePath)
-        {
-            FileInfo fileInfo = new FileInfo(filePath);
-
-            // Obtener el tamaño en bytes
-            long fileSizeInBytes = fileInfo.Length;
-
-            return fileSizeInBytes;
-        }
+        
 
 
 
@@ -306,16 +298,22 @@ namespace PicsApp
         public int pressedBtn = 0;
         public string shortPath1;
         public string shortPath2;
+        public bool carpetasSonIguales;
+        public int cycles;
+
         public string usedSize1;
         public string usedSize2;
+
         public string imagePath1;
         public string imagePath2;
         public string imageName1;
         public string imageName2;
+
         public int imageIndex1;
         public int imageIndex2;
         public int indexed1;
         public int indexed2;
+        public int rutasVerificadas;
 
         public bool validImage = false;
 
@@ -360,15 +358,19 @@ namespace PicsApp
                 if (shortPath1 != null)
                 {
                     string[] archivos1 = Directory.GetFiles(shortPath1);
-                    foreach (string archivo in archivos1)
+                    VerificarIgualdadCarpetas();
+                    if (carpetasSonIguales == false)
                     {
-                        ObtenerResolucionImagenes(archivo);
-                        CalcularPeso(archivo);
-                        ObtenerFecha(archivo);
-                        RutasEnListas(archivo);
-                        CrearInstancias(archivo);
-                        MostrarImagenesEnListBox();
-                    }
+                        foreach (string archivo in archivos1)
+                        {
+                            ObtenerResolucionImagenes(archivo);
+                            CalcularPeso(archivo);
+                            ObtenerFecha(archivo);
+                            RutasEnListas(archivo);
+                            CrearInstancias(archivo);
+                            MostrarImagenesEnListBox();
+                        }
+                    } 
                 }
             }
             else if (pressedBtn == 2)
@@ -383,14 +385,18 @@ namespace PicsApp
                 if (shortPath2 != null)
                 {
                     string[] archivos2 = Directory.GetFiles(shortPath2);
-                    foreach (string archivo in archivos2)
+                    VerificarIgualdadCarpetas();
+                    if (carpetasSonIguales == false)
                     {
-                        ObtenerResolucionImagenes(archivo);
-                        CalcularPeso(archivo);
-                        ObtenerFecha(archivo);
-                        RutasEnListas(archivo);
-                        CrearInstancias(archivo);
-                        MostrarImagenesEnListBox();
+                        foreach (string archivo in archivos2)
+                        {
+                            ObtenerResolucionImagenes(archivo);
+                            CalcularPeso(archivo);
+                            ObtenerFecha(archivo);
+                            RutasEnListas(archivo);
+                            CrearInstancias(archivo);
+                            MostrarImagenesEnListBox();
+                        }
                     }
                 }
             }
@@ -399,25 +405,29 @@ namespace PicsApp
         public class Imagenes
         {
             // Propiedades de la clase
-            public string ResolutionX { get; set; }
-            public string ResolutionY { get; set; }
-            public double Weight { get; set; }
-            public string UsedSize { get; set; }
+            public int Index { get; set; }
+            public string Name { get; set; }
             public string Path { get; set; }
             public DateTime Date { get; set; }
-            public string Name { get; set; }
-            public int Index { get; set; }
+            public double Weight { get; set; }
+            public string UsedSize { get; set; }
+            public string ResolutionX { get; set; }
+            public string ResolutionY { get; set; }
 
-            public Imagenes(string resolutionX, string resolutionY, double weight, string usedSize, string path, DateTime date, string name, int index)
+
+
+
+
+            public Imagenes(int index, string name, string path, DateTime date, double weight, string usedSize, string resolutionX, string resolutionY)
             {
-                ResolutionX = resolutionX;
-                ResolutionY = resolutionY;
-                Weight = weight;
-                UsedSize = usedSize;
+                Index = index;
+                Name = name;
                 Path = path;
                 Date = date;
-                Name = name;
-                Index = index;
+                Weight = weight;
+                UsedSize = usedSize;   
+                ResolutionX = resolutionX;
+                ResolutionY = resolutionY;
             }
         }
 
@@ -668,6 +678,16 @@ namespace PicsApp
             }
         }
 
+        public long ObtenerPesoArchivo(string filePath)
+        {
+            FileInfo fileInfo = new FileInfo(filePath);
+
+            // Obtener el tamaño en bytes
+            long fileSizeInBytes = fileInfo.Length;
+
+            return fileSizeInBytes;
+        }
+
         public void ObtenerResolucionImagenes(string rutaImagen)
         {
             if (pressedBtn == 1)
@@ -762,25 +782,49 @@ namespace PicsApp
             if (pressedBtn == 1)
             {
                 imageName1 = Path.GetFileName(archivo);
-                if (spins > 0)
+                if (rutasVerificadas > 0)
                 {
                     imageIndex1++;
                 }
-                spins++;
+                rutasVerificadas++;
             }
             if (pressedBtn == 2)
             {
                 imageName2 = Path.GetFileName(archivo);
-                if (spins > 0)
+                if (rutasVerificadas > 0)
                 {
                     imageIndex2++;
                 }
-                spins++;
+                rutasVerificadas++;
+            }
+        }
+
+        private void VerificarIgualdadCarpetas()
+        {
+            if (shortPath1 == shortPath2)
+            {
+                if (pressedBtn == 1)
+                {
+                    listBox1.Items.Clear();
+                    MessageBox.Show("Las carpetas no pueden ser las mismas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnCarpeta1.BackColor = Color.Red;
+                }
+                else if (pressedBtn == 2)
+                {
+                    listBox2.Items.Clear();
+                    MessageBox.Show("Las carpetas no pueden ser las mismas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnCarpeta2.BackColor = Color.Red;
+                }
+                carpetasSonIguales = true;
+            }
+            else
+            {
+                carpetasSonIguales = false;
             }
         }
 
 
-
+  
 
 
 
