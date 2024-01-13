@@ -323,6 +323,7 @@ namespace PicsApp
         public bool validImage1 = false;
         public bool validImage2 = false;
 
+        List<string> nombresDuplicados = new List<string>();
 
         public string imageRes1X;
         public string imageRes1Y;
@@ -349,6 +350,20 @@ namespace PicsApp
             SeleccionarCarpeta(archivosCarpeta2, listBox2);
             OrdenDeLasCosas();
             pressedBtn = 0;
+        }
+
+        private void btnComparar_Click(object sender, EventArgs e)
+        {
+            if (listaDeImagenes1 != null && listaDeImagenes2 != null)
+            {
+                listBox1.Items.Clear();
+                nombresDuplicados.Clear();
+                BuscarDuplicados();
+                foreach (string duplicado in nombresDuplicados)
+                {
+                    listBox1.Items.Add(duplicado);
+                }
+            }
         }
 
         public void OrdenDeLasCosas()
@@ -862,7 +877,13 @@ namespace PicsApp
             }
         }
 
-
+        public void BuscarDuplicados()
+        {
+            nombresDuplicados = listaDeImagenes1
+            .Select(m => m.Name)
+            .Intersect(listaDeImagenes2.Select(m => m.Name))
+            .ToList();
+        }
   
 
 
@@ -928,5 +949,6 @@ namespace PicsApp
 
             return d[m, n];
         }
+        
     }
 }

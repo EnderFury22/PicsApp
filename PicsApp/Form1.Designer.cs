@@ -47,6 +47,7 @@
             this.btnCarpeta2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.btnComparar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -269,12 +270,26 @@
             this.listBox2.Size = new System.Drawing.Size(448, 446);
             this.listBox2.TabIndex = 21;
             // 
+            // btnComparar
+            // 
+            this.btnComparar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnComparar.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnComparar.ForeColor = System.Drawing.Color.White;
+            this.btnComparar.Location = new System.Drawing.Point(628, 101);
+            this.btnComparar.Name = "btnComparar";
+            this.btnComparar.Size = new System.Drawing.Size(97, 62);
+            this.btnComparar.TabIndex = 22;
+            this.btnComparar.Text = "Comparar";
+            this.btnComparar.UseVisualStyleBackColor = false;
+            this.btnComparar.Click += new System.EventHandler(this.btnComparar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.btnComparar);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnCarpeta2);
@@ -326,6 +341,7 @@
         private System.Windows.Forms.Button btnCarpeta2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button btnComparar;
     }
 }
 
