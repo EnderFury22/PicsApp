@@ -107,6 +107,10 @@ namespace PicsApp
             btnCarpeta1.FlatAppearance.BorderSize = 0;
             btnCarpeta2.FlatStyle = FlatStyle.Flat;
             btnCarpeta2.FlatAppearance.BorderSize = 0;
+            btnComparar.FlatStyle = FlatStyle.Flat;
+            btnComparar.FlatAppearance.BorderSize= 0;
+            btnMostrarIguales.FlatStyle = FlatStyle.Flat;
+            btnMostrarIguales.FlatAppearance.BorderSize = 0;
             btnclose.BringToFront();
             btntobar.FlatStyle = FlatStyle.Flat;
             btntobar.BringToFront();
@@ -121,6 +125,8 @@ namespace PicsApp
             lblNombre2.Hide();
             listBox1.Hide();
             listBox2.Hide();
+            btnruta1.Hide();
+            btnruta2.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
             label1.MouseUp += TitleLabel_MouseUp;
@@ -248,6 +254,7 @@ namespace PicsApp
                             ObtenerFecha(archivo);
                             RutasEnListas(archivo);
                             CrearInstancias(archivo);
+                            BarraDeCarga();
                             //MostrarImagenesEnListBox();
                         }
                     } 
@@ -275,6 +282,7 @@ namespace PicsApp
                             ObtenerFecha(archivo);
                             RutasEnListas(archivo);
                             CrearInstancias(archivo);
+                            BarraDeCarga();
                             //MostrarImagenesEnListBox();
                         }
                     }
@@ -746,6 +754,49 @@ namespace PicsApp
                 {
                     indiceEnLista2 = listaDeImagenes2.IndexOf(objetoBuscado2);
                 }
+            }
+        }
+        private void BarraDeCarga()
+        {
+            if (pressedBtn == 1)
+            {
+                //int cantidadArchivos = Directory.GetFiles(shortPath1).Count();
+                List<string> cantidadDeImagenes1 = new List<string>();
+                string[] archivos1 = Directory.GetFiles(shortPath1);
+                foreach (string archivo in archivos1)
+                {
+                    if (Path.GetExtension(archivo).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
+                    {
+                        cantidadDeImagenes1.Add(archivo);
+                    }
+                }
+                int cantidadEnNumero = cantidadDeImagenes1.Count();
+                barraCarpeta1.Maximum = cantidadEnNumero;
+                barraCarpeta1.PerformStep();
+            }
+            else if (pressedBtn == 2)
+            {
+                //int cantidadArchivos = Directory.GetFiles(shortPath1).Count();
+                List<string> cantidadDeImagenes2 = new List<string>();
+                string[] archivos2 = Directory.GetFiles(shortPath2);
+                foreach (string archivo in archivos2)
+                {
+                    if (Path.GetExtension(archivo).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                        Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
+                    {
+                        cantidadDeImagenes2.Add(archivo);
+                    }
+                }
+                int cantidadEnNumero = cantidadDeImagenes2.Count();
+                barraCarpeta2.Maximum = cantidadEnNumero;
+                barraCarpeta2.PerformStep();
             }
         }
     }

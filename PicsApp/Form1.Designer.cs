@@ -44,11 +44,13 @@
             this.lblNombre1 = new System.Windows.Forms.Label();
             this.lblNombre2 = new System.Windows.Forms.Label();
             this.btnCarpeta1 = new System.Windows.Forms.Button();
-            this.btnCarpeta2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.btnComparar = new System.Windows.Forms.Button();
             this.btnMostrarIguales = new System.Windows.Forms.Button();
+            this.barraCarpeta1 = new System.Windows.Forms.ProgressBar();
+            this.barraCarpeta2 = new System.Windows.Forms.ProgressBar();
+            this.btnCarpeta2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -121,7 +123,7 @@
             this.btnruta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnruta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnruta1.ForeColor = System.Drawing.Color.White;
-            this.btnruta1.Location = new System.Drawing.Point(628, 269);
+            this.btnruta1.Location = new System.Drawing.Point(434, 61);
             this.btnruta1.Name = "btnruta1";
             this.btnruta1.Size = new System.Drawing.Size(97, 62);
             this.btnruta1.TabIndex = 8;
@@ -133,7 +135,7 @@
             this.btnruta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnruta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnruta2.ForeColor = System.Drawing.Color.White;
-            this.btnruta2.Location = new System.Drawing.Point(628, 365);
+            this.btnruta2.Location = new System.Drawing.Point(1137, 61);
             this.btnruta2.Name = "btnruta2";
             this.btnruta2.Size = new System.Drawing.Size(97, 62);
             this.btnruta2.TabIndex = 9;
@@ -234,26 +236,13 @@
             this.btnCarpeta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnCarpeta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarpeta1.ForeColor = System.Drawing.Color.White;
-            this.btnCarpeta1.Location = new System.Drawing.Point(628, 178);
+            this.btnCarpeta1.Location = new System.Drawing.Point(624, 263);
             this.btnCarpeta1.Name = "btnCarpeta1";
             this.btnCarpeta1.Size = new System.Drawing.Size(97, 62);
             this.btnCarpeta1.TabIndex = 18;
             this.btnCarpeta1.Text = "Carpeta #1";
             this.btnCarpeta1.UseVisualStyleBackColor = false;
             this.btnCarpeta1.Click += new System.EventHandler(this.btnCarpeta1_Click);
-            // 
-            // btnCarpeta2
-            // 
-            this.btnCarpeta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
-            this.btnCarpeta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCarpeta2.ForeColor = System.Drawing.Color.White;
-            this.btnCarpeta2.Location = new System.Drawing.Point(628, 458);
-            this.btnCarpeta2.Name = "btnCarpeta2";
-            this.btnCarpeta2.Size = new System.Drawing.Size(97, 62);
-            this.btnCarpeta2.TabIndex = 19;
-            this.btnCarpeta2.Text = "Carpeta #2";
-            this.btnCarpeta2.UseVisualStyleBackColor = false;
-            this.btnCarpeta2.Click += new System.EventHandler(this.btnCarpeta2_Click);
             // 
             // listBox1
             // 
@@ -276,7 +265,7 @@
             this.btnComparar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnComparar.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComparar.ForeColor = System.Drawing.Color.White;
-            this.btnComparar.Location = new System.Drawing.Point(628, 101);
+            this.btnComparar.Location = new System.Drawing.Point(624, 186);
             this.btnComparar.Name = "btnComparar";
             this.btnComparar.Size = new System.Drawing.Size(97, 62);
             this.btnComparar.TabIndex = 22;
@@ -289,7 +278,7 @@
             this.btnMostrarIguales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnMostrarIguales.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostrarIguales.ForeColor = System.Drawing.Color.White;
-            this.btnMostrarIguales.Location = new System.Drawing.Point(628, 539);
+            this.btnMostrarIguales.Location = new System.Drawing.Point(625, 440);
             this.btnMostrarIguales.Name = "btnMostrarIguales";
             this.btnMostrarIguales.Size = new System.Drawing.Size(97, 62);
             this.btnMostrarIguales.TabIndex = 23;
@@ -297,17 +286,46 @@
             this.btnMostrarIguales.UseVisualStyleBackColor = false;
             this.btnMostrarIguales.Click += new System.EventHandler(this.btnMostrarIguales_Click);
             // 
+            // barraCarpeta1
+            // 
+            this.barraCarpeta1.Location = new System.Drawing.Point(625, 323);
+            this.barraCarpeta1.Name = "barraCarpeta1";
+            this.barraCarpeta1.Size = new System.Drawing.Size(96, 10);
+            this.barraCarpeta1.TabIndex = 24;
+            // 
+            // barraCarpeta2
+            // 
+            this.barraCarpeta2.Location = new System.Drawing.Point(625, 410);
+            this.barraCarpeta2.Name = "barraCarpeta2";
+            this.barraCarpeta2.Size = new System.Drawing.Size(96, 10);
+            this.barraCarpeta2.TabIndex = 26;
+            // 
+            // btnCarpeta2
+            // 
+            this.btnCarpeta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnCarpeta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCarpeta2.ForeColor = System.Drawing.Color.White;
+            this.btnCarpeta2.Location = new System.Drawing.Point(624, 350);
+            this.btnCarpeta2.Name = "btnCarpeta2";
+            this.btnCarpeta2.Size = new System.Drawing.Size(97, 62);
+            this.btnCarpeta2.TabIndex = 25;
+            this.btnCarpeta2.Text = "Carpeta #2";
+            this.btnCarpeta2.UseVisualStyleBackColor = false;
+            this.btnCarpeta2.Click += new System.EventHandler(this.btnCarpeta2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.barraCarpeta2);
+            this.Controls.Add(this.btnCarpeta2);
+            this.Controls.Add(this.barraCarpeta1);
             this.Controls.Add(this.btnMostrarIguales);
             this.Controls.Add(this.btnComparar);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.btnCarpeta2);
             this.Controls.Add(this.btnCarpeta1);
             this.Controls.Add(this.lblNombre2);
             this.Controls.Add(this.lblNombre1);
@@ -353,11 +371,13 @@
         private System.Windows.Forms.Label lblNombre1;
         private System.Windows.Forms.Label lblNombre2;
         private System.Windows.Forms.Button btnCarpeta1;
-        private System.Windows.Forms.Button btnCarpeta2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button btnComparar;
         private System.Windows.Forms.Button btnMostrarIguales;
+        private System.Windows.Forms.ProgressBar barraCarpeta1;
+        private System.Windows.Forms.ProgressBar barraCarpeta2;
+        private System.Windows.Forms.Button btnCarpeta2;
     }
 }
 
