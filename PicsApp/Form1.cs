@@ -299,7 +299,6 @@ namespace PicsApp
         public string shortPath1;
         public string shortPath2;
         public bool carpetasSonIguales;
-        public int cycles;
 
         public string usedSize1;
         public string usedSize2;
@@ -522,10 +521,6 @@ namespace PicsApp
                     {
                         listaArchivos.Add(Path.GetFileName(archivo));
                         //listBox.Items.Add(Path.GetFileName(archivo));
-                    }
-                    if (validImage == true)
-                    {
-                        btnCarpeta2.BackColor = Color.Green;
                     }
                 }
                 else
