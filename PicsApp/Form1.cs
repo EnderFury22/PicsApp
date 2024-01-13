@@ -119,6 +119,7 @@ namespace PicsApp
 
         private void btnruta1_Click(object sender, EventArgs e)
         {
+            /*
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -137,12 +138,13 @@ namespace PicsApp
                     }
                     compared = false;
                 }
-            }
+            }*/
         }
 
 
         private void btnruta2_Click_1(object sender, EventArgs e)
         {
+            /*
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -161,7 +163,7 @@ namespace PicsApp
                     }
                     compared = false;
                 }
-            }
+            }*/
         }
 
 
