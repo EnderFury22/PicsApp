@@ -360,7 +360,7 @@ namespace PicsApp
             {
                 spins = 0;
                 validImage = false;
-                listaDeImagenes1.Clear();
+                listaDeImagenes2.Clear();
                 if (shortPath2 != null)
                 {
                     string[] archivos2 = Directory.GetFiles(shortPath2);
