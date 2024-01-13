@@ -14,7 +14,7 @@ namespace PicsApp
 {
     public partial class Form1 : Form
     {
-        private Button openFileButton;
+        //private Button openFileButton;
         public bool compared = false;
         public int spins = 0;
 
@@ -119,6 +119,9 @@ namespace PicsApp
 
         private void btnruta1_Click(object sender, EventArgs e)
         {
+            pressedBtn = 1;
+            MostrarImagen(10);
+            pressedBtn = 0;
             /*
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -144,6 +147,9 @@ namespace PicsApp
 
         private void btnruta2_Click_1(object sender, EventArgs e)
         {
+            pressedBtn = 2;
+            MostrarImagen(10);
+            pressedBtn = 0;
             /*
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -314,7 +320,9 @@ namespace PicsApp
         public int indexed2;
         public int rutasVerificadas;
 
-        public bool validImage = false;
+        public bool validImage1 = false;
+        public bool validImage2 = false;
+
 
         public string imageRes1X;
         public string imageRes1Y;
@@ -348,7 +356,7 @@ namespace PicsApp
             if (pressedBtn == 1)
             {
                 spins = 0;
-                validImage = false;
+                validImage1 = false;
                 listaDeImagenes1.Clear();
                 imageIndex1 = 0;
                 imageIndex2 = 0;
@@ -367,7 +375,7 @@ namespace PicsApp
                             ObtenerFecha(archivo);
                             RutasEnListas(archivo);
                             CrearInstancias(archivo);
-                            MostrarImagenesEnListBox();
+                            //MostrarImagenesEnListBox();
                         }
                     } 
                 }
@@ -375,7 +383,7 @@ namespace PicsApp
             else if (pressedBtn == 2)
             {
                 spins = 0;
-                validImage = false;
+                validImage2 = false;
                 listaDeImagenes2.Clear();
                 imageIndex1 = 0;
                 imageIndex2 = 0;
@@ -394,7 +402,7 @@ namespace PicsApp
                             ObtenerFecha(archivo);
                             RutasEnListas(archivo);
                             CrearInstancias(archivo);
-                            MostrarImagenesEnListBox();
+                            //MostrarImagenesEnListBox();
                         }
                     }
                 }
@@ -568,16 +576,16 @@ namespace PicsApp
                         listaDeImagenes1.Add(newImage);
                     }
                     imagePaths1.Clear();
-                    validImage = true;
+                    validImage1 = true;
                 }
-                if (validImage == false && spins < 1)
+                if (validImage1 == false && spins < 1)
                 {
                     listBox1.Items.Clear();
                     MessageBox.Show("No hay archivos de imagen en la Ruta", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta1.BackColor = Color.Red;
                     spins++;
                 }
-                if (validImage)
+                if (validImage1)
                 {
                     btnCarpeta1.BackColor = Color.Green;
                 }
@@ -613,16 +621,16 @@ namespace PicsApp
                         listaDeImagenes2.Add(newImage);
                     }
                     imagePaths2.Clear();
-                    validImage = true;
+                    validImage2 = true;
                 }
-                if (validImage == false && spins < 1)
+                if (validImage2 == false && spins < 1)
                 {
                     listBox2.Items.Clear();
                     MessageBox.Show("No hay archivos de imagen en la Ruta", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta2.BackColor = Color.Red;
                     spins++;
                 }
-                if (validImage)
+                if (validImage2)
                 {
                     btnCarpeta2.BackColor = Color.Green;
                 }
@@ -815,6 +823,42 @@ namespace PicsApp
             else
             {
                 carpetasSonIguales = false;
+            }
+        }
+
+        private void MostrarImagen(int imagenABuscar)
+        {
+            if (pressedBtn == 1 && validImage1 == true)
+            {
+                lblRes1.Visible = true;
+                lblFecha1.Visible = true;
+                lblPeso1.Visible = true;
+                lblNombre1.Visible = true;
+                lblNombre1.Visible = true;
+
+                lblNombre1.Text = $"Nombre:{listaDeImagenes1[imagenABuscar].Name}";
+                lblRes1.Text = $"Resolucion{listaDeImagenes1[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes1[imagenABuscar].ResolutionY.ToString()}";
+                lblPeso1.Text = $"Peso:{listaDeImagenes1[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes1[imagenABuscar].UsedSize}";
+                lblFecha1.Text = $"Fecha:{listaDeImagenes1[imagenABuscar].Date.ToString()}";
+                pictureBox1.Image = Image.FromFile(listaDeImagenes1[imagenABuscar].Path);
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox1.BringToFront();
+            }
+            else if (pressedBtn == 2 && validImage2 == true)
+            {
+                lblRes2.Visible = true;
+                lblFecha2.Visible = true;
+                lblPeso2.Visible = true;
+                lblNombre2.Visible = true;
+                lblNombre2.Visible = true;
+
+                lblNombre2.Text = $"Nombre:{listaDeImagenes2[imagenABuscar].Name}";
+                lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
+                lblPeso2.Text = $"Peso{listaDeImagenes2[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes2[imagenABuscar].UsedSize}";
+                lblFecha2.Text = $"Fecha:{listaDeImagenes2[imagenABuscar].Date.ToString()}";
+                pictureBox2.Image = Image.FromFile(listaDeImagenes2[imagenABuscar].Path);
+                pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox2.BringToFront();
             }
         }
 
