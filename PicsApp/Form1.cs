@@ -308,6 +308,14 @@ namespace PicsApp
         public string shortPath2;
         public string usedSize1;
         public string usedSize2;
+        public string imagePath1;
+        public string imagePath2;
+        public string imageName1;
+        public string imageName2;
+        public int imageIndex1;
+        public int imageIndex2;
+        public int indexed1;
+        public int indexed2;
 
         public bool validImage = false;
 
@@ -345,6 +353,10 @@ namespace PicsApp
                 spins = 0;
                 validImage = false;
                 listaDeImagenes1.Clear();
+                imageIndex1 = 0;
+                imageIndex2 = 0;
+                indexed1 = 0;
+                indexed2 = 0;
                 if (shortPath1 != null)
                 {
                     string[] archivos1 = Directory.GetFiles(shortPath1);
@@ -353,6 +365,7 @@ namespace PicsApp
                         ObtenerResolucionImagenes(archivo);
                         CalcularPeso(archivo);
                         ObtenerFecha(archivo);
+                        RutasEnListas(archivo);
                         CrearInstancias(archivo);
                         MostrarImagenesEnListBox();
                     }
@@ -363,6 +376,10 @@ namespace PicsApp
                 spins = 0;
                 validImage = false;
                 listaDeImagenes2.Clear();
+                imageIndex1 = 0;
+                imageIndex2 = 0;
+                imageIndex1 = 0;
+                imageIndex2 = 0;
                 if (shortPath2 != null)
                 {
                     string[] archivos2 = Directory.GetFiles(shortPath2);
@@ -371,6 +388,7 @@ namespace PicsApp
                         ObtenerResolucionImagenes(archivo);
                         CalcularPeso(archivo);
                         ObtenerFecha(archivo);
+                        RutasEnListas(archivo);
                         CrearInstancias(archivo);
                         MostrarImagenesEnListBox();
                     }
@@ -385,17 +403,21 @@ namespace PicsApp
             public string ResolutionY { get; set; }
             public double Weight { get; set; }
             public string UsedSize { get; set; }
-            public string Name { get; set; }
+            public string Path { get; set; }
             public DateTime Date { get; set; }
+            public string Name { get; set; }
+            public int Index { get; set; }
 
-            public Imagenes(string resolutionX, string resolutionY, double weight,string usedSize, string name, DateTime date)
+            public Imagenes(string resolutionX, string resolutionY, double weight, string usedSize, string path, DateTime date, string name, int index)
             {
                 ResolutionX = resolutionX;
                 ResolutionY = resolutionY;
                 Weight = weight;
                 UsedSize = usedSize;
-                Name = name;
+                Path = path;
                 Date = date;
+                Name = name;
+                Index = index;
             }
         }
 
@@ -477,7 +499,7 @@ namespace PicsApp
                     btnCarpeta1.BackColor = Color.Red;
                 }
             }
-            else if (pressedBtn == 2) 
+            else if (pressedBtn == 2)
             {
                 if (shortPath2 != null)
                 {
@@ -505,9 +527,9 @@ namespace PicsApp
         }
 
         private List<Imagenes> listaDeImagenes1 = new List<Imagenes>();
-        List<string> imageNames1 = new List<string> { };
+        List<string> imagePaths1 = new List<string> { };
         private List<Imagenes> listaDeImagenes2 = new List<Imagenes>();
-        List<string> imageNames2 = new List<string> { };
+        List<string> imagePaths2 = new List<string> { };
 
         public void CrearInstancias(string archivo)
         {
@@ -520,24 +542,27 @@ namespace PicsApp
                     Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
                     listBox1.Visible = true;
-                    imageNames1.Add(archivo);
+                    imagePaths1.Add(archivo);
 
-                    foreach (string name in imageNames1)
+                    foreach (string path in imagePaths1)
                     {
-                        Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, name: name, date: fileDate1);
+                    Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, path: path, date: fileDate1, name: imageName1, index: imageIndex1);
 
-                        List<object> parameters = new List<object>
-                {
-                    newImage.ResolutionX,
-                    newImage.ResolutionY,
-                    newImage.Weight,
-                    newImage.Name,
-                    newImage.Date
-                };
+                    List<object> parameters = new List<object>
+                    {
+                        newImage.ResolutionX,
+                        newImage.ResolutionY,
+                        newImage.Weight,
+                        newImage.UsedSize,
+                        newImage.Path,
+                        newImage.Date,
+                        newImage.Name,
+                        newImage.Index,
+                    };
                         imageParameters.Add(parameters);
                         listaDeImagenes1.Add(newImage);
                     }
-                    imageNames1.Clear();
+                    imagePaths1.Clear();
                     validImage = true;
                 }
                 if (validImage == false && spins < 1)
@@ -552,7 +577,7 @@ namespace PicsApp
                     btnCarpeta1.BackColor = Color.Green;
                 }
             }
-            else if (pressedBtn == 2) 
+            else if (pressedBtn == 2)
             {
                 if (Path.GetExtension(archivo).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
                     Path.GetExtension(archivo).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
@@ -562,24 +587,27 @@ namespace PicsApp
                 {
                     listBox2.Visible = true;
 
-                    imageNames2.Add(archivo);
+                    imagePaths2.Add(archivo);
 
-                    foreach (string name in imageNames2)
+                    foreach (string path in imagePaths2)
                     {
-                        Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, name: name, date: fileDate2);
+                    Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, path: path, date: fileDate2, name: imageName2, index: imageIndex2);
 
-                        List<object> parameters = new List<object>
-                {
+                    List<object> parameters = new List<object>
+                    {
                         newImage.ResolutionX,
                         newImage.ResolutionY,
                         newImage.Weight,
+                        newImage.UsedSize,
+                        newImage.Path,
+                        newImage.Date,
                         newImage.Name,
-                        newImage.Date
-                };
+                        newImage.Index,
+                    };
                         imageParameters.Add(parameters);
                         listaDeImagenes2.Add(newImage);
                     }
-                    imageNames2.Clear();
+                    imagePaths2.Clear();
                     validImage = true;
                 }
                 if (validImage == false && spins < 1)
@@ -589,7 +617,7 @@ namespace PicsApp
                     btnCarpeta2.BackColor = Color.Red;
                     spins++;
                 }
-                if (validImage) 
+                if (validImage)
                 {
                     btnCarpeta2.BackColor = Color.Green;
                 }
@@ -620,7 +648,7 @@ namespace PicsApp
                     usedSize1 = "MB";
                 }
             }
-            else if (pressedBtn == 2) 
+            else if (pressedBtn == 2)
             {
                 if (fileSizeInBytes <= 1023)
                 {
@@ -675,7 +703,7 @@ namespace PicsApp
             }
         }
 
-        
+
 
         public void ObtenerFecha(string rutaImagen)
         {
@@ -700,7 +728,9 @@ namespace PicsApp
                 // Agrega todas las instancias de Imagenes a la ListBox
                 foreach (Imagenes imagen in listaDeImagenes1)
                 {
+                    listBox1.Items.Add(imagen.Index);
                     listBox1.Items.Add(imagen.Name);
+                    listBox1.Items.Add(imagen.Path);
                     listBox1.Items.Add(imagen.Date);
                     listBox1.Items.Add(imagen.Weight);
                     listBox1.Items.Add(imagen.UsedSize);
@@ -708,20 +738,44 @@ namespace PicsApp
                     listBox1.Items.Add(imagen.ResolutionY);
                 }
             }
-            else if (pressedBtn == 2) 
+            else if (pressedBtn == 2)
             {
                 listBox2.Items.Clear();
 
                 // Agrega todas las instancias de Imagenes a la ListBox
                 foreach (Imagenes imagen in listaDeImagenes2)
                 {
+                    listBox2.Items.Add(imagen.Index);
                     listBox2.Items.Add(imagen.Name);
+                    listBox2.Items.Add(imagen.Path);
                     listBox2.Items.Add(imagen.Date);
                     listBox2.Items.Add(imagen.Weight);
                     listBox2.Items.Add(imagen.UsedSize);
                     listBox2.Items.Add(imagen.ResolutionX);
                     listBox2.Items.Add(imagen.ResolutionY);
                 }
+            }
+        }
+
+        public void RutasEnListas(string archivo)
+        {
+            if (pressedBtn == 1)
+            {
+                imageName1 = Path.GetFileName(archivo);
+                if (spins > 0)
+                {
+                    imageIndex1++;
+                }
+                spins++;
+            }
+            if (pressedBtn == 2)
+            {
+                imageName2 = Path.GetFileName(archivo);
+                if (spins > 0)
+                {
+                    imageIndex2++;
+                }
+                spins++;
             }
         }
 
