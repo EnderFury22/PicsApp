@@ -128,8 +128,8 @@ namespace PicsApp
             lblNombre2.Hide();
             listBox1.Hide();
             listBox2.Hide();
-            btnruta1.Hide();
-            btnruta2.Hide();
+            //btnruta1.Hide();
+            //btnruta2.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
             label1.MouseUp += TitleLabel_MouseUp;
@@ -232,9 +232,9 @@ namespace PicsApp
 
             btnruta1_Click(sender, e);
             btnruta2_Click_1(sender, e);
-            ObtenerResolucionImagenes(rutasDeDuplicados1[cont - 1]);
+            ObtenerResolucionSecundaria(rutasDeDuplicados1[cont - 1]);
             lblRes1.Text = $"Resolucion:{imageRes1X}x{imageRes1Y}";
-            ObtenerResolucionImagenes(rutasDeDuplicados2[cont - 1]);
+            ObtenerResolucionSecundaria(rutasDeDuplicados2[cont - 1]);
             lblRes2.Text = $"Resolucion:{imageRes2X}x{imageRes2Y}";
         }
 
@@ -445,9 +445,9 @@ namespace PicsApp
                     listBox1.Visible = true;
                     imagePaths1.Add(archivo);
 
-                    foreach (string path in imagePaths1)
+                    foreach (string path1 in imagePaths1)
                     {
-                        Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, path: path, date: fileDate1, name: imageName1, index: imageIndex1);
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, path: path1, date: fileDate1, name: imageName1, index: imageIndex1);
 
                         List<object> parameters = new List<object>
                     {
@@ -490,9 +490,9 @@ namespace PicsApp
 
                     imagePaths2.Add(archivo);
 
-                    foreach (string path in imagePaths2)
+                    foreach (string path2 in imagePaths2)
                     {
-                        Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, path: path, date: fileDate2, name: imageName2, index: imageIndex2);
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, path: path2, date: fileDate2, name: imageName2, index: imageIndex2);
 
                         List<object> parameters = new List<object>
                     {
@@ -578,33 +578,31 @@ namespace PicsApp
 
         public void ObtenerResolucionImagenes(string rutaImagen)
         {
-
-                if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".webp", StringComparison.OrdinalIgnoreCase))
+            if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".webp", StringComparison.OrdinalIgnoreCase))
+            {
+                using (Bitmap imagen = new Bitmap(rutaImagen))
                 {
-                    using (Bitmap imagen = new Bitmap(rutaImagen))
-                    {
-                        imageRes1X = imagen.Width.ToString();
-                        imageRes1Y = imagen.Height.ToString();
-                    }
+                    imageRes1X = imagen.Width.ToString();
+                    imageRes1Y = imagen.Height.ToString();
                 }
+            }
 
-                if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(rutaImagen).Equals(".webp", StringComparison.OrdinalIgnoreCase))
+            if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(rutaImagen).Equals(".webp", StringComparison.OrdinalIgnoreCase))
+            {
+                using (Bitmap imagen = new Bitmap(rutaImagen))
                 {
-                    using (Bitmap imagen = new Bitmap(rutaImagen))
-                    {
-                        imageRes2X = imagen.Width.ToString();
-                        imageRes2Y = imagen.Height.ToString();
-                    }
+                    imageRes2X = imagen.Width.ToString();
+                    imageRes2Y = imagen.Height.ToString();
                 }
-            
+            }
         }
 
         public void ObtenerFecha(string rutaImagen)
@@ -667,7 +665,7 @@ namespace PicsApp
                 }
                 rutasVerificadas++;
             }
-            if (pressedBtn == 2)
+            else if (pressedBtn == 2)
             {
                 imageName2 = Path.GetFileName(archivo);
                 if (rutasVerificadas > 0)
@@ -720,7 +718,7 @@ namespace PicsApp
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox1.BringToFront();
             }
-            else if (pressedBtn == 2 && validImage2 == true)
+            if (pressedBtn == 2 && validImage2 == true)
             {
                 lblRes2.Visible = true;
                 lblFecha2.Visible = true;
@@ -744,19 +742,20 @@ namespace PicsApp
             .Select(m => m.Name)
             .Intersect(listaDeImagenes2.Select(m => m.Name))
             .ToList();
+            nombresDuplicados.Sort();
         }
 
         public void ALmacenarIguales()
         {
-            cont = 1;
             foreach (string duplicado in nombresDuplicados)
             {
-                Imagenes objetoBuscado1 = listaDeImagenes1.FirstOrDefault(m => m.Name == duplicado);
-                Imagenes objetoBuscado2 = listaDeImagenes2.FirstOrDefault(m => m.Name == duplicado);
+                Imagenes objetoBuscado1 = listaDeImagenes1.First(m => m.Name == duplicado);
+                Imagenes objetoBuscado2 = listaDeImagenes2.First(m => m.Name == duplicado);
 
                 if (objetoBuscado1 != null)
                 {
                     indiceEnLista1 = listaDeImagenes1.IndexOf(objetoBuscado1);
+                    
                     rutasDeDuplicados1.Add(objetoBuscado1.Path);
                     //listBox1.Items.Add(rutasDeDuplicados1[cont -1].ToString());  
                 }
@@ -767,7 +766,11 @@ namespace PicsApp
                     //listBox2.Items.Add(rutasDeDuplicados2[cont -1].ToString());
                     //cont++;
                 }
+                objetoBuscado1 = null;
+                objetoBuscado2 = null;
             }
+            rutasDeDuplicados1.Sort();
+            rutasDeDuplicados2.Sort();
         }
         private void BarraDeCarga()
         {
@@ -812,9 +815,9 @@ namespace PicsApp
                 barraCarpeta2.PerformStep();
             }
         }
-        public void ObtenerResolucionSecundaria()
+        public void ObtenerResolucionSecundaria(string rutaImagen)
         {
-            ObtenerResolucionImagenes(rutasDeDuplicados1[cont -1]);
+            ObtenerResolucionImagenes(rutaImagen);
         }
     }
 }
