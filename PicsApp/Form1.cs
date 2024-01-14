@@ -60,7 +60,7 @@ namespace PicsApp
         public int indexed1;
         public int indexed2;
 
-        public int cont = 0;
+        public int cont = 1;
 
         public int rutasVerificadas;
 
@@ -137,6 +137,7 @@ namespace PicsApp
             listBox2.Hide();
             btnruta1.Hide();
             btnruta2.Hide();
+            btnMostrarIguales.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
             label1.MouseUp += TitleLabel_MouseUp;
@@ -178,6 +179,7 @@ namespace PicsApp
         private void btnCarpeta1_Click(object sender, EventArgs e)
         {
             pressedBtn = 1;
+            btnMostrarIguales.Visible = false;
             btnCarpeta1.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta1, listBox1);
             OrdenDeLasCosas();
@@ -187,6 +189,7 @@ namespace PicsApp
         private void btnCarpeta2_Click(object sender, EventArgs e)
         {
             pressedBtn = 2;
+            btnMostrarIguales.Visible = false;
             btnCarpeta2.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta2, listBox2);
             OrdenDeLasCosas();
@@ -196,7 +199,7 @@ namespace PicsApp
         private void btnruta1_Click(object sender, EventArgs e)
         {
             pressedBtn = 1;
-            MostrarImagen(indicesEnLista1[cont]);
+            MostrarImagen(indicesEnLista1[cont - 1]);
             //listBox1.Visible = true;
             //listBox1.Items.Add(indicesEnLista1[cont -1]);
             pressedBtn = 0;
@@ -214,7 +217,7 @@ namespace PicsApp
 
         private void btnComparar_Click(object sender, EventArgs e)
         {
-            if (listaDeImagenes1 != null && listaDeImagenes2 != null)
+            if (listaDeImagenes1.Count != 0 && listaDeImagenes2.Count != 0)
             {
                 listBox1.Items.Clear();
                 nombresDuplicados.Clear();
@@ -222,7 +225,18 @@ namespace PicsApp
                 ALmacenarIguales();
                 foreach (string duplicado in nombresDuplicados)
                 {
-                    //listBox1.Items.Add(duplicado);
+                    listBox1.Items.Add(duplicado);
+                }
+                if (nombresDuplicados.Count == 0)
+                {
+                    btnComparar.BackColor = Color.FromArgb(46, 46, 46);
+                    MessageBox.Show("No hay archivos iguales en las carpetas", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    btnMostrarIguales.Visible = false;
+                }
+                else
+                {
+                    btnComparar.BackColor = Color.Green;
+                    btnMostrarIguales.Visible = true;
                 }
             }
         }
@@ -230,6 +244,15 @@ namespace PicsApp
         private void btnMostrarIguales_Click(object sender, EventArgs e)
         {
             cantidadDeRepetidos = nombresDuplicados.Count;
+
+            ObtenerResolucionSecundaria(rutasDeDuplicados1[cont -1]);
+            lblRes1.Text = $"Resolucion:{imageRes1X}x{imageRes1Y}";
+            ObtenerResolucionSecundaria(rutasDeDuplicados2[cont -1]);
+            lblRes2.Text = $"Resolucion:{imageRes2X}x{imageRes2Y}";
+            btnruta1_Click(sender, e);
+            btnruta2_Click_1(sender, e);
+            //CalcularDiferenciaDeIndices1();
+            //CalcularDiferenciaDeIndices2();
 
             if (cantidadDeRepetidos > cont)
             {
@@ -240,16 +263,6 @@ namespace PicsApp
                 cont = 1;
             }
             //listBox1.Items.Add(cont);
-
-
-            ObtenerResolucionSecundaria(rutasDeDuplicados1[cont - 1]);
-            lblRes1.Text = $"Resolucion:{imageRes1X}x{imageRes1Y}";
-            ObtenerResolucionSecundaria(rutasDeDuplicados2[cont - 1]);
-            lblRes2.Text = $"Resolucion:{imageRes2X}x{imageRes2Y}";
-            btnruta1_Click(sender, e);
-            btnruta2_Click_1(sender, e);
-            //CalcularDiferenciaDeIndices1();
-            //CalcularDiferenciaDeIndices2();
         }
 
         public void OrdenDeLasCosas()
@@ -741,11 +754,11 @@ namespace PicsApp
                 lblNombre2.Visible = true;
                 lblNombre2.Visible = true;
 
-                lblNombre2.Text = $"Nombre:{listaDeImagenes2[imagenABuscar].Name}";
+                lblNombre2.Text = $"Nombre:{listaDeImagenes2[imagenABuscar -1].Name}";
                 //lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso2.Text = $"Peso:{listaDeImagenes2[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes2[imagenABuscar].UsedSize}";
-                lblFecha2.Text = $"Fecha:{listaDeImagenes2[imagenABuscar].Date.ToString()}";
-                pictureBox2.Image = Image.FromFile(listaDeImagenes2[imagenABuscar].Path);
+                lblPeso2.Text = $"Peso:{listaDeImagenes2[imagenABuscar -1].Weight.ToString("F2")} {listaDeImagenes2[imagenABuscar - 1].UsedSize}";
+                lblFecha2.Text = $"Fecha:{listaDeImagenes2[imagenABuscar - 1].Date.ToString()}";
+                pictureBox2.Image = Image.FromFile(listaDeImagenes2[imagenABuscar - 1].Path);
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox2.BringToFront();
             }
