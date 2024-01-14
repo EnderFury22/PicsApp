@@ -93,6 +93,9 @@ namespace PicsApp
 
         List<List<object>> imageParameters = new List<List<object>>();
 
+        public Imagenes objetoBuscado1;
+        public Imagenes objetoBuscado2;
+
         public Form1()
         {
             InitializeComponent();
@@ -766,20 +769,24 @@ namespace PicsApp
 
         public void BuscarDuplicados()
         {
-            nombresDuplicados = listaDeImagenes1
-            .Select(m => m.Name)
-            .Intersect(listaDeImagenes2.Select(m => m.Name))
-            .ToList();
-            nombresDuplicados.Sort();
+            List<Imagenes> interseccion = new List<Imagenes>();
+
+            interseccion = listaDeImagenes1.Join(listaDeImagenes2,
+                                imagen1 => imagen1.Name,
+                                imagen2 => imagen2.Name,
+                                (imagen1, imagen2) => imagen1).ToList();
+
+            foreach (var imagen in interseccion)
+            {
+                nombresDuplicados.Add(imagen.Name);
+            }
+            interseccion.Sort();
         }
 
         public void ALmacenarIguales()
         {
-            foreach (string duplicado in nombresDuplicados)
+            /*foreach (string duplicado in nombresDuplicados)
             {
-                Imagenes objetoBuscado1 = listaDeImagenes1.FirstOrDefault(m => m.Name == duplicado);
-                Imagenes objetoBuscado2 = listaDeImagenes2.FirstOrDefault(m => m.Name == duplicado);
-
                 if (objetoBuscado1 != null)
                 {
                     indicesEnLista1.Add(objetoBuscado1.Index);
@@ -805,7 +812,7 @@ namespace PicsApp
                 objetoBuscado2 = null;
             }
             rutasDeDuplicados1.Sort();
-            rutasDeDuplicados2.Sort();
+            rutasDeDuplicados2.Sort();*/
         }
         private void BarraDeCarga()
         {
