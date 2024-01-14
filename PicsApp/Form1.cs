@@ -232,6 +232,10 @@ namespace PicsApp
 
             btnruta1_Click(sender, e);
             btnruta2_Click_1(sender, e);
+            ObtenerResolucionImagenes(rutasDeDuplicados1[cont - 1]);
+            lblRes1.Text = $"Resolucion:{imageRes1X}x{imageRes1Y}";
+            ObtenerResolucionImagenes(rutasDeDuplicados2[cont - 1]);
+            lblRes2.Text = $"Resolucion:{imageRes2X}x{imageRes2Y}";
         }
 
         public void OrdenDeLasCosas()
@@ -574,8 +578,7 @@ namespace PicsApp
 
         public void ObtenerResolucionImagenes(string rutaImagen)
         {
-            if (pressedBtn == 1)
-            {
+
                 if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
                     Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
                     Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
@@ -588,9 +591,7 @@ namespace PicsApp
                         imageRes1Y = imagen.Height.ToString();
                     }
                 }
-            }
-            else if (pressedBtn == 2)
-            {
+
                 if (Path.GetExtension(rutaImagen).Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
                     Path.GetExtension(rutaImagen).Equals(".png", StringComparison.OrdinalIgnoreCase) ||
                     Path.GetExtension(rutaImagen).Equals(".jpeg", StringComparison.OrdinalIgnoreCase) ||
@@ -603,7 +604,7 @@ namespace PicsApp
                         imageRes2Y = imagen.Height.ToString();
                     }
                 }
-            }
+            
         }
 
         public void ObtenerFecha(string rutaImagen)
@@ -757,14 +758,14 @@ namespace PicsApp
                 {
                     indiceEnLista1 = listaDeImagenes1.IndexOf(objetoBuscado1);
                     rutasDeDuplicados1.Add(objetoBuscado1.Path);
-                    listBox1.Items.Add(rutasDeDuplicados1[cont -1].ToString());  
+                    //listBox1.Items.Add(rutasDeDuplicados1[cont -1].ToString());  
                 }
                 if (objetoBuscado2 != null)
                 {
                     indiceEnLista2 = listaDeImagenes2.IndexOf(objetoBuscado2);
                     rutasDeDuplicados2.Add(objetoBuscado2.Path);
-                    listBox2.Items.Add(rutasDeDuplicados2[cont -1].ToString());
-                    cont++;
+                    //listBox2.Items.Add(rutasDeDuplicados2[cont -1].ToString());
+                    //cont++;
                 }
             }
         }
@@ -813,10 +814,7 @@ namespace PicsApp
         }
         public void ObtenerResolucionSecundaria()
         {
-            foreach (string rutaDuplicada1 in rutasDeDuplicados1)
-            {
-                ObtenerResolucionImagenes(rutaDuplicada1);
-            }
+            ObtenerResolucionImagenes(rutasDeDuplicados1[cont -1]);
         }
     }
 }
