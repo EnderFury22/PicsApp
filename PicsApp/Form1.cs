@@ -96,6 +96,21 @@ namespace PicsApp
         public Imagenes objetoBuscado1;
         public Imagenes objetoBuscado2;
 
+
+        public List<Imagenes> interseccionPrincipal1 = new List<Imagenes>();
+        public List<Imagenes> interseccionPrincipal2 = new List<Imagenes>();
+        public string nombreBuscadoActual1;
+        public string nombreBuscadoActual2;
+        public string nombreDuplicadoACtual;
+        public string rutaDuplicadoActual1;
+        public string rutaDuplicadoActual2;
+        public double pesoDuplicadoActual1;
+        public double pesoDuplicadoActual2;
+        public string pesoUsadoDuplicadoActual1;
+        public string pesoUsadoDuplicadoActual2;
+        public DateTime fechaDuplicadoActual1;
+        public DateTime fechaDuplicadoActual2;
+
         public Form1()
         {
             InitializeComponent();
@@ -202,7 +217,7 @@ namespace PicsApp
         private void btnruta1_Click(object sender, EventArgs e)
         {
             pressedBtn = 1;
-            MostrarImagen(indicesEnLista1[cont - 1]);
+            MostrarImagen();
             //listBox1.Visible = true;
             //listBox1.Items.Add(indicesEnLista1[cont -1]);
             pressedBtn = 0;
@@ -212,7 +227,7 @@ namespace PicsApp
         private void btnruta2_Click_1(object sender, EventArgs e)
         {
             pressedBtn = 2;
-            MostrarImagen(indicesEnLista2[cont - 1]);
+            MostrarImagen();
             //listBox1.Visible = true;
             //listBox1.Items.Add(indicesEnLista2[cont -1]);
             pressedBtn = 0;
@@ -224,13 +239,19 @@ namespace PicsApp
             {
                 listBox1.Items.Clear();
                 nombresDuplicados.Clear();
-                BuscarDuplicados();
-                ALmacenarIguales();
+                //BuscarDuplicados();
+                //ALmacenarIguales();
+
+                ViaAlternativa1();
+                ViaAlternativa2();
+                pictureBox1.Hide();
+                pictureBox1.Hide();
+
                 foreach (string duplicado in nombresDuplicados)
                 {
                     listBox1.Items.Add(duplicado);
                 }
-                if (nombresDuplicados.Count == 0)
+                if (cantidadDeRepetidos == 0)
                 {
                     btnComparar.BackColor = Color.FromArgb(46, 46, 46);
                     MessageBox.Show("No hay archivos iguales en las carpetas", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -246,11 +267,12 @@ namespace PicsApp
 
         private void btnMostrarIguales_Click(object sender, EventArgs e)
         {
-            cantidadDeRepetidos = nombresDuplicados.Count;
-
-            ObtenerResolucionSecundaria(rutasDeDuplicados1[cont -1]);
+            //cantidadDeRepetidos = nombresDuplicados.Count;
+            ViaAlternativa1();
+            ViaAlternativa2();
+            ObtenerResolucionSecundaria(rutaDuplicadoActual1);
             lblRes1.Text = $"Resolucion:{imageRes1X}x{imageRes1Y}";
-            ObtenerResolucionSecundaria(rutasDeDuplicados2[cont -1]);
+            ObtenerResolucionSecundaria(rutaDuplicadoActual2);
             lblRes2.Text = $"Resolucion:{imageRes2X}x{imageRes2Y}";
             btnruta1_Click(sender, e);
             btnruta2_Click_1(sender, e);
@@ -731,7 +753,7 @@ namespace PicsApp
             }
         }
 
-        private void MostrarImagen(int imagenABuscar)
+        private void MostrarImagen()
         {
             if (pressedBtn == 1 && validImage1 == true)
             {
@@ -740,12 +762,16 @@ namespace PicsApp
                 lblPeso1.Visible = true;
                 lblNombre1.Visible = true;
                 lblNombre1.Visible = true;
+                pictureBox1.Visible = true;
+                pictureBox2.Visible = true;
+                pictureBox1.BringToFront();
+                pictureBox2.BringToFront();
 
-                lblNombre1.Text = $"Nombre:{listaDeImagenes1[imagenABuscar].Name}";
+                lblNombre1.Text = $"Nombre:{nombreBuscadoActual1}";
                 //lblRes1.Text = $"Resolucion:{listaDeImagenes1[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes1[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso1.Text = $"Peso:{listaDeImagenes1[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes1[imagenABuscar].UsedSize}";
-                lblFecha1.Text = $"Fecha:{listaDeImagenes1[imagenABuscar].Date.ToString()}";
-                pictureBox1.Image = Image.FromFile(listaDeImagenes1[imagenABuscar].Path);
+                lblPeso1.Text = $"Peso:{pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
+                lblFecha1.Text = $"Fecha:{fechaDuplicadoActual1.ToString()}";
+                pictureBox1.Image = Image.FromFile(rutaDuplicadoActual1);
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox1.BringToFront();
             }
@@ -757,11 +783,11 @@ namespace PicsApp
                 lblNombre2.Visible = true;
                 lblNombre2.Visible = true;
 
-                lblNombre2.Text = $"Nombre:{listaDeImagenes2[imagenABuscar -1].Name}";
+                lblNombre2.Text = $"Nombre:{nombreBuscadoActual2}";
                 //lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso2.Text = $"Peso:{listaDeImagenes2[imagenABuscar -1].Weight.ToString("F2")} {listaDeImagenes2[imagenABuscar - 1].UsedSize}";
-                lblFecha2.Text = $"Fecha:{listaDeImagenes2[imagenABuscar - 1].Date.ToString()}";
-                pictureBox2.Image = Image.FromFile(listaDeImagenes2[imagenABuscar - 1].Path);
+                lblPeso2.Text = $"Peso:{pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
+                lblFecha2.Text = $"Fecha:{fechaDuplicadoActual2.ToString()}";
+                pictureBox2.Image = Image.FromFile(rutaDuplicadoActual2);
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox2.BringToFront();
             }
@@ -769,18 +795,48 @@ namespace PicsApp
 
         public void BuscarDuplicados()
         {
-            List<Imagenes> interseccion = new List<Imagenes>();
+            //List<Imagenes> interseccionPrincipal = new List<Imagenes>();
+            /*List<Imagenes> interseccionPrincipalConLista1 = new List<Imagenes>();
+            List<Imagenes> interseccionPrincipalConLista2 = new List<Imagenes>();
 
-            interseccion = listaDeImagenes1.Join(listaDeImagenes2,
+            interseccionPrincipal = listaDeImagenes1.Join(listaDeImagenes2,
                                 imagen1 => imagen1.Name,
                                 imagen2 => imagen2.Name,
                                 (imagen1, imagen2) => imagen1).ToList();
 
-            foreach (var imagen in interseccion)
+            interseccionPrincipalConLista1 = interseccionPrincipal.Join(listaDeImagenes1,
+                                imagen1 => imagen1.Name,
+                                imagen2 => imagen2.Name,
+                                (imagen1, imagen2) => imagen1).ToList();
+
+            interseccionPrincipalConLista2 = interseccionPrincipal.Join(listaDeImagenes2,
+                                imagen1 => imagen1.Name,
+                                imagen2 => imagen2.Name,
+                                (imagen1, imagen2) => imagen2).ToList();
+
+            foreach (var imagen in interseccionPrincipal)
             {
                 nombresDuplicados.Add(imagen.Name);
             }
-            interseccion.Sort();
+            foreach (var imagen in interseccionPrincipalConLista1)
+            {
+                rutasDeDuplicados1.Add(imagen.Path);
+                nombresDeDuplicados1.Add(imagen.Name);
+                pesoDeDuplicados1.Add(imagen.Weight);
+                pesoUsadoDeDuplicados1.Add(imagen.UsedSize);
+                fechasDeDuplicados1.Add(imagen.Date);
+                indicesEnLista1.Add(imagen.Index);
+            }
+            foreach (var imagen in interseccionPrincipalConLista2)
+            {
+                rutasDeDuplicados2.Add(imagen.Path);
+                nombresDeDuplicados2.Add(imagen.Name);
+                pesoDeDuplicados2.Add(imagen.Weight);
+                pesoUsadoDeDuplicados2.Add(imagen.UsedSize);
+                fechasDeDuplicados2.Add(imagen.Date);
+                indicesEnLista2.Add(imagen.Index);
+            }*/
+            
         }
 
         public void ALmacenarIguales()
@@ -862,38 +918,49 @@ namespace PicsApp
             ObtenerResolucionImagenes(rutaImagen);
         }
 
-        /*public int CalcularDiferenciaDeIndices1()
+     
+        public void ViaAlternativa1()
         {
-            // Encuentra un objeto común en ambas listas
-            string objetoComun = nombresDuplicados[cont -1];
+            interseccionPrincipal1.Clear();
+            interseccionPrincipal1 = listaDeImagenes1.Join(listaDeImagenes2,
+                                imagen1 => imagen1.Name,
+                                imagen2 => imagen2.Name,
+                                (imagen1, imagen2) => imagen1).ToList();
 
-            int indiceEnListaA = listaTotalDeImagenes1.Select((valor, indice) => new { Valor = valor, Indice = indice })
-                                  .Where(item => item.Valor == objetoComun)
-                                  .Select(item => item.Indice)
-                                  .FirstOrDefault();
+                cantidadDeRepetidos = interseccionPrincipal1.Count();
 
-            int indiceEnListaB = .Select((valor, indice) => new { Valor = valor, Indice = indice })
-                                      .Where(item => item.Valor == objetoComun)
-                                      .Select(item => item.Indice)
-                                      .FirstOrDefault();
+            for (int i = 0; i < cantidadDeRepetidos; i++)
+            {
+                nombresDuplicados.Add(interseccionPrincipal1[i].Name);
+            }
 
-            // Calcular la diferencia de índices
-            int diferenciaDeIndices = Math.Abs(indiceEnListaA - indiceEnListaB);
 
-            return diferenciaDeIndices1;
+            nombreBuscadoActual1 = interseccionPrincipal1[cont -1].Name;
+
+            //Imagenes archivoEncontrado = interseccionPrincipal.FirstOrDefault(archivo => archivo.Name == nombreBuscadoActual);
+
+            pesoDuplicadoActual1 = interseccionPrincipal1[cont - 1].Weight;
+            pesoUsadoDuplicadoActual1 = interseccionPrincipal1[cont - 1].UsedSize;
+            rutaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Path;
+            fechaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Date;
         }
-        public int CalcularDiferenciaDeIndices2()
+
+
+        public void ViaAlternativa2()
         {
-            // Encuentra un objeto común en ambas listas
-            string objetoComun = nombresDuplicados[cont - 1];
+            interseccionPrincipal2.Clear();
+            interseccionPrincipal2 = listaDeImagenes2.Join(listaDeImagenes1,
+                                imagen1 => imagen1.Name,
+                                imagen2 => imagen2.Name,
+                                (imagen1, imagen2) => imagen1).ToList();
 
-            // Encuentra los índices del objeto en ambas listas
-            int indiceEnListaA = listaTotalDeImagenes2.IndexOf(objetoComun);
-            int indiceEnListaB = nombresDuplicados.IndexOf(objetoComun);
+            nombreBuscadoActual2 = interseccionPrincipal2[cont - 1].Name;
 
-            int diferenciaDeIndices2 = Math.Abs(indiceEnListaB - indiceEnListaA);
+            pesoDuplicadoActual2 = interseccionPrincipal2[cont - 1].Weight;
+            pesoUsadoDuplicadoActual2 = interseccionPrincipal2[cont - 1].UsedSize;
+            rutaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Path;
+            fechaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Date;
 
-            return diferenciaDeIndices2;
-        }*/
+        }
     }
 }
