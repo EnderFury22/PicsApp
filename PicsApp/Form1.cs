@@ -78,6 +78,7 @@ namespace PicsApp
         public string imageRes2X;
         public string imageRes2Y;
 
+
         private List<string> archivosCarpeta1 = new List<string>();
         private List<string> archivosCarpeta2 = new List<string>();
 
@@ -168,6 +169,7 @@ namespace PicsApp
         private void btnCarpeta1_Click(object sender, EventArgs e)
         {
             pressedBtn = 1;
+            btnCarpeta1.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta1, listBox1);
             OrdenDeLasCosas();
             pressedBtn = 0;
@@ -176,6 +178,7 @@ namespace PicsApp
         private void btnCarpeta2_Click(object sender, EventArgs e)
         {
             pressedBtn = 2;
+            btnCarpeta2.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta2, listBox2);
             OrdenDeLasCosas();
             pressedBtn = 0;
@@ -241,6 +244,7 @@ namespace PicsApp
                 imageIndex2 = 0;
                 indexed1 = 0;
                 indexed2 = 0;
+                barraCarpeta1.Value = 0;
                 if (shortPath1 != null)
                 {
                     string[] archivos1 = Directory.GetFiles(shortPath1);
@@ -249,7 +253,7 @@ namespace PicsApp
                     {
                         foreach (string archivo in archivos1)
                         {
-                            ObtenerResolucionImagenes(archivo);
+                            //ObtenerResolucionImagenes(archivo);
                             CalcularPeso(archivo);
                             ObtenerFecha(archivo);
                             RutasEnListas(archivo);
@@ -269,6 +273,7 @@ namespace PicsApp
                 imageIndex2 = 0;
                 imageIndex1 = 0;
                 imageIndex2 = 0;
+                barraCarpeta2.Value = 0;
                 if (shortPath2 != null)
                 {
                     string[] archivos2 = Directory.GetFiles(shortPath2);
@@ -706,7 +711,7 @@ namespace PicsApp
                 lblNombre1.Visible = true;
 
                 lblNombre1.Text = $"Nombre:{listaDeImagenes1[imagenABuscar].Name}";
-                lblRes1.Text = $"Resolucion{listaDeImagenes1[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes1[imagenABuscar].ResolutionY.ToString()}";
+                //lblRes1.Text = $"Resolucion:{listaDeImagenes1[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes1[imagenABuscar].ResolutionY.ToString()}";
                 lblPeso1.Text = $"Peso:{listaDeImagenes1[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes1[imagenABuscar].UsedSize}";
                 lblFecha1.Text = $"Fecha:{listaDeImagenes1[imagenABuscar].Date.ToString()}";
                 pictureBox1.Image = Image.FromFile(listaDeImagenes1[imagenABuscar].Path);
@@ -722,7 +727,7 @@ namespace PicsApp
                 lblNombre2.Visible = true;
 
                 lblNombre2.Text = $"Nombre:{listaDeImagenes2[imagenABuscar].Name}";
-                lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
+                //lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
                 lblPeso2.Text = $"Peso:{listaDeImagenes2[imagenABuscar].Weight.ToString("F2")} {listaDeImagenes2[imagenABuscar].UsedSize}";
                 lblFecha2.Text = $"Fecha:{listaDeImagenes2[imagenABuscar].Date.ToString()}";
                 pictureBox2.Image = Image.FromFile(listaDeImagenes2[imagenABuscar].Path);
