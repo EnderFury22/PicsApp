@@ -72,6 +72,8 @@ namespace PicsApp
         public bool validImage2 = false;
 
         List<string> nombresDuplicados = new List<string>();
+        List<string> rutasDeDuplicados1 = new List<string>();
+        List<string> rutasDeDuplicados2 = new List<string>();
 
         public string imageRes1X;
         public string imageRes1Y;
@@ -109,7 +111,7 @@ namespace PicsApp
             btnCarpeta2.FlatStyle = FlatStyle.Flat;
             btnCarpeta2.FlatAppearance.BorderSize = 0;
             btnComparar.FlatStyle = FlatStyle.Flat;
-            btnComparar.FlatAppearance.BorderSize= 0;
+            btnComparar.FlatAppearance.BorderSize = 0;
             btnMostrarIguales.FlatStyle = FlatStyle.Flat;
             btnMostrarIguales.FlatAppearance.BorderSize = 0;
             btnclose.BringToFront();
@@ -187,7 +189,7 @@ namespace PicsApp
         private void btnruta1_Click(object sender, EventArgs e)
         {
             pressedBtn = 1;
-            MostrarImagen(cont -1);
+            MostrarImagen(cont - 1);
             pressedBtn = 0;
         }
 
@@ -195,7 +197,7 @@ namespace PicsApp
         private void btnruta2_Click_1(object sender, EventArgs e)
         {
             pressedBtn = 2;
-            MostrarImagen(cont -1);
+            MostrarImagen(cont - 1);
             pressedBtn = 0;
         }
 
@@ -218,7 +220,6 @@ namespace PicsApp
         {
             cantidadDeRepetidos = nombresDuplicados.Count;
 
-
             if (cantidadDeRepetidos > cont)
             {
                 cont++;
@@ -227,7 +228,7 @@ namespace PicsApp
             {
                 cont = 1;
             }
-            listBox1.Items.Add(cont);
+            //listBox1.Items.Add(cont);
 
             btnruta1_Click(sender, e);
             btnruta2_Click_1(sender, e);
@@ -261,7 +262,7 @@ namespace PicsApp
                             BarraDeCarga();
                             //MostrarImagenesEnListBox();
                         }
-                    } 
+                    }
                 }
             }
             else if (pressedBtn == 2)
@@ -282,7 +283,7 @@ namespace PicsApp
                     {
                         foreach (string archivo in archivos2)
                         {
-                            ObtenerResolucionImagenes(archivo);
+                            //ObtenerResolucionImagenes(archivo);
                             CalcularPeso(archivo);
                             ObtenerFecha(archivo);
                             RutasEnListas(archivo);
@@ -315,7 +316,7 @@ namespace PicsApp
                 Path = path;
                 Date = date;
                 Weight = weight;
-                UsedSize = usedSize;   
+                UsedSize = usedSize;
                 ResolutionX = resolutionX;
                 ResolutionY = resolutionY;
             }
@@ -442,9 +443,9 @@ namespace PicsApp
 
                     foreach (string path in imagePaths1)
                     {
-                    Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, path: path, date: fileDate1, name: imageName1, index: imageIndex1);
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes1X, resolutionY: imageRes1Y, weight: fileSize1, usedSize: usedSize1, path: path, date: fileDate1, name: imageName1, index: imageIndex1);
 
-                    List<object> parameters = new List<object>
+                        List<object> parameters = new List<object>
                     {
                         newImage.ResolutionX,
                         newImage.ResolutionY,
@@ -487,9 +488,9 @@ namespace PicsApp
 
                     foreach (string path in imagePaths2)
                     {
-                    Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, path: path, date: fileDate2, name: imageName2, index: imageIndex2);
+                        Imagenes newImage = new Imagenes(resolutionX: imageRes2X, resolutionY: imageRes2Y, weight: fileSize2, usedSize: usedSize2, path: path, date: fileDate2, name: imageName2, index: imageIndex2);
 
-                    List<object> parameters = new List<object>
+                        List<object> parameters = new List<object>
                     {
                         newImage.ResolutionX,
                         newImage.ResolutionY,
@@ -746,6 +747,7 @@ namespace PicsApp
 
         public void ALmacenarIguales()
         {
+            cont = 1;
             foreach (string duplicado in nombresDuplicados)
             {
                 Imagenes objetoBuscado1 = listaDeImagenes1.FirstOrDefault(m => m.Name == duplicado);
@@ -754,10 +756,15 @@ namespace PicsApp
                 if (objetoBuscado1 != null)
                 {
                     indiceEnLista1 = listaDeImagenes1.IndexOf(objetoBuscado1);
+                    rutasDeDuplicados1.Add(objetoBuscado1.Path);
+                    listBox1.Items.Add(rutasDeDuplicados1[cont -1].ToString());  
                 }
                 if (objetoBuscado2 != null)
                 {
                     indiceEnLista2 = listaDeImagenes2.IndexOf(objetoBuscado2);
+                    rutasDeDuplicados2.Add(objetoBuscado2.Path);
+                    listBox2.Items.Add(rutasDeDuplicados2[cont -1].ToString());
+                    cont++;
                 }
             }
         }
@@ -802,6 +809,13 @@ namespace PicsApp
                 int cantidadEnNumero = cantidadDeImagenes2.Count();
                 barraCarpeta2.Maximum = cantidadEnNumero;
                 barraCarpeta2.PerformStep();
+            }
+        }
+        public void ObtenerResolucionSecundaria()
+        {
+            foreach (string rutaDuplicada1 in rutasDeDuplicados1)
+            {
+                ObtenerResolucionImagenes(rutaDuplicada1);
             }
         }
     }
