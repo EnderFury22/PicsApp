@@ -22,7 +22,6 @@ namespace PicsApp
         public string filePath1;
         public string filePath2;
 
-
         public string imageResPath1;
         public string imageResPath2;
 
@@ -51,6 +50,11 @@ namespace PicsApp
         public string imageName1;
         public string imageName2;
 
+        public string imageRes1X;
+        public string imageRes1Y;
+        public string imageRes2X;
+        public string imageRes2Y;
+
         public int imageIndex1;
         public int imageIndex2;
         public int indexed1;
@@ -60,10 +64,6 @@ namespace PicsApp
 
         public int rutasVerificadas;
 
-        List<int> indicesEnLista1 = new List<int>();
-        List<int> indicesEnLista2 = new List<int>();
-
-
         public int duplicadoIndex1;
         public int duplicadoIndex2;
 
@@ -71,16 +71,22 @@ namespace PicsApp
 
         public bool validImage1 = false;
         public bool validImage2 = false;
-
+        List<int> indicesEnLista1 = new List<int>();
+        List<int> indicesEnLista2 = new List<int>();
         List<string> nombresDuplicados = new List<string>();
+        List<string> nombresDeDuplicados1 = new List<string>();
+        List<string> nombresDeDuplicados2 = new List<string>();
         List<string> rutasDeDuplicados1 = new List<string>();
         List<string> rutasDeDuplicados2 = new List<string>();
+        List<DateTime> fechasDeDuplicados1 = new List<DateTime>();
+        List<DateTime> fechasDeDuplicados2 = new List<DateTime>();
+        List<double> pesoDeDuplicados1 = new List<double>();
+        List<double> pesoDeDuplicados2 = new List<double>();
+        List<string> pesoUsadoDeDuplicados1 = new List<string>();
+        List<string> pesoUsadoDeDuplicados2 = new List<string>();
 
-        public string imageRes1X;
-        public string imageRes1Y;
-        public string imageRes2X;
-        public string imageRes2Y;
-
+        private List<string> listaTotalDeImagenes1 = new List<string>();
+        private List<string> listaTotalDeImagenes2 = new List<string>();
 
         private List<string> archivosCarpeta1 = new List<string>();
         private List<string> archivosCarpeta2 = new List<string>();
@@ -190,7 +196,9 @@ namespace PicsApp
         private void btnruta1_Click(object sender, EventArgs e)
         {
             pressedBtn = 1;
-            MostrarImagen(cont - 1);
+            MostrarImagen(indicesEnLista1[cont]);
+            //listBox1.Visible = true;
+            //listBox1.Items.Add(indicesEnLista1[cont -1]);
             pressedBtn = 0;
         }
 
@@ -198,7 +206,9 @@ namespace PicsApp
         private void btnruta2_Click_1(object sender, EventArgs e)
         {
             pressedBtn = 2;
-            MostrarImagen(cont - 1);
+            MostrarImagen(indicesEnLista2[cont - 1]);
+            //listBox1.Visible = true;
+            //listBox1.Items.Add(indicesEnLista2[cont -1]);
             pressedBtn = 0;
         }
 
@@ -212,7 +222,7 @@ namespace PicsApp
                 ALmacenarIguales();
                 foreach (string duplicado in nombresDuplicados)
                 {
-                    listBox1.Items.Add(duplicado);
+                    //listBox1.Items.Add(duplicado);
                 }
             }
         }
@@ -231,12 +241,15 @@ namespace PicsApp
             }
             //listBox1.Items.Add(cont);
 
-            btnruta1_Click(sender, e);
-            btnruta2_Click_1(sender, e);
+
             ObtenerResolucionSecundaria(rutasDeDuplicados1[cont - 1]);
             lblRes1.Text = $"Resolucion:{imageRes1X}x{imageRes1Y}";
             ObtenerResolucionSecundaria(rutasDeDuplicados2[cont - 1]);
             lblRes2.Text = $"Resolucion:{imageRes2X}x{imageRes2Y}";
+            btnruta1_Click(sender, e);
+            btnruta2_Click_1(sender, e);
+            //CalcularDiferenciaDeIndices1();
+            //CalcularDiferenciaDeIndices2();
         }
 
         public void OrdenDeLasCosas()
@@ -427,7 +440,6 @@ namespace PicsApp
                 }
             }
         }
-
         private List<Imagenes> listaDeImagenes1 = new List<Imagenes>();
         List<string> imagePaths1 = new List<string> { };
         private List<Imagenes> listaDeImagenes2 = new List<Imagenes>();
@@ -465,6 +477,7 @@ namespace PicsApp
                         listaDeImagenes1.Add(newImage);
                     }
                     imagePaths1.Clear();
+                    listaTotalDeImagenes1.Add(archivo);
                     validImage1 = true;
                 }
                 if (validImage1 == false && spins < 1)
@@ -510,6 +523,7 @@ namespace PicsApp
                         listaDeImagenes2.Add(newImage);
                     }
                     imagePaths2.Clear();
+                    listaTotalDeImagenes2.Add(archivo);
                     validImage2 = true;
                 }
                 if (validImage2 == false && spins < 1)
@@ -756,14 +770,21 @@ namespace PicsApp
                 if (objetoBuscado1 != null)
                 {
                     indicesEnLista1.Add(objetoBuscado1.Index);
-                    
+                    nombresDeDuplicados1.Add(objetoBuscado1.Name);
+                    fechasDeDuplicados1.Add(objetoBuscado1.Date);
                     rutasDeDuplicados1.Add(objetoBuscado1.Path);
+                    pesoDeDuplicados1.Add(objetoBuscado1.Weight);
+                    pesoUsadoDeDuplicados1.Add(objetoBuscado1.UsedSize);
                     //listBox1.Items.Add(rutasDeDuplicados1[cont -1].ToString());  
                 }
                 if (objetoBuscado2 != null)
                 {
                     indicesEnLista2.Add(objetoBuscado2.Index);
+                    nombresDeDuplicados2.Add(objetoBuscado2.Name);
+                    fechasDeDuplicados2.Add(objetoBuscado2.Date);
                     rutasDeDuplicados2.Add(objetoBuscado2.Path);
+                    pesoDeDuplicados2.Add(objetoBuscado2.Weight);
+                    pesoUsadoDeDuplicados2.Add(objetoBuscado2.UsedSize);
                     //listBox2.Items.Add(rutasDeDuplicados2[cont -1].ToString());
                     //cont++;
                 }
@@ -821,9 +842,38 @@ namespace PicsApp
             ObtenerResolucionImagenes(rutaImagen);
         }
 
-        public void ObtenerIndiceDeRepetidos()
+        /*public int CalcularDiferenciaDeIndices1()
         {
-            
+            // Encuentra un objeto común en ambas listas
+            string objetoComun = nombresDuplicados[cont -1];
+
+            int indiceEnListaA = listaTotalDeImagenes1.Select((valor, indice) => new { Valor = valor, Indice = indice })
+                                  .Where(item => item.Valor == objetoComun)
+                                  .Select(item => item.Indice)
+                                  .FirstOrDefault();
+
+            int indiceEnListaB = .Select((valor, indice) => new { Valor = valor, Indice = indice })
+                                      .Where(item => item.Valor == objetoComun)
+                                      .Select(item => item.Indice)
+                                      .FirstOrDefault();
+
+            // Calcular la diferencia de índices
+            int diferenciaDeIndices = Math.Abs(indiceEnListaA - indiceEnListaB);
+
+            return diferenciaDeIndices1;
         }
+        public int CalcularDiferenciaDeIndices2()
+        {
+            // Encuentra un objeto común en ambas listas
+            string objetoComun = nombresDuplicados[cont - 1];
+
+            // Encuentra los índices del objeto en ambas listas
+            int indiceEnListaA = listaTotalDeImagenes2.IndexOf(objetoComun);
+            int indiceEnListaB = nombresDuplicados.IndexOf(objetoComun);
+
+            int diferenciaDeIndices2 = Math.Abs(indiceEnListaB - indiceEnListaA);
+
+            return diferenciaDeIndices2;
+        }*/
     }
 }
