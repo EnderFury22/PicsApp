@@ -60,8 +60,9 @@ namespace PicsApp
 
         public int rutasVerificadas;
 
-        public int indiceEnLista1;
-        public int indiceEnLista2;
+        List<int> indicesEnLista1 = new List<int>();
+        List<int> indicesEnLista2 = new List<int>();
+
 
         public int duplicadoIndex1;
         public int duplicadoIndex2;
@@ -128,8 +129,8 @@ namespace PicsApp
             lblNombre2.Hide();
             listBox1.Hide();
             listBox2.Hide();
-            //btnruta1.Hide();
-            //btnruta2.Hide();
+            btnruta1.Hide();
+            btnruta2.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
             label1.MouseUp += TitleLabel_MouseUp;
@@ -749,19 +750,19 @@ namespace PicsApp
         {
             foreach (string duplicado in nombresDuplicados)
             {
-                Imagenes objetoBuscado1 = listaDeImagenes1.First(m => m.Name == duplicado);
-                Imagenes objetoBuscado2 = listaDeImagenes2.First(m => m.Name == duplicado);
+                Imagenes objetoBuscado1 = listaDeImagenes1.FirstOrDefault(m => m.Name == duplicado);
+                Imagenes objetoBuscado2 = listaDeImagenes2.FirstOrDefault(m => m.Name == duplicado);
 
                 if (objetoBuscado1 != null)
                 {
-                    indiceEnLista1 = listaDeImagenes1.IndexOf(objetoBuscado1);
+                    indicesEnLista1.Add(objetoBuscado1.Index);
                     
                     rutasDeDuplicados1.Add(objetoBuscado1.Path);
                     //listBox1.Items.Add(rutasDeDuplicados1[cont -1].ToString());  
                 }
                 if (objetoBuscado2 != null)
                 {
-                    indiceEnLista2 = listaDeImagenes2.IndexOf(objetoBuscado2);
+                    indicesEnLista2.Add(objetoBuscado2.Index);
                     rutasDeDuplicados2.Add(objetoBuscado2.Path);
                     //listBox2.Items.Add(rutasDeDuplicados2[cont -1].ToString());
                     //cont++;
@@ -818,6 +819,11 @@ namespace PicsApp
         public void ObtenerResolucionSecundaria(string rutaImagen)
         {
             ObtenerResolucionImagenes(rutaImagen);
+        }
+
+        public void ObtenerIndiceDeRepetidos()
+        {
+            
         }
     }
 }
