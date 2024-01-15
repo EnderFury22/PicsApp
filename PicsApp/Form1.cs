@@ -254,7 +254,7 @@ namespace PicsApp
                 if (cantidadDeRepetidos == 0)
                 {
                     btnComparar.BackColor = Color.FromArgb(46, 46, 46);
-                    MessageBox.Show("No hay archivos iguales en las carpetas", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("There is no files with the same name in the folders", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     btnMostrarIguales.Visible = false;
                 }
                 else
@@ -271,9 +271,9 @@ namespace PicsApp
             ViaAlternativa1();
             ViaAlternativa2();
             ObtenerResolucionSecundaria(rutaDuplicadoActual1);
-            lblRes1.Text = $"Resolucion:{imageRes1X}x{imageRes1Y}";
+            lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
             ObtenerResolucionSecundaria(rutaDuplicadoActual2);
-            lblRes2.Text = $"Resolucion:{imageRes2X}x{imageRes2Y}";
+            lblRes2.Text = $"Resolution:{imageRes2X}x{imageRes2Y}";
             btnruta1_Click(sender, e);
             btnruta2_Click_1(sender, e);
             //CalcularDiferenciaDeIndices1();
@@ -452,7 +452,7 @@ namespace PicsApp
                 }
                 else
                 {
-                    MessageBox.Show("Seleccione una ruta valida", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Choose a valid path", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta1.BackColor = Color.Red;
                 }
             }
@@ -473,7 +473,7 @@ namespace PicsApp
                 }
                 else
                 {
-                    MessageBox.Show("Seleccione una ruta valida", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Choose a valid path", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta2.BackColor = Color.Red;
                 }
             }
@@ -521,7 +521,7 @@ namespace PicsApp
                 if (validImage1 == false && spins < 1)
                 {
                     listBox1.Items.Clear();
-                    MessageBox.Show("No hay archivos de imagen en la Ruta", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("There is no picture files in the folder", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta1.BackColor = Color.Red;
                     spins++;
                 }
@@ -567,7 +567,7 @@ namespace PicsApp
                 if (validImage2 == false && spins < 1)
                 {
                     listBox2.Items.Clear();
-                    MessageBox.Show("No hay archivos de imagen en la Ruta", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("There is no picture files in the folder", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta2.BackColor = Color.Red;
                     spins++;
                 }
@@ -736,13 +736,13 @@ namespace PicsApp
                 if (pressedBtn == 1)
                 {
                     listBox1.Items.Clear();
-                    MessageBox.Show("Las carpetas no pueden ser las mismas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("The folders can't be the same", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta1.BackColor = Color.Red;
                 }
                 else if (pressedBtn == 2)
                 {
                     listBox2.Items.Clear();
-                    MessageBox.Show("Las carpetas no pueden ser las mismas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("The Folders can't be the same", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta2.BackColor = Color.Red;
                 }
                 carpetasSonIguales = true;
@@ -767,10 +767,10 @@ namespace PicsApp
                 pictureBox1.BringToFront();
                 pictureBox2.BringToFront();
 
-                lblNombre1.Text = $"Nombre:{nombreBuscadoActual1}";
+                lblNombre1.Text = $"Name:{nombreBuscadoActual1}";
                 //lblRes1.Text = $"Resolucion:{listaDeImagenes1[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes1[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso1.Text = $"Peso:{pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
-                lblFecha1.Text = $"Fecha:{fechaDuplicadoActual1.ToString()}";
+                lblPeso1.Text = $"Weight:{pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
+                lblFecha1.Text = $"Date:{fechaDuplicadoActual1.ToString()}";
                 pictureBox1.Image = Image.FromFile(rutaDuplicadoActual1);
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox1.BringToFront();
@@ -783,10 +783,10 @@ namespace PicsApp
                 lblNombre2.Visible = true;
                 lblNombre2.Visible = true;
 
-                lblNombre2.Text = $"Nombre:{nombreBuscadoActual2}";
+                lblNombre2.Text = $"Name:{nombreBuscadoActual2}";
                 //lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso2.Text = $"Peso:{pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
-                lblFecha2.Text = $"Fecha:{fechaDuplicadoActual2.ToString()}";
+                lblPeso2.Text = $"Weight:{pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
+                lblFecha2.Text = $"Date:{fechaDuplicadoActual2.ToString()}";
                 pictureBox2.Image = Image.FromFile(rutaDuplicadoActual2);
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox2.BringToFront();

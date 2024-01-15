@@ -99,7 +99,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1300, 40);
             this.label1.TabIndex = 3;
-            this.label1.Text = "comparador de Imagenes";
+            this.label1.Text = "Image Comparer";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -240,7 +240,7 @@
             this.btnCarpeta1.Name = "btnCarpeta1";
             this.btnCarpeta1.Size = new System.Drawing.Size(97, 62);
             this.btnCarpeta1.TabIndex = 18;
-            this.btnCarpeta1.Text = "Carpeta #1";
+            this.btnCarpeta1.Text = "Folder #1";
             this.btnCarpeta1.UseVisualStyleBackColor = false;
             this.btnCarpeta1.Click += new System.EventHandler(this.btnCarpeta1_Click);
             // 
@@ -269,7 +269,7 @@
             this.btnComparar.Name = "btnComparar";
             this.btnComparar.Size = new System.Drawing.Size(97, 62);
             this.btnComparar.TabIndex = 22;
-            this.btnComparar.Text = "Comparar";
+            this.btnComparar.Text = "Compare Folders";
             this.btnComparar.UseVisualStyleBackColor = false;
             this.btnComparar.Click += new System.EventHandler(this.btnComparar_Click);
             // 
@@ -282,7 +282,7 @@
             this.btnMostrarIguales.Name = "btnMostrarIguales";
             this.btnMostrarIguales.Size = new System.Drawing.Size(97, 62);
             this.btnMostrarIguales.TabIndex = 23;
-            this.btnMostrarIguales.Text = "Mostrar Iguales";
+            this.btnMostrarIguales.Text = "Show Repeated";
             this.btnMostrarIguales.UseVisualStyleBackColor = false;
             this.btnMostrarIguales.Click += new System.EventHandler(this.btnMostrarIguales_Click);
             // 
@@ -309,7 +309,7 @@
             this.btnCarpeta2.Name = "btnCarpeta2";
             this.btnCarpeta2.Size = new System.Drawing.Size(97, 62);
             this.btnCarpeta2.TabIndex = 25;
-            this.btnCarpeta2.Text = "Carpeta #2";
+            this.btnCarpeta2.Text = "Folder #2";
             this.btnCarpeta2.UseVisualStyleBackColor = false;
             this.btnCarpeta2.Click += new System.EventHandler(this.btnCarpeta2_Click);
             // 
