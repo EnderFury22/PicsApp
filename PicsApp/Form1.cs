@@ -143,6 +143,8 @@ namespace PicsApp
             btnComparar.FlatAppearance.BorderSize = 0;
             btnMostrarIguales.FlatStyle = FlatStyle.Flat;
             btnMostrarIguales.FlatAppearance.BorderSize = 0;
+            btnMostrarIgualesMenos.FlatStyle = FlatStyle.Flat;
+            btnMostrarIgualesMenos.FlatAppearance.BorderSize = 0;
             btnclose.BringToFront();
             btntobar.FlatStyle = FlatStyle.Flat;
             btntobar.BringToFront();
@@ -160,7 +162,10 @@ namespace PicsApp
             btnruta1.Hide();
             btnruta2.Hide();
             btnComparar.Hide();
+            btnCarpeta2.Hide();
+            barraCarpeta2.Hide();
             btnMostrarIguales.Hide();
+            btnMostrarIgualesMenos.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
             label1.MouseUp += TitleLabel_MouseUp;
@@ -210,11 +215,20 @@ namespace PicsApp
             await Task.Run(() => AccionBotonCarpeta1());
         }
 
+        private void MostrarIgualesFalse()
+        {
+            btnMostrarIguales.Visible = false;
+            btnMostrarIgualesMenos.Visible = false;
+        }
+
         private async Task AccionBotonCarpeta1()
         {
             await Task.Delay(1);
             pressedBtn = 1;
-            //btnMostrarIguales.Visible = false;
+            if (btnMostrarIguales.InvokeRequired)
+            {
+                btnMostrarIguales.Invoke(new Action(() => MostrarIgualesFalse()));
+            }
             btnCarpeta1.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta1, listBox1);
             OrdenDeLasCosas();
@@ -223,14 +237,18 @@ namespace PicsApp
 
         private async void btnCarpeta2_Click(object sender, EventArgs e)
         {
-            await AccionBotonCarpeta2();
+            await Task.Run(() => AccionBotonCarpeta2());
         }
 
         private async Task AccionBotonCarpeta2()
         {
             await Task.Delay(1);
             pressedBtn = 2;
-            btnMostrarIguales.Visible = false;
+            if (btnMostrarIguales.InvokeRequired && btnMostrarIgualesMenos.InvokeRequired)
+            {
+                btnMostrarIguales.Invoke(new Action(() => MostrarIgualesFalse()));
+                btnMostrarIgualesMenos.Invoke(new Action(() => MostrarIgualesFalse()));
+            }
             btnCarpeta2.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta2, listBox2);
             OrdenDeLasCosas();
@@ -283,6 +301,7 @@ namespace PicsApp
                 {
                     btnComparar.BackColor = Color.Green;
                     btnMostrarIguales.Visible = true;
+                    btnMostrarIgualesMenos.Visible = true;
                 }
             }
             else
@@ -316,6 +335,39 @@ namespace PicsApp
             //listBox1.Items.Add(cont);
         }
 
+        private void btnMostrarIgualesMenos_Click(object sender, EventArgs e)
+        {
+            ViaAlternativa1();
+            ViaAlternativa2();
+            ObtenerResolucionSecundaria(rutaDuplicadoActual1);
+            lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
+            ObtenerResolucionSecundaria(rutaDuplicadoActual2);
+            lblRes2.Text = $"Resolution:{imageRes2X}x{imageRes2Y}";
+            btnruta1_Click(sender, e);
+            btnruta2_Click_1(sender, e);
+            //CalcularDiferenciaDeIndices1();
+            //CalcularDiferenciaDeIndices2();
+
+            if (cantidadDeRepetidos > cont && cont > 1)
+            {
+                cont--;
+            }
+            else if (cont == 1)
+            {
+                cont = 1;
+            }
+        }
+
+        private void ResetValorBarra1()
+        {
+            barraCarpeta1.Value = 0;
+        }
+
+        private void ResetValorBarra2()
+        {
+            barraCarpeta1.Value = 0;
+        }
+
         public void OrdenDeLasCosas()
         {
             if (pressedBtn == 1)
@@ -327,7 +379,10 @@ namespace PicsApp
                 imageIndex2 = 0;
                 indexed1 = 0;
                 indexed2 = 0;
-                barraCarpeta1.Value = 0;
+                if (barraCarpeta1.InvokeRequired)
+                {
+                    barraCarpeta1.Invoke(new Action(() => ResetValorBarra1()));
+                }
                 if (shortPath1 != null)
                 {
                     string[] archivos1 = Directory.GetFiles(shortPath1);
@@ -356,7 +411,10 @@ namespace PicsApp
                 imageIndex2 = 0;
                 imageIndex1 = 0;
                 imageIndex2 = 0;
-                barraCarpeta2.Value = 0;
+                if (barraCarpeta2.InvokeRequired)
+                {
+                    barraCarpeta2.Invoke(new Action(() => ResetValorBarra2()));
+                }
                 if (shortPath2 != null)
                 {
                     string[] archivos2 = Directory.GetFiles(shortPath2);
@@ -405,12 +463,20 @@ namespace PicsApp
         }
 
 
-        private void AbrirArchivoEnHiloPrincipal()
+        private void AbrirArchivoEnHiloPrincipal1()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
                 filePath1 = openFileDialog.FileName;
                 fileName1 = Path.GetFileName(filePath1);
+        }
+
+        private void AbrirArchivoEnHiloPrincipal2()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                filePath2 = openFileDialog.FileName;
+            fileName2 = Path.GetFileName(filePath2);
         }
 
         public void obtenerRuta()
@@ -421,22 +487,17 @@ namespace PicsApp
                 {
                     if (InvokeRequired)
                     {
-                        Invoke(new Action(AbrirArchivoEnHiloPrincipal));
-                    }
-                    else
-                    {
-                        AbrirArchivoEnHiloPrincipal();
+                        Invoke(new Action(AbrirArchivoEnHiloPrincipal1));
                     }
                 }
             }
-            else if (pressedBtn == 2)
+            if (pressedBtn == 2)
             {
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    if (InvokeRequired)
                     {
-                        filePath2 = openFileDialog.FileName;
-                        fileName2 = Path.GetFileName(filePath2);
+                        Invoke(new Action(AbrirArchivoEnHiloPrincipal2));
                     }
                 }
             }
@@ -473,7 +534,22 @@ namespace PicsApp
             listBox1.Items.Clear();
         }
 
-    
+        private void ActualizarListBox2()
+        {
+            listBox2.Items.Clear();
+        }
+
+        private void BtnCompararVisible()
+        {
+            btnComparar.Visible = true;
+        }
+
+        private void BtnCarpeta2Visible()
+        {
+            btnCarpeta2.Visible = true;
+            barraCarpeta2.Visible = true;
+        }
+
         private void SeleccionarCarpeta(List<string> listaArchivos, ListBox listBox)
         {
             obtenerRuta();
@@ -490,10 +566,6 @@ namespace PicsApp
                     {
                         listBox1.Invoke(new Action(() => ActualizarListBox1()));
                     }
-                    else
-                    {
-                        listBox1.Items.Clear();
-                    }
 
                     foreach (string archivo in archivos)
                     {
@@ -502,7 +574,15 @@ namespace PicsApp
                     }
                     if (carpeta1Seleccionada == true && carpeta2Seleccionada == true)
                     {
-                        btnComparar.Visible = true;
+                        if (btnComparar.InvokeRequired)
+                        {
+                            btnComparar.Invoke(new Action(() => BtnCompararVisible()));
+                        }
+                    }
+                    if (btnComparar.InvokeRequired && barraCarpeta2.InvokeRequired)
+                    {
+                        btnComparar.Invoke(new Action(() => BtnCarpeta2Visible()));
+                        barraCarpeta2.Invoke(new Action(() => BtnCarpeta2Visible()));
                     }
                 }
                 else
@@ -512,7 +592,7 @@ namespace PicsApp
                     btnCarpeta1.BackColor = Color.Red;
                 }
             }
-            else if (pressedBtn == 2)
+            if (pressedBtn == 2)
             {
                 if (shortPath2 != null)
                 {
@@ -520,7 +600,10 @@ namespace PicsApp
                     string[] archivos = Directory.GetFiles(shortPath2);
 
                     listaArchivos.Clear();
-                    listBox.Items.Clear();
+                    if (listBox.InvokeRequired)
+                    {
+                        listBox2.Invoke(new Action(() => ActualizarListBox2()));
+                    }
 
                     foreach (string archivo in archivos)
                     {
@@ -529,7 +612,10 @@ namespace PicsApp
                     }
                     if (carpeta1Seleccionada == true && carpeta2Seleccionada == true)
                     {
-                        btnComparar.Visible = true;
+                        if (btnComparar.InvokeRequired)
+                        {
+                            btnComparar.Invoke(new Action(() => BtnCompararVisible()));
+                        }
                     }
                 }
                 else
@@ -548,6 +634,21 @@ namespace PicsApp
         private void HacerVisibleListbox1()
         {
             listBox1.Visible = true;
+        }
+
+        private void LimpiarListbox1()
+        {
+            listBox1.Items.Clear();
+        }
+
+        private void LimpiarListbox2()
+        {
+            listBox2.Items.Clear();
+        }
+
+        private void HacerVisibleListbox2()
+        {
+            listBox2.Visible = true;
         }
 
         public void CrearInstancias(string archivo)
@@ -590,7 +691,10 @@ namespace PicsApp
                 }
                 if (validImage1 == false && spins < 1)
                 {
-                    listBox1.Items.Clear();
+                    if (listBox1.InvokeRequired)
+                    {
+                        listBox1.Invoke(new Action(() => LimpiarListbox1()));
+                    }
                     MessageBox.Show("There is no picture files in the folder", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta1.BackColor = Color.Red;
                     spins++;
@@ -608,7 +712,10 @@ namespace PicsApp
                     Path.GetExtension(archivo).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
                     Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
-                    listBox2.Visible = true;
+                    if (listBox2.InvokeRequired)
+                    {
+                        listBox2.Invoke(new Action(() => HacerVisibleListbox2()));
+                    }
 
                     imagePaths2.Add(archivo);
 
@@ -636,7 +743,10 @@ namespace PicsApp
                 }
                 if (validImage2 == false && spins < 1)
                 {
-                    listBox2.Items.Clear();
+                    if (listBox2.InvokeRequired)
+                    {
+                        listBox2.Invoke(new Action(() => LimpiarListbox2()));
+                    }
                     MessageBox.Show("There is no picture files in the folder", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta2.BackColor = Color.Red;
                     spins++;
@@ -805,13 +915,19 @@ namespace PicsApp
             {
                 if (pressedBtn == 1)
                 {
-                    listBox1.Items.Clear();
+                    if (listBox1.InvokeRequired)
+                    {
+                        listBox1.Invoke(new Action(() => LimpiarListbox1()));
+                    }
                     MessageBox.Show("The folders can't be the same", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta1.BackColor = Color.Red;
                 }
                 else if (pressedBtn == 2)
                 {
-                    listBox2.Items.Clear();
+                    if (listBox2.InvokeRequired)
+                    {
+                        listBox2.Invoke(new Action(() => LimpiarListbox2()));
+                    }
                     MessageBox.Show("The Folders can't be the same", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnCarpeta2.BackColor = Color.Red;
                 }
@@ -942,11 +1058,18 @@ namespace PicsApp
         }
 
         public int cantidadEnNumero;
-        private void ActualizarCarpetaDeCarga()
+        private void ActualizarCarpetaDeCarga1()
         {
             barraCarpeta1.Maximum = cantidadEnNumero;
             barraCarpeta1.PerformStep();
         }
+
+        private void ActualizarCarpetaDeCarga2()
+        {
+            barraCarpeta2.Maximum = cantidadEnNumero;
+            barraCarpeta2.PerformStep();
+        }
+
         private void BarraDeCarga()
         {
             if (pressedBtn == 1)
@@ -970,7 +1093,7 @@ namespace PicsApp
 
                 if (barraCarpeta1.InvokeRequired)
                 {
-                    barraCarpeta1.Invoke(new Action(() => ActualizarCarpetaDeCarga()));
+                    barraCarpeta1.Invoke(new Action(() => ActualizarCarpetaDeCarga1()));
                 }
                 
             }
@@ -990,9 +1113,12 @@ namespace PicsApp
                         cantidadDeImagenes2.Add(archivo);
                     }
                 }
-                int cantidadEnNumero = cantidadDeImagenes2.Count();
-                barraCarpeta2.Maximum = cantidadEnNumero;
-                barraCarpeta2.PerformStep();
+                cantidadEnNumero = cantidadDeImagenes2.Count();
+
+                if (barraCarpeta2.InvokeRequired)
+                {
+                    barraCarpeta2.Invoke(new Action(() => ActualizarCarpetaDeCarga2()));
+                }
             }
         }
         public void ObtenerResolucionSecundaria(string rutaImagen)
@@ -1060,5 +1186,7 @@ namespace PicsApp
                 nombresDuplicados.Add(interseccionPrincipal1[i].Name);
             }
         }
+
+        
     }
 }
