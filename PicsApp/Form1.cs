@@ -115,6 +115,8 @@ namespace PicsApp
         public bool carpeta1Seleccionada = false;
         public bool carpeta2Seleccionada = false;
 
+        public bool repetidosVerificados = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -276,7 +278,10 @@ namespace PicsApp
 
         private void btnComparar_Click(object sender, EventArgs e)
         {
-            CalcularRepetidos();
+            if (repetidosVerificados == false)
+            {
+                CalcularRepetidos();
+            }
             if (listaDeImagenes1 != null && listaDeImagenes2 != null  && cantidadDeRepetidos != 0)
             {
                 listBox1.Items.Clear();
@@ -313,8 +318,9 @@ namespace PicsApp
         private void btnMostrarIguales_Click(object sender, EventArgs e)
         {
             //cantidadDeRepetidos = nombresDuplicados.Count;
-            ViaAlternativa1();
-            ViaAlternativa2();
+            //ViaAlternativa1();
+            //ViaAlternativa2();
+            CargarDatosActuales();
             ObtenerResolucionSecundaria(rutaDuplicadoActual1);
             lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
             ObtenerResolucionSecundaria(rutaDuplicadoActual2);
@@ -330,15 +336,20 @@ namespace PicsApp
             }
             else if (cantidadDeRepetidos == cont)
             {
-                cont = 1;
+                btnMostrarIguales.Visible = false;
+            }
+            if (cantidadDeRepetidos != cont)
+            {
+                btnMostrarIgualesMenos.Visible = true;
             }
             //listBox1.Items.Add(cont);
         }
 
         private void btnMostrarIgualesMenos_Click(object sender, EventArgs e)
         {
-            ViaAlternativa1();
-            ViaAlternativa2();
+            //ViaAlternativa1();
+            //ViaAlternativa2();
+            CargarDatosActuales();
             ObtenerResolucionSecundaria(rutaDuplicadoActual1);
             lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
             ObtenerResolucionSecundaria(rutaDuplicadoActual2);
@@ -348,13 +359,17 @@ namespace PicsApp
             //CalcularDiferenciaDeIndices1();
             //CalcularDiferenciaDeIndices2();
 
-            if (cantidadDeRepetidos > cont && cont > 1)
+            if (cantidadDeRepetidos > cont -1 && cont > 1)
             {
                 cont--;
             }
             else if (cont == 1)
             {
-                cont = 1;
+                btnMostrarIgualesMenos.Visible = false;
+            }
+            if (cont != 1)
+            {
+                btnMostrarIguales.Visible = true;
             }
         }
 
@@ -365,7 +380,7 @@ namespace PicsApp
 
         private void ResetValorBarra2()
         {
-            barraCarpeta1.Value = 0;
+            barraCarpeta2.Value = 0;
         }
 
         public void OrdenDeLasCosas()
@@ -1141,16 +1156,7 @@ namespace PicsApp
             {
                 nombresDuplicados.Add(interseccionPrincipal1[i].Name);
             }
-
-
-            nombreBuscadoActual1 = interseccionPrincipal1[cont -1].Name;
-
-            //Imagenes archivoEncontrado = interseccionPrincipal.FirstOrDefault(archivo => archivo.Name == nombreBuscadoActual);
-
-            pesoDuplicadoActual1 = interseccionPrincipal1[cont - 1].Weight;
-            pesoUsadoDuplicadoActual1 = interseccionPrincipal1[cont - 1].UsedSize;
-            rutaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Path;
-            fechaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Date;
+            
         }
 
 
@@ -1161,14 +1167,21 @@ namespace PicsApp
                                 imagen1 => imagen1.Name,
                                 imagen2 => imagen2.Name,
                                 (imagen1, imagen2) => imagen1).ToList();
+        }
+
+        private void CargarDatosActuales()
+        {
+            nombreBuscadoActual1 = interseccionPrincipal1[cont - 1].Name;
+            pesoDuplicadoActual1 = interseccionPrincipal1[cont - 1].Weight;
+            pesoUsadoDuplicadoActual1 = interseccionPrincipal1[cont - 1].UsedSize;
+            rutaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Path;
+            fechaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Date;
 
             nombreBuscadoActual2 = interseccionPrincipal2[cont - 1].Name;
-
             pesoDuplicadoActual2 = interseccionPrincipal2[cont - 1].Weight;
             pesoUsadoDuplicadoActual2 = interseccionPrincipal2[cont - 1].UsedSize;
             rutaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Path;
             fechaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Date;
-
         }
 
         private void CalcularRepetidos()
