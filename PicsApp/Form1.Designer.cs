@@ -288,9 +288,11 @@
             // 
             // barraCarpeta1
             // 
+            this.barraCarpeta1.BackColor = System.Drawing.Color.White;
             this.barraCarpeta1.Location = new System.Drawing.Point(625, 323);
             this.barraCarpeta1.Name = "barraCarpeta1";
             this.barraCarpeta1.Size = new System.Drawing.Size(96, 10);
+            this.barraCarpeta1.Step = 1;
             this.barraCarpeta1.TabIndex = 24;
             // 
             // barraCarpeta2
@@ -298,6 +300,7 @@
             this.barraCarpeta2.Location = new System.Drawing.Point(625, 410);
             this.barraCarpeta2.Name = "barraCarpeta2";
             this.barraCarpeta2.Size = new System.Drawing.Size(96, 10);
+            this.barraCarpeta2.Step = 1;
             this.barraCarpeta2.TabIndex = 26;
             // 
             // btnCarpeta2
