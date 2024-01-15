@@ -111,6 +111,9 @@ namespace PicsApp
         public DateTime fechaDuplicadoActual1;
         public DateTime fechaDuplicadoActual2;
 
+        public bool carpeta1Seleccionada = false;
+        public bool carpeta2Seleccionada = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -155,6 +158,7 @@ namespace PicsApp
             listBox2.Hide();
             btnruta1.Hide();
             btnruta2.Hide();
+            btnComparar.Hide();
             btnMostrarIguales.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
@@ -235,13 +239,11 @@ namespace PicsApp
 
         private void btnComparar_Click(object sender, EventArgs e)
         {
-            if (listaDeImagenes1.Count != 0 && listaDeImagenes2.Count != 0)
+            CalcularRepetidos();
+            if (listaDeImagenes1 != null && listaDeImagenes2 != null  && cantidadDeRepetidos != 0)
             {
                 listBox1.Items.Clear();
                 nombresDuplicados.Clear();
-                //BuscarDuplicados();
-                //ALmacenarIguales();
-
                 ViaAlternativa1();
                 ViaAlternativa2();
                 pictureBox1.Hide();
@@ -251,6 +253,7 @@ namespace PicsApp
                 {
                     listBox1.Items.Add(duplicado);
                 }
+
                 if (cantidadDeRepetidos == 0)
                 {
                     btnComparar.BackColor = Color.FromArgb(46, 46, 46);
@@ -262,6 +265,10 @@ namespace PicsApp
                     btnComparar.BackColor = Color.Green;
                     btnMostrarIguales.Visible = true;
                 }
+            }
+            else
+            {
+                MessageBox.Show("There are no repeated pictures in the folders", "info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -439,6 +446,7 @@ namespace PicsApp
             {
                 if (shortPath1 != null)
                 {
+                    carpeta1Seleccionada = true;
                     string[] archivos = Directory.GetFiles(shortPath1);
 
                     listaArchivos.Clear();
@@ -449,10 +457,15 @@ namespace PicsApp
                         listaArchivos.Add(Path.GetFileName(archivo));
                         //listBox.Items.Add(Path.GetFileName(archivo));
                     }
+                    if (carpeta1Seleccionada == true && carpeta2Seleccionada == true)
+                    {
+                        btnComparar.Visible = true;
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Choose a valid path", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    carpeta1Seleccionada = false;
                     btnCarpeta1.BackColor = Color.Red;
                 }
             }
@@ -460,6 +473,7 @@ namespace PicsApp
             {
                 if (shortPath2 != null)
                 {
+                    carpeta2Seleccionada = true;
                     string[] archivos = Directory.GetFiles(shortPath2);
 
                     listaArchivos.Clear();
@@ -470,10 +484,15 @@ namespace PicsApp
                         listaArchivos.Add(Path.GetFileName(archivo));
                         //listBox.Items.Add(Path.GetFileName(archivo));
                     }
+                    if (carpeta1Seleccionada == true && carpeta2Seleccionada == true)
+                    {
+                        btnComparar.Visible = true;
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Choose a valid path", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    carpeta2Seleccionada = false;
                     btnCarpeta2.BackColor = Color.Red;
                 }
             }
@@ -961,6 +980,22 @@ namespace PicsApp
             rutaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Path;
             fechaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Date;
 
+        }
+
+        private void CalcularRepetidos()
+        {
+            interseccionPrincipal1.Clear();
+            interseccionPrincipal1 = listaDeImagenes1.Join(listaDeImagenes2,
+                                imagen1 => imagen1.Name,
+                                imagen2 => imagen2.Name,
+                                (imagen1, imagen2) => imagen1).ToList();
+
+            cantidadDeRepetidos = interseccionPrincipal1.Count();
+
+            for (int i = 0; i < cantidadDeRepetidos; i++)
+            {
+                nombresDuplicados.Add(interseccionPrincipal1[i].Name);
+            }
         }
     }
 }
