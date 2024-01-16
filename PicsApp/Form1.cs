@@ -72,8 +72,6 @@ namespace PicsApp
 
         public bool validImage1 = false;
         public bool validImage2 = false;
-        List<int> indicesEnLista1 = new List<int>();
-        List<int> indicesEnLista2 = new List<int>();
         List<string> nombresDuplicados = new List<string>();
         List<string> nombresDeDuplicados1 = new List<string>();
         List<string> nombresDeDuplicados2 = new List<string>();
@@ -181,7 +179,7 @@ namespace PicsApp
 
         private async Task CloseApp()
         {
-            await Task.Delay(1);
+            await Task.Delay(0);
             Application.Exit();
         }
 
@@ -225,7 +223,7 @@ namespace PicsApp
 
         private async Task AccionBotonCarpeta1()
         {
-            await Task.Delay(1);
+            await Task.Delay(0);
             pressedBtn = 1;
             if (btnMostrarIguales.InvokeRequired)
             {
@@ -244,7 +242,7 @@ namespace PicsApp
 
         private async Task AccionBotonCarpeta2()
         {
-            await Task.Delay(1);
+            await Task.Delay(0);
             pressedBtn = 2;
             if (btnMostrarIguales.InvokeRequired && btnMostrarIgualesMenos.InvokeRequired)
             {
@@ -320,19 +318,9 @@ namespace PicsApp
             //cantidadDeRepetidos = nombresDuplicados.Count;
             //ViaAlternativa1();
             //ViaAlternativa2();
-            CargarDatosActuales();
-            ObtenerResolucionSecundaria(rutaDuplicadoActual1);
-            lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
-            ObtenerResolucionSecundaria(rutaDuplicadoActual2);
-            lblRes2.Text = $"Resolution:{imageRes2X}x{imageRes2Y}";
-            btnruta1_Click(sender, e);
-            btnruta2_Click_1(sender, e);
-            //CalcularDiferenciaDeIndices1();
-            //CalcularDiferenciaDeIndices2();
-
             if (cantidadDeRepetidos > cont)
             {
-                cont++;
+                cont = cont + 1;
             }
             else if (cantidadDeRepetidos == cont)
             {
@@ -342,26 +330,40 @@ namespace PicsApp
             {
                 btnMostrarIgualesMenos.Visible = true;
             }
-            //listBox1.Items.Add(cont);
+            CargarDatosActuales();
+            ObtenerResolucionSecundaria(rutaDuplicadoActual1);
+            lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
+            btnruta1_Click(sender, e);
+            ObtenerResolucionSecundaria(rutaDuplicadoActual2);
+            lblRes2.Text = $"Resolution:{imageRes2X}x{imageRes2Y}";
+            btnruta2_Click_1(sender, e);
+            //CalcularDiferenciaDeIndices1();
+            //CalcularDiferenciaDeIndices2();
+
+            /*if (cantidadDeRepetidos > cont)
+            {
+                cont = cont+1;
+            }
+            else if (cantidadDeRepetidos == cont)
+            {
+                btnMostrarIguales.Visible = false;
+            }
+            if (cantidadDeRepetidos != cont)
+            {
+                btnMostrarIgualesMenos.Visible = true;
+            }*/
+            CargarDatosActuales();
+            btnruta1_Click(sender, e);
+            btnruta2_Click_1(sender, e);
         }
 
         private void btnMostrarIgualesMenos_Click(object sender, EventArgs e)
         {
             //ViaAlternativa1();
             //ViaAlternativa2();
-            CargarDatosActuales();
-            ObtenerResolucionSecundaria(rutaDuplicadoActual1);
-            lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
-            ObtenerResolucionSecundaria(rutaDuplicadoActual2);
-            lblRes2.Text = $"Resolution:{imageRes2X}x{imageRes2Y}";
-            btnruta1_Click(sender, e);
-            btnruta2_Click_1(sender, e);
-            //CalcularDiferenciaDeIndices1();
-            //CalcularDiferenciaDeIndices2();
-
-            if (cantidadDeRepetidos > cont -1 && cont > 1)
+            if (cantidadDeRepetidos > cont - 1 && cont > 1)
             {
-                cont--;
+                cont = cont - 1;
             }
             else if (cont == 1)
             {
@@ -371,6 +373,31 @@ namespace PicsApp
             {
                 btnMostrarIguales.Visible = true;
             }
+            CargarDatosActuales();
+            ObtenerResolucionSecundaria(rutaDuplicadoActual1);
+            lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
+            btnruta1_Click(sender, e);
+            ObtenerResolucionSecundaria(rutaDuplicadoActual2);
+            lblRes2.Text = $"Resolution:{imageRes2X}x{imageRes2Y}";
+            btnruta2_Click_1(sender, e);
+            //CalcularDiferenciaDeIndices1();
+            //CalcularDiferenciaDeIndices2();
+
+            /*if (cantidadDeRepetidos > cont -1 && cont > 1)
+            {
+                cont = cont - 1;
+            }
+            else if (cont == 1)
+            {
+                btnMostrarIgualesMenos.Visible = false;
+            }
+            if (cont != 1)
+            {
+                btnMostrarIguales.Visible = true;
+            }*/
+            //CargarDatosActuales();
+            //btnruta1_Click(sender, e);
+            //btnruta2_Click_1(sender, e);
         }
 
         private void ResetValorBarra1()
@@ -976,7 +1003,7 @@ namespace PicsApp
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox1.BringToFront();
             }
-            if (pressedBtn == 2 && validImage2 == true)
+            else if (pressedBtn == 2 && validImage2 == true)
             {
                 lblRes2.Visible = true;
                 lblFecha2.Visible = true;
@@ -992,84 +1019,6 @@ namespace PicsApp
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox2.BringToFront();
             }
-        }
-
-        public void BuscarDuplicados()
-        {
-            //List<Imagenes> interseccionPrincipal = new List<Imagenes>();
-            /*List<Imagenes> interseccionPrincipalConLista1 = new List<Imagenes>();
-            List<Imagenes> interseccionPrincipalConLista2 = new List<Imagenes>();
-
-            interseccionPrincipal = listaDeImagenes1.Join(listaDeImagenes2,
-                                imagen1 => imagen1.Name,
-                                imagen2 => imagen2.Name,
-                                (imagen1, imagen2) => imagen1).ToList();
-
-            interseccionPrincipalConLista1 = interseccionPrincipal.Join(listaDeImagenes1,
-                                imagen1 => imagen1.Name,
-                                imagen2 => imagen2.Name,
-                                (imagen1, imagen2) => imagen1).ToList();
-
-            interseccionPrincipalConLista2 = interseccionPrincipal.Join(listaDeImagenes2,
-                                imagen1 => imagen1.Name,
-                                imagen2 => imagen2.Name,
-                                (imagen1, imagen2) => imagen2).ToList();
-
-            foreach (var imagen in interseccionPrincipal)
-            {
-                nombresDuplicados.Add(imagen.Name);
-            }
-            foreach (var imagen in interseccionPrincipalConLista1)
-            {
-                rutasDeDuplicados1.Add(imagen.Path);
-                nombresDeDuplicados1.Add(imagen.Name);
-                pesoDeDuplicados1.Add(imagen.Weight);
-                pesoUsadoDeDuplicados1.Add(imagen.UsedSize);
-                fechasDeDuplicados1.Add(imagen.Date);
-                indicesEnLista1.Add(imagen.Index);
-            }
-            foreach (var imagen in interseccionPrincipalConLista2)
-            {
-                rutasDeDuplicados2.Add(imagen.Path);
-                nombresDeDuplicados2.Add(imagen.Name);
-                pesoDeDuplicados2.Add(imagen.Weight);
-                pesoUsadoDeDuplicados2.Add(imagen.UsedSize);
-                fechasDeDuplicados2.Add(imagen.Date);
-                indicesEnLista2.Add(imagen.Index);
-            }*/
-            
-        }
-
-        public void ALmacenarIguales()
-        {
-            /*foreach (string duplicado in nombresDuplicados)
-            {
-                if (objetoBuscado1 != null)
-                {
-                    indicesEnLista1.Add(objetoBuscado1.Index);
-                    nombresDeDuplicados1.Add(objetoBuscado1.Name);
-                    fechasDeDuplicados1.Add(objetoBuscado1.Date);
-                    rutasDeDuplicados1.Add(objetoBuscado1.Path);
-                    pesoDeDuplicados1.Add(objetoBuscado1.Weight);
-                    pesoUsadoDeDuplicados1.Add(objetoBuscado1.UsedSize);
-                    //listBox1.Items.Add(rutasDeDuplicados1[cont -1].ToString());  
-                }
-                if (objetoBuscado2 != null)
-                {
-                    indicesEnLista2.Add(objetoBuscado2.Index);
-                    nombresDeDuplicados2.Add(objetoBuscado2.Name);
-                    fechasDeDuplicados2.Add(objetoBuscado2.Date);
-                    rutasDeDuplicados2.Add(objetoBuscado2.Path);
-                    pesoDeDuplicados2.Add(objetoBuscado2.Weight);
-                    pesoUsadoDeDuplicados2.Add(objetoBuscado2.UsedSize);
-                    //listBox2.Items.Add(rutasDeDuplicados2[cont -1].ToString());
-                    //cont++;
-                }
-                objetoBuscado1 = null;
-                objetoBuscado2 = null;
-            }
-            rutasDeDuplicados1.Sort();
-            rutasDeDuplicados2.Sort();*/
         }
 
         public int cantidadEnNumero;

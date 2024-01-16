@@ -237,7 +237,7 @@
             this.btnCarpeta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnCarpeta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarpeta1.ForeColor = System.Drawing.Color.White;
-            this.btnCarpeta1.Location = new System.Drawing.Point(623, 224);
+            this.btnCarpeta1.Location = new System.Drawing.Point(615, 255);
             this.btnCarpeta1.Name = "btnCarpeta1";
             this.btnCarpeta1.Size = new System.Drawing.Size(97, 62);
             this.btnCarpeta1.TabIndex = 18;
@@ -266,7 +266,7 @@
             this.btnComparar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnComparar.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComparar.ForeColor = System.Drawing.Color.White;
-            this.btnComparar.Location = new System.Drawing.Point(623, 147);
+            this.btnComparar.Location = new System.Drawing.Point(615, 178);
             this.btnComparar.Name = "btnComparar";
             this.btnComparar.Size = new System.Drawing.Size(97, 62);
             this.btnComparar.TabIndex = 22;
@@ -279,7 +279,7 @@
             this.btnMostrarIguales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnMostrarIguales.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostrarIguales.ForeColor = System.Drawing.Color.White;
-            this.btnMostrarIguales.Location = new System.Drawing.Point(624, 401);
+            this.btnMostrarIguales.Location = new System.Drawing.Point(661, 448);
             this.btnMostrarIguales.Name = "btnMostrarIguales";
             this.btnMostrarIguales.Size = new System.Drawing.Size(97, 62);
             this.btnMostrarIguales.TabIndex = 23;
@@ -290,7 +290,7 @@
             // barraCarpeta1
             // 
             this.barraCarpeta1.BackColor = System.Drawing.Color.White;
-            this.barraCarpeta1.Location = new System.Drawing.Point(624, 284);
+            this.barraCarpeta1.Location = new System.Drawing.Point(616, 315);
             this.barraCarpeta1.Name = "barraCarpeta1";
             this.barraCarpeta1.Size = new System.Drawing.Size(96, 10);
             this.barraCarpeta1.Step = 1;
@@ -298,7 +298,7 @@
             // 
             // barraCarpeta2
             // 
-            this.barraCarpeta2.Location = new System.Drawing.Point(624, 371);
+            this.barraCarpeta2.Location = new System.Drawing.Point(616, 402);
             this.barraCarpeta2.Name = "barraCarpeta2";
             this.barraCarpeta2.Size = new System.Drawing.Size(96, 10);
             this.barraCarpeta2.Step = 1;
@@ -309,7 +309,7 @@
             this.btnCarpeta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnCarpeta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarpeta2.ForeColor = System.Drawing.Color.White;
-            this.btnCarpeta2.Location = new System.Drawing.Point(623, 311);
+            this.btnCarpeta2.Location = new System.Drawing.Point(615, 342);
             this.btnCarpeta2.Name = "btnCarpeta2";
             this.btnCarpeta2.Size = new System.Drawing.Size(97, 62);
             this.btnCarpeta2.TabIndex = 25;
@@ -322,11 +322,11 @@
             this.btnMostrarIgualesMenos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnMostrarIgualesMenos.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostrarIgualesMenos.ForeColor = System.Drawing.Color.White;
-            this.btnMostrarIgualesMenos.Location = new System.Drawing.Point(624, 482);
+            this.btnMostrarIgualesMenos.Location = new System.Drawing.Point(558, 448);
             this.btnMostrarIgualesMenos.Name = "btnMostrarIgualesMenos";
             this.btnMostrarIgualesMenos.Size = new System.Drawing.Size(97, 62);
             this.btnMostrarIgualesMenos.TabIndex = 27;
-            this.btnMostrarIgualesMenos.Text = "Repeated -";
+            this.btnMostrarIgualesMenos.Text = "Repeated  -";
             this.btnMostrarIgualesMenos.UseVisualStyleBackColor = false;
             this.btnMostrarIgualesMenos.Click += new System.EventHandler(this.btnMostrarIgualesMenos_Click);
             // 
