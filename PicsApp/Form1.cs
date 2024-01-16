@@ -115,6 +115,9 @@ namespace PicsApp
 
         public bool repetidosVerificados = false;
 
+        HashSet<string> archivosParaBorrar1 = new HashSet<string>();
+        HashSet<string> archivosParaBorrar2 = new HashSet<string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -416,6 +419,30 @@ namespace PicsApp
             //CargarDatosActuales();
             //btnruta1_Click(sender, e);
             //btnruta2_Click_1(sender, e);
+        }
+
+        private void checkBoxImagen1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxImagen1.Checked)
+            {
+                archivosParaBorrar1.Add(rutaDuplicadoActual1);
+            }
+            else
+            {
+                archivosParaBorrar1.Remove(rutaDuplicadoActual1);
+            }
+        }
+
+        private void checkBoxImagen2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxImagen2.Checked)
+            {
+                archivosParaBorrar2.Add(rutaDuplicadoActual2);
+            }
+            else
+            {
+                archivosParaBorrar2.Remove(rutaDuplicadoActual2);
+            }
         }
 
         private void ResetValorBarra1()

@@ -52,6 +52,9 @@
             this.barraCarpeta2 = new System.Windows.Forms.ProgressBar();
             this.btnCarpeta2 = new System.Windows.Forms.Button();
             this.btnMostrarIgualesMenos = new System.Windows.Forms.Button();
+            this.lblBorrar = new System.Windows.Forms.Label();
+            this.checkBoxImagen1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxImagen2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -237,7 +240,7 @@
             this.btnCarpeta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnCarpeta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarpeta1.ForeColor = System.Drawing.Color.White;
-            this.btnCarpeta1.Location = new System.Drawing.Point(615, 255);
+            this.btnCarpeta1.Location = new System.Drawing.Point(610, 296);
             this.btnCarpeta1.Name = "btnCarpeta1";
             this.btnCarpeta1.Size = new System.Drawing.Size(97, 62);
             this.btnCarpeta1.TabIndex = 18;
@@ -266,7 +269,7 @@
             this.btnComparar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnComparar.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComparar.ForeColor = System.Drawing.Color.White;
-            this.btnComparar.Location = new System.Drawing.Point(615, 178);
+            this.btnComparar.Location = new System.Drawing.Point(610, 219);
             this.btnComparar.Name = "btnComparar";
             this.btnComparar.Size = new System.Drawing.Size(97, 62);
             this.btnComparar.TabIndex = 22;
@@ -279,7 +282,7 @@
             this.btnMostrarIguales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnMostrarIguales.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostrarIguales.ForeColor = System.Drawing.Color.White;
-            this.btnMostrarIguales.Location = new System.Drawing.Point(661, 448);
+            this.btnMostrarIguales.Location = new System.Drawing.Point(660, 478);
             this.btnMostrarIguales.Name = "btnMostrarIguales";
             this.btnMostrarIguales.Size = new System.Drawing.Size(97, 62);
             this.btnMostrarIguales.TabIndex = 23;
@@ -290,17 +293,17 @@
             // barraCarpeta1
             // 
             this.barraCarpeta1.BackColor = System.Drawing.Color.White;
-            this.barraCarpeta1.Location = new System.Drawing.Point(616, 315);
+            this.barraCarpeta1.Location = new System.Drawing.Point(610, 356);
             this.barraCarpeta1.Name = "barraCarpeta1";
-            this.barraCarpeta1.Size = new System.Drawing.Size(96, 10);
+            this.barraCarpeta1.Size = new System.Drawing.Size(97, 10);
             this.barraCarpeta1.Step = 1;
             this.barraCarpeta1.TabIndex = 24;
             // 
             // barraCarpeta2
             // 
-            this.barraCarpeta2.Location = new System.Drawing.Point(616, 402);
+            this.barraCarpeta2.Location = new System.Drawing.Point(610, 443);
             this.barraCarpeta2.Name = "barraCarpeta2";
-            this.barraCarpeta2.Size = new System.Drawing.Size(96, 10);
+            this.barraCarpeta2.Size = new System.Drawing.Size(97, 10);
             this.barraCarpeta2.Step = 1;
             this.barraCarpeta2.TabIndex = 26;
             // 
@@ -309,7 +312,7 @@
             this.btnCarpeta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnCarpeta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarpeta2.ForeColor = System.Drawing.Color.White;
-            this.btnCarpeta2.Location = new System.Drawing.Point(615, 342);
+            this.btnCarpeta2.Location = new System.Drawing.Point(610, 383);
             this.btnCarpeta2.Name = "btnCarpeta2";
             this.btnCarpeta2.Size = new System.Drawing.Size(97, 62);
             this.btnCarpeta2.TabIndex = 25;
@@ -322,7 +325,7 @@
             this.btnMostrarIgualesMenos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnMostrarIgualesMenos.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostrarIgualesMenos.ForeColor = System.Drawing.Color.White;
-            this.btnMostrarIgualesMenos.Location = new System.Drawing.Point(558, 448);
+            this.btnMostrarIgualesMenos.Location = new System.Drawing.Point(557, 478);
             this.btnMostrarIgualesMenos.Name = "btnMostrarIgualesMenos";
             this.btnMostrarIgualesMenos.Size = new System.Drawing.Size(97, 62);
             this.btnMostrarIgualesMenos.TabIndex = 27;
@@ -330,12 +333,52 @@
             this.btnMostrarIgualesMenos.UseVisualStyleBackColor = false;
             this.btnMostrarIgualesMenos.Click += new System.EventHandler(this.btnMostrarIgualesMenos_Click);
             // 
+            // lblBorrar
+            // 
+            this.lblBorrar.AutoSize = true;
+            this.lblBorrar.Font = new System.Drawing.Font("AniMe Matrix - MB_EN", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBorrar.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblBorrar.Location = new System.Drawing.Point(576, 129);
+            this.lblBorrar.Name = "lblBorrar";
+            this.lblBorrar.Size = new System.Drawing.Size(167, 18);
+            this.lblBorrar.TabIndex = 28;
+            this.lblBorrar.Text = "Borrar Imagen";
+            // 
+            // checkBoxImagen1
+            // 
+            this.checkBoxImagen1.AutoSize = true;
+            this.checkBoxImagen1.Font = new System.Drawing.Font("AniMe Matrix - MB_EN", 9.749999F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxImagen1.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxImagen1.Location = new System.Drawing.Point(548, 167);
+            this.checkBoxImagen1.Name = "checkBoxImagen1";
+            this.checkBoxImagen1.Size = new System.Drawing.Size(94, 20);
+            this.checkBoxImagen1.TabIndex = 29;
+            this.checkBoxImagen1.Text = "Imagen1";
+            this.checkBoxImagen1.UseVisualStyleBackColor = true;
+            this.checkBoxImagen1.CheckedChanged += new System.EventHandler(this.checkBoxImagen1_CheckedChanged);
+            // 
+            // checkBoxImagen2
+            // 
+            this.checkBoxImagen2.AutoSize = true;
+            this.checkBoxImagen2.Font = new System.Drawing.Font("AniMe Matrix - MB_EN", 9.749999F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxImagen2.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxImagen2.Location = new System.Drawing.Point(666, 167);
+            this.checkBoxImagen2.Name = "checkBoxImagen2";
+            this.checkBoxImagen2.Size = new System.Drawing.Size(100, 20);
+            this.checkBoxImagen2.TabIndex = 30;
+            this.checkBoxImagen2.Text = "Imagen2";
+            this.checkBoxImagen2.UseVisualStyleBackColor = true;
+            this.checkBoxImagen2.CheckedChanged += new System.EventHandler(this.checkBoxImagen2_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.checkBoxImagen2);
+            this.Controls.Add(this.checkBoxImagen1);
+            this.Controls.Add(this.lblBorrar);
             this.Controls.Add(this.btnMostrarIgualesMenos);
             this.Controls.Add(this.barraCarpeta2);
             this.Controls.Add(this.btnCarpeta2);
@@ -397,6 +440,9 @@
         private System.Windows.Forms.ProgressBar barraCarpeta2;
         private System.Windows.Forms.Button btnCarpeta2;
         private System.Windows.Forms.Button btnMostrarIgualesMenos;
+        private System.Windows.Forms.Label lblBorrar;
+        private System.Windows.Forms.CheckBox checkBoxImagen1;
+        private System.Windows.Forms.CheckBox checkBoxImagen2;
     }
 }
 
