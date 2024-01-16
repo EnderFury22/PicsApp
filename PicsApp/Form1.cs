@@ -318,7 +318,16 @@ namespace PicsApp
             //cantidadDeRepetidos = nombresDuplicados.Count;
             //ViaAlternativa1();
             //ViaAlternativa2();
-            if (cantidadDeRepetidos > cont)
+            if (cantidadDeRepetidos == 2)
+            {
+                if (cont == 1)
+                {
+                    btnMostrarIgualesMenos.Visible = true;
+                    btnMostrarIguales.Hide();
+                    cont = cont + 1;
+                }
+            }
+            else if (cantidadDeRepetidos > cont)
             {
                 cont = cont + 1;
             }
@@ -361,7 +370,16 @@ namespace PicsApp
         {
             //ViaAlternativa1();
             //ViaAlternativa2();
-            if (cantidadDeRepetidos > cont - 1 && cont > 1)
+            if (cantidadDeRepetidos == 2)
+            {
+                if (cont == 2)
+                {
+                    btnMostrarIguales.Visible = true;
+                    btnMostrarIgualesMenos.Hide();
+                    cont = cont - 1;
+                }
+            }
+            else if (cantidadDeRepetidos > cont - 1 && cont > 1)
             {
                 cont = cont - 1;
             }
