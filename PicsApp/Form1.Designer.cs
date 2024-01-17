@@ -112,6 +112,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(83, 129);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(448, 448);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
@@ -120,6 +121,7 @@
             this.pictureBox2.Location = new System.Drawing.Point(786, 129);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(448, 448);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             // 
@@ -400,8 +402,6 @@
             this.Controls.Add(this.barraCarpeta1);
             this.Controls.Add(this.btnMostrarIguales);
             this.Controls.Add(this.btnComparar);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnCarpeta1);
             this.Controls.Add(this.lblNombre2);
             this.Controls.Add(this.lblNombre1);
@@ -413,11 +413,13 @@
             this.Controls.Add(this.lblRes1);
             this.Controls.Add(this.btnruta2);
             this.Controls.Add(this.btnruta1);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btntobar);
             this.Controls.Add(this.btnclose);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

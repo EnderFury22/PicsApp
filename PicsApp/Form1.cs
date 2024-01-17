@@ -1077,7 +1077,7 @@ namespace PicsApp
                 lblPeso1.Text = $"Weight:{pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
                 lblFecha1.Text = $"Date:{fechaDuplicadoActual1.ToString()}";
                 pictureBox1.Image = Image.FromFile(rutaDuplicadoActual1);
-                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox1.BringToFront();
             }
             else if (pressedBtn == 2 && validImage2 == true)
@@ -1093,7 +1093,7 @@ namespace PicsApp
                 lblPeso2.Text = $"Weight:{pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
                 lblFecha2.Text = $"Date:{fechaDuplicadoActual2.ToString()}";
                 pictureBox2.Image = Image.FromFile(rutaDuplicadoActual2);
-                pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox2.BringToFront();
             }
         }
