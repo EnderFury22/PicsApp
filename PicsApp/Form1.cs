@@ -7,9 +7,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Collections.Specialized.BitVector32;
 
 namespace PicsApp
 {
@@ -73,16 +75,16 @@ namespace PicsApp
         public bool validImage1 = false;
         public bool validImage2 = false;
         List<string> nombresDuplicados = new List<string>();
-        List<string> nombresDeDuplicados1 = new List<string>();
-        List<string> nombresDeDuplicados2 = new List<string>();
-        List<string> rutasDeDuplicados1 = new List<string>();
-        List<string> rutasDeDuplicados2 = new List<string>();
-        List<DateTime> fechasDeDuplicados1 = new List<DateTime>();
-        List<DateTime> fechasDeDuplicados2 = new List<DateTime>();
-        List<double> pesoDeDuplicados1 = new List<double>();
-        List<double> pesoDeDuplicados2 = new List<double>();
-        List<string> pesoUsadoDeDuplicados1 = new List<string>();
-        List<string> pesoUsadoDeDuplicados2 = new List<string>();
+        //List<string> nombresDeDuplicados1 = new List<string>();
+        //List<string> nombresDeDuplicados2 = new List<string>();
+        //List<string> rutasDeDuplicados1 = new List<string>();
+        //List<string> rutasDeDuplicados2 = new List<string>();
+        //List<DateTime> fechasDeDuplicados1 = new List<DateTime>();
+        //List<DateTime> fechasDeDuplicados2 = new List<DateTime>();
+        //List<double> pesoDeDuplicados1 = new List<double>();
+        //List<double> pesoDeDuplicados2 = new List<double>();
+        //List<string> pesoUsadoDeDuplicados1 = new List<string>();
+        //List<string> pesoUsadoDeDuplicados2 = new List<string>();
 
         private List<string> listaTotalDeImagenes1 = new List<string>();
         private List<string> listaTotalDeImagenes2 = new List<string>();
@@ -148,6 +150,8 @@ namespace PicsApp
             btnMostrarIguales.FlatAppearance.BorderSize = 0;
             btnMostrarIgualesMenos.FlatStyle = FlatStyle.Flat;
             btnMostrarIgualesMenos.FlatAppearance.BorderSize = 0;
+            btnBorrar.FlatStyle = FlatStyle.Flat;
+            btnBorrar.FlatAppearance.BorderSize = 0;
             btnclose.BringToFront();
             btntobar.FlatStyle = FlatStyle.Flat;
             btntobar.BringToFront();
@@ -169,6 +173,9 @@ namespace PicsApp
             barraCarpeta2.Hide();
             btnMostrarIguales.Hide();
             btnMostrarIgualesMenos.Hide();
+            checkBoxImagen1.Hide();
+            checkBoxImagen2.Hide();
+            lblBorrar.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
             label1.MouseUp += TitleLabel_MouseUp;
@@ -215,6 +222,9 @@ namespace PicsApp
 
         private async void btnCarpeta1_Click(object sender, EventArgs e)
         {
+            checkBoxImagen1.Visible = false;
+            checkBoxImagen2.Visible = false;
+            lblBorrar.Visible = false;
             await Task.Run(() => AccionBotonCarpeta1());
         }
 
@@ -240,6 +250,9 @@ namespace PicsApp
 
         private async void btnCarpeta2_Click(object sender, EventArgs e)
         {
+            checkBoxImagen1.Visible = false;
+            checkBoxImagen2.Visible = false;
+            lblBorrar.Visible= false;
             await Task.Run(() => AccionBotonCarpeta2());
         }
 
@@ -279,6 +292,9 @@ namespace PicsApp
 
         private void btnComparar_Click(object sender, EventArgs e)
         {
+            checkBoxImagen1.Visible = false;
+            checkBoxImagen2.Visible = false;
+            lblBorrar.Visible = false;
             if (repetidosVerificados == false)
             {
                 CalcularRepetidos();
@@ -321,6 +337,11 @@ namespace PicsApp
             //cantidadDeRepetidos = nombresDuplicados.Count;
             //ViaAlternativa1();
             //ViaAlternativa2();
+            checkBoxImagen1.Visible = true;
+            checkBoxImagen2.Visible = true;
+            lblBorrar.Visible = true;
+            btnBorrar.Text = "Erase";
+
             if (cantidadDeRepetidos == 2)
             {
                 if (cont == 1)
@@ -367,12 +388,20 @@ namespace PicsApp
             CargarDatosActuales();
             btnruta1_Click(sender, e);
             btnruta2_Click_1(sender, e);
+
+            CheckCheck1();
+            CheckCheck2();
         }
 
         private void btnMostrarIgualesMenos_Click(object sender, EventArgs e)
         {
             //ViaAlternativa1();
             //ViaAlternativa2();
+            checkBoxImagen1.Visible = true;
+            checkBoxImagen2.Visible = true;
+            lblBorrar.Visible = true;
+            btnBorrar.Text = "Erase";
+
             if (cantidadDeRepetidos == 2)
             {
                 if (cont == 2)
@@ -419,6 +448,8 @@ namespace PicsApp
             //CargarDatosActuales();
             //btnruta1_Click(sender, e);
             //btnruta2_Click_1(sender, e);
+            CheckCheck1();
+            CheckCheck2();
         }
 
         private void checkBoxImagen1_CheckedChanged(object sender, EventArgs e)
@@ -629,6 +660,7 @@ namespace PicsApp
         private void BtnCompararVisible()
         {
             btnComparar.Visible = true;
+            btnBorrar.Location = new Point(610, 196);
         }
 
         private void BtnCarpeta2Visible()
@@ -1194,6 +1226,161 @@ namespace PicsApp
             }
         }
 
-        
+        private void BorrarSeleccionados1()
+        {
+            foreach (string archivo in archivosParaBorrar1)
+            {
+                if (archivosParaBorrar1.Contains(archivo))
+                {
+                    try
+                    {
+                        // Intentar borrar el archivo
+                        File.Delete(archivo);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"$Error trying to erase file: {ex.Message}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"The file in the route '{archivo}' couldn't be found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            } 
+        }
+
+        private void BorrarSeleccionados2()
+        {
+            foreach (string archivo in archivosParaBorrar2)
+            {
+                if (archivosParaBorrar2.Contains(archivo))
+                {
+                    try
+                    {
+                        // Intentar borrar el archivo
+                        File.Delete(archivo);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"$Error trying to erase file: {ex.Message}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"The file in the route '{archivo}' couldn't be found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            if (archivosParaBorrar1.Count != 0 || archivosParaBorrar2.Count != 0)
+            {
+                DialogResult selection = MessageBox.Show("Are you sure you want to delete all selected files?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (selection == DialogResult.Yes)
+                {
+                    pictureBox1.Enabled = false;
+                    pictureBox2.Enabled = false;
+                    pictureBox1.Image.Dispose();
+                    pictureBox2.Image.Dispose();
+                    rutaDuplicadoActual1 = null;
+                    rutaDuplicadoActual2 = null;
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    RefreshAll();
+                    BorrarSeleccionados1();
+                    BorrarSeleccionados2();
+                    archivosParaBorrar1.Clear();
+                    archivosParaBorrar2.Clear();
+                }
+            }
+            RefreshAll();
+        }
+
+        private void RefreshAll()
+        {
+            btnBorrar.Text = "Refresh";
+            btnBorrar.Location = new Point(610, 275);
+            cont = 1;
+            spins = 0;
+            barraCarpeta1.Value = 0;
+            barraCarpeta2.Value = 0;
+
+            btnCarpeta1.BackColor = Color.FromArgb(46, 46, 46);
+            btnCarpeta2.BackColor = Color.FromArgb(46, 46, 46);
+
+            lblRes1.Hide();
+            lblRes2.Hide();
+            lblFecha1.Hide();
+            lblFecha2.Hide();
+            lblPeso1.Hide();
+            lblPeso2.Hide();
+            lblNombre1.Hide();
+            lblNombre2.Hide();
+            listBox1.Hide();
+            listBox2.Hide();
+            btnruta1.Hide();
+            btnruta2.Hide();
+            btnComparar.Hide();
+            btnCarpeta2.Hide();
+            barraCarpeta2.Hide();
+            btnMostrarIguales.Hide();
+            btnMostrarIgualesMenos.Hide();
+            listBox1.Items.Clear();
+            nombresDuplicados.Clear();
+            pictureBox1.Hide();
+            pictureBox2.Hide();
+            lblBorrar.Hide();
+            checkBoxImagen1.Hide();
+            checkBoxImagen2.Hide();
+
+            nombresDuplicados.Clear();
+            listaTotalDeImagenes1.Clear();
+            listaTotalDeImagenes2.Clear();
+            archivosCarpeta1.Clear();
+            archivosCarpeta2.Clear();
+            imageParameters.Clear();
+
+            interseccionPrincipal1.Clear();
+            interseccionPrincipal2.Clear();
+            /*nombreBuscadoActual1 = "";
+            nombreBuscadoActual2 = "";
+            nombreDuplicadoACtual = "";
+            rutaDuplicadoActual1 = "";
+            rutaDuplicadoActual2 = "";
+            pesoDuplicadoActual1 = 0;
+            pesoDuplicadoActual2 = 0;
+            pesoUsadoDuplicadoActual1 = "";
+            pesoUsadoDuplicadoActual2 = "";*/
+            carpeta1Seleccionada = false;
+            carpeta2Seleccionada = false;
+            repetidosVerificados = false;
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+
+        private void CheckCheck1()
+        {
+            if (archivosParaBorrar1.Contains(rutaDuplicadoActual1))
+            {
+                checkBoxImagen1.CheckState = CheckState.Checked;
+            }
+            else
+            {
+                checkBoxImagen1.CheckState = CheckState.Unchecked;
+            }
+        }
+        private void CheckCheck2()
+        {
+            if (archivosParaBorrar2.Contains(rutaDuplicadoActual2))
+            {
+                checkBoxImagen2.CheckState = CheckState.Checked;
+            }
+            else
+            {
+                checkBoxImagen2.CheckState = CheckState.Unchecked;
+            }
+        }
     }
 }
