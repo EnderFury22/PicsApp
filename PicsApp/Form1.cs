@@ -1292,9 +1292,11 @@ namespace PicsApp
                     BorrarSeleccionados2();
                     archivosParaBorrar1.Clear();
                     archivosParaBorrar2.Clear();
+                    //Application.Restart();
                 }
             }
             RefreshAll();
+            //Application.Restart();
         }
 
         private void RefreshAll()
@@ -1308,6 +1310,7 @@ namespace PicsApp
 
             btnCarpeta1.BackColor = Color.FromArgb(46, 46, 46);
             btnCarpeta2.BackColor = Color.FromArgb(46, 46, 46);
+            btnComparar.BackColor = Color.FromArgb(46, 46, 46);
 
             lblRes1.Hide();
             lblRes2.Hide();
@@ -1355,6 +1358,18 @@ namespace PicsApp
             carpeta1Seleccionada = false;
             carpeta2Seleccionada = false;
             repetidosVerificados = false;
+            carpetasSonIguales = false;
+            compared = false;
+            rutasVerificadas = 0;
+            validImage1 = false;
+            validImage2 = false;
+            carpeta1Seleccionada = false;
+            carpeta2Seleccionada = false;
+            repetidosVerificados = false;
+            filePath1 = null;
+            filePath2 = null;
+            shortPath1 = null;
+            shortPath2 = null;
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
