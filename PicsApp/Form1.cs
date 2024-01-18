@@ -1336,9 +1336,10 @@ namespace PicsApp
                     rutaThumbActual2 = null;
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
-                    RefreshAll();
+                    
                     BorrarSeleccionados1();
                     BorrarSeleccionados2();
+                    RefreshAll();
                     archivosParaBorrar1.Clear();
                     archivosParaBorrar2.Clear();
                     string[] archivos1 = Directory.GetFiles(rutaCarpetaThumbs1);
@@ -1683,10 +1684,10 @@ namespace PicsApp
                 pictureBox1.BringToFront();
                 pictureBox2.BringToFront();
 
-                lblNombre1.Text = $"Name:{nombreBuscadoActual1}";
-                lblRes1.Text = $"Resoltion:{resolucionDuplicadoActualX1}x{resolucionDuplicadoActualY1}";
-                lblPeso1.Text = $"Weight:{pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
-                lblFecha1.Text = $"Date:{fechaDuplicadoActual1.ToString()}";
+                lblNombre1.Text = $"Name: {nombreBuscadoActual1}";
+                lblRes1.Text = $"Resoltion: {resolucionDuplicadoActualX1} x {resolucionDuplicadoActualY1}";
+                lblPeso1.Text = $"Weight: {pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
+                lblFecha1.Text = $"Date: {fechaDuplicadoActual1.ToString()}";
                 pictureBox1.Image = Image.FromFile(rutaDuplicadoActual1);
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox1.BringToFront();
@@ -1699,10 +1700,10 @@ namespace PicsApp
                 lblNombre2.Visible = true;
                 lblNombre2.Visible = true;
 
-                lblNombre2.Text = $"Name:{nombreBuscadoActual2}";
-                lblRes2.Text = $"Resolution:{resolucionDuplicadoActualX2}x{resolucionDuplicadoActualY2}";
-                lblPeso2.Text = $"Weight:{pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
-                lblFecha2.Text = $"Date:{fechaDuplicadoActual2.ToString()}";
+                lblNombre2.Text = $"Name: {nombreBuscadoActual2}";
+                lblRes2.Text = $"Resolution: {resolucionDuplicadoActualX2} x {resolucionDuplicadoActualY2}";
+                lblPeso2.Text = $"Weight: {pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
+                lblFecha2.Text = $"Date: {fechaDuplicadoActual2.ToString()}";
                 pictureBox2.Image = Image.FromFile(rutaDuplicadoActual2);
                 pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox2.BringToFront();
