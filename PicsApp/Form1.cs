@@ -17,6 +17,7 @@ using System.Xml.Linq;
 using static PicsApp.Form1;
 using static System.Collections.Specialized.BitVector32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace PicsApp
 {
@@ -1340,6 +1341,20 @@ namespace PicsApp
                     BorrarSeleccionados2();
                     archivosParaBorrar1.Clear();
                     archivosParaBorrar2.Clear();
+                    string[] archivos1 = Directory.GetFiles(rutaCarpetaThumbs1);
+                    foreach (string archivo in archivos1)
+                    {
+                        File.Delete(archivo);
+                    }
+                    Directory.Delete(rutaCarpetaThumbs1);
+
+                    string[] archivos2 = Directory.GetFiles(rutaCarpetaThumbs2);
+                    foreach (string archivo in archivos2)
+                    {
+                        File.Delete(archivo);
+                    }
+                    Directory.Delete(rutaCarpetaThumbs2);
+
                     Directory.Delete(rutaMiniaturas);
                     //Application.Restart();
                 }
