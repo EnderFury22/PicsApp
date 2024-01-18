@@ -123,6 +123,10 @@ namespace PicsApp
         public string pesoUsadoDuplicadoActual2;
         public DateTime fechaDuplicadoActual1;
         public DateTime fechaDuplicadoActual2;
+        public int resolucionDuplicadoActualX1;
+        public int resolucionDuplicadoActualY1;
+        public int resolucionDuplicadoActualX2;
+        public int resolucionDuplicadoActualY2;
 
         public bool carpeta1Seleccionada = false;
         public bool carpeta2Seleccionada = false;
@@ -144,8 +148,8 @@ namespace PicsApp
         public List<string> rutasDeImagenesRepetidas1 = new List<string>();
         public List<string> rutasDeImagenesRepetidas2 = new List<string>();
 
-        public string resolucionesDeImagenesRepetidasX1;
-        public string resolucionesDeImagenesRepetidasY1;
+        public int resolucionesDeImagenesRepetidasX1;
+        public int resolucionesDeImagenesRepetidasY1;
         public string resolucionesDeImagenesRepetidasX2;
         public string resolucionesDeImagenesRepetidasY2;
 
@@ -153,12 +157,16 @@ namespace PicsApp
         public string rutaDeThumb2;
         public string nombreDeThumb1;
         public string nombreDeThumb2;
+        public string rutaRealThumb1;
+        public string rutaRealThumb2;
 
         public Size resolucionDeThumb1;
         public Size resolucionDeThumb2;
 
         List<List<object>> imageParametersThumb = new List<List<object>>();
-        List<ThumbsInfo> listaDeThumbs = new List<ThumbsInfo>();
+        List<ThumbsInfo> listaDeThumbs1 = new List<ThumbsInfo>();
+        List<List<object>> imageParametersThumb2 = new List<List<object>>();
+        List<ThumbsInfo> listaDeThumbs2 = new List<ThumbsInfo>();
 
 
 
@@ -253,7 +261,6 @@ namespace PicsApp
 
             ObtenerRutasdeRepetidas();
             SuministrarInfoThumbs();
-            CrearInstanciasParaThumbnails();
         }
 
 
@@ -432,8 +439,8 @@ namespace PicsApp
                 btnMostrarIgualesMenos.Visible = true;
             }
             CargarDatosActuales();
-            ObtenerResolucionSecundaria(rutaDuplicadoActual1);
-            lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
+            //ObtenerResolucionSecundaria(rutaDuplicadoActual1);
+            //lblRes1.Text = $"Resolution:{imageRes1X}x{imageRes1Y}";
             btnruta1_Click(sender, e);
             ObtenerResolucionSecundaria(rutaDuplicadoActual2);
             lblRes2.Text = $"Resolution:{imageRes2X}x{imageRes2Y}";
@@ -1123,45 +1130,7 @@ namespace PicsApp
             }
         }
 
-        private void MostrarImagen()
-        {
-            if (pressedBtn == 1 && validImage1 == true)
-            {
-                lblRes1.Visible = true;
-                lblFecha1.Visible = true;
-                lblPeso1.Visible = true;
-                lblNombre1.Visible = true;
-                lblNombre1.Visible = true;
-                pictureBox1.Visible = true;
-                pictureBox2.Visible = true;
-                pictureBox1.BringToFront();
-                pictureBox2.BringToFront();
-
-                lblNombre1.Text = $"Name:{nombreBuscadoActual1}";
-                //lblRes1.Text = $"Resolucion:{listaDeImagenes1[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes1[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso1.Text = $"Weight:{pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
-                lblFecha1.Text = $"Date:{fechaDuplicadoActual1.ToString()}";
-                pictureBox1.Image = Image.FromFile(rutaDuplicadoActual1);
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox1.BringToFront();
-            }
-            else if (pressedBtn == 2 && validImage2 == true)
-            {
-                lblRes2.Visible = true;
-                lblFecha2.Visible = true;
-                lblPeso2.Visible = true;
-                lblNombre2.Visible = true;
-                lblNombre2.Visible = true;
-
-                lblNombre2.Text = $"Name:{nombreBuscadoActual2}";
-                //lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
-                lblPeso2.Text = $"Weight:{pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
-                lblFecha2.Text = $"Date:{fechaDuplicadoActual2.ToString()}";
-                pictureBox2.Image = Image.FromFile(rutaDuplicadoActual2);
-                pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox2.BringToFront();
-            }
-        }
+        
 
         public int cantidadEnNumero;
         private void ActualizarCarpetaDeCarga1()
@@ -1260,20 +1229,7 @@ namespace PicsApp
                                 (imagen1, imagen2) => imagen1).ToList();
         }
 
-        private void CargarDatosActuales()
-        {
-            nombreBuscadoActual1 = interseccionPrincipal1[cont - 1].Name;
-            pesoDuplicadoActual1 = interseccionPrincipal1[cont - 1].Weight;
-            pesoUsadoDuplicadoActual1 = interseccionPrincipal1[cont - 1].UsedSize;
-            rutaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Path;
-            fechaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Date;
-
-            nombreBuscadoActual2 = interseccionPrincipal2[cont - 1].Name;
-            pesoDuplicadoActual2 = interseccionPrincipal2[cont - 1].Weight;
-            pesoUsadoDuplicadoActual2 = interseccionPrincipal2[cont - 1].UsedSize;
-            rutaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Path;
-            fechaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Date;
-        }
+        
 
         private void CalcularRepetidos()
         {
@@ -1576,17 +1532,19 @@ namespace PicsApp
         public void CrearInstanciasParaThumbnails()
         {
 
-            ThumbsInfo newImage = new ThumbsInfo(rutaArchivo: rutaDeThumb1, resolucion: resolucionDeThumb1, nombre: nombreDeThumb1);
+            ThumbsInfo newImage = new ThumbsInfo(rutaArchivo: rutaDeThumb1, resolucion: resolucionDeThumb1, nombre: nombreDeThumb1, resolucionX: resolucionesDeImagenesRepetidasX1, resolucionY: resolucionesDeImagenesRepetidasY1, rutaDelThumb: rutaRealThumb1);
 
             List<object> parameters = new List<object>
                     {
                         newImage.Resolucion,
                         newImage.RutaArchivo,
                         newImage.Nombre,
+                        newImage.ResolucionX,
+                        newImage.ResolucionY,
+                        newImage.RutaDelThumb,
                     };
             imageParametersThumb.Add(parameters);
-            listaDeThumbs.Add(newImage);
-
+            listaDeThumbs1.Add(newImage);
         }
 
 
@@ -1594,14 +1552,20 @@ namespace PicsApp
         class ThumbsInfo
         {
             public string RutaArchivo { get; set; }
+            public string RutaDelThumb {  get; set; }
             public Size Resolucion { get; set; }
+            public int ResolucionX { get; set; }
+            public int ResolucionY { get; set; }
             public string Nombre { get; set; }
 
-            public ThumbsInfo(string rutaArchivo, Size resolucion, string nombre)
+            public ThumbsInfo(string rutaArchivo, Size resolucion, string nombre, int resolucionX, int resolucionY, string rutaDelThumb)
             {
                 RutaArchivo = rutaArchivo;
                 Resolucion = resolucion;
                 Nombre = nombre;
+                ResolucionX = resolucionX;
+                ResolucionY = resolucionY;
+                RutaDelThumb = rutaDelThumb;
             }
         }
 
@@ -1623,12 +1587,75 @@ namespace PicsApp
             {
                 nombreDeThumb1 = ruta.Name;
                 rutaDeThumb1 = ruta.Path;
-                using (Bitmap imagen = new Bitmap(ruta.ToString()))
+                using (Bitmap imagen = new Bitmap(ruta.Path))
                 {
-                    resolucionesDeImagenesRepetidasX1 = imagen.Width.ToString();
-                    resolucionesDeImagenesRepetidasY1 = imagen.Height.ToString();
+                    resolucionesDeImagenesRepetidasX1 = imagen.Width;
+                    resolucionesDeImagenesRepetidasY1 = imagen.Height;
                 }
+                rutaRealThumb1 = rutaMiniaturas + "\\" + ruta.Name;
+                CrearInstanciasParaThumbnails();
             }
+        }
+
+
+
+        private void MostrarImagen()
+        {
+            if (pressedBtn == 1 && validImage1 == true)
+            {
+                lblRes1.Visible = true;
+                lblFecha1.Visible = true;
+                lblPeso1.Visible = true;
+                lblNombre1.Visible = true;
+                lblNombre1.Visible = true;
+                pictureBox1.Visible = true;
+                pictureBox2.Visible = true;
+                pictureBox1.BringToFront();
+                pictureBox2.BringToFront();
+
+                lblNombre1.Text = $"Name:{nombreBuscadoActual1}";
+                lblRes1.Text = $"Resoltion:{resolucionDuplicadoActualX1}x{resolucionDuplicadoActualY1}";
+                lblPeso1.Text = $"Weight:{pesoDuplicadoActual1.ToString("F2")} {pesoUsadoDuplicadoActual1}";
+                lblFecha1.Text = $"Date:{fechaDuplicadoActual1.ToString()}";
+                pictureBox1.Image = Image.FromFile(rutaDuplicadoActual1);
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox1.BringToFront();
+            }
+            else if (pressedBtn == 2 && validImage2 == true)
+            {
+                lblRes2.Visible = true;
+                lblFecha2.Visible = true;
+                lblPeso2.Visible = true;
+                lblNombre2.Visible = true;
+                lblNombre2.Visible = true;
+
+                lblNombre2.Text = $"Name:{nombreBuscadoActual2}";
+                //lblRes2.Text = $"Resolucion:{listaDeImagenes2[imagenABuscar].ResolutionX.ToString()}x{listaDeImagenes2[imagenABuscar].ResolutionY.ToString()}";
+                lblPeso2.Text = $"Weight:{pesoDuplicadoActual2.ToString("F2")} {pesoUsadoDuplicadoActual2}";
+                lblFecha2.Text = $"Date:{fechaDuplicadoActual2.ToString()}";
+                pictureBox2.Image = Image.FromFile(rutaDuplicadoActual2);
+                pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox2.BringToFront();
+            }
+        }
+
+
+
+        private void CargarDatosActuales()
+        {
+            nombreBuscadoActual1 = interseccionPrincipal1[cont - 1].Name;
+            pesoDuplicadoActual1 = interseccionPrincipal1[cont - 1].Weight;
+            pesoUsadoDuplicadoActual1 = interseccionPrincipal1[cont - 1].UsedSize;
+            rutaDuplicadoActual1 = listaDeThumbs1[cont - 1].RutaDelThumb;
+            fechaDuplicadoActual1 = interseccionPrincipal1[cont - 1].Date;
+            resolucionDuplicadoActualX1 = listaDeThumbs1[cont - 1].ResolucionX;
+            resolucionDuplicadoActualY1 = listaDeThumbs1[cont - 1].ResolucionY;
+
+            nombreBuscadoActual2 = interseccionPrincipal2[cont - 1].Name;
+            pesoDuplicadoActual2 = interseccionPrincipal2[cont - 1].Weight;
+            pesoUsadoDuplicadoActual2 = interseccionPrincipal2[cont - 1].UsedSize;
+            rutaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Path;
+            fechaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Date;
         }
     }
 }
