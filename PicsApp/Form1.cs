@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static PicsApp.Form1;
 using static System.Collections.Specialized.BitVector32;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PicsApp
 {
@@ -74,7 +79,13 @@ namespace PicsApp
 
         public bool validImage1 = false;
         public bool validImage2 = false;
+
         List<string> nombresDuplicados = new List<string>();
+        private List<Imagenes> listaDeImagenes1 = new List<Imagenes>();
+        List<string> imagePaths1 = new List<string> { };
+        private List<Imagenes> listaDeImagenes2 = new List<Imagenes>();
+        List<string> imagePaths2 = new List<string> { };
+
         //List<string> nombresDeDuplicados1 = new List<string>();
         //List<string> nombresDeDuplicados2 = new List<string>();
         //List<string> rutasDeDuplicados1 = new List<string>();
@@ -93,6 +104,7 @@ namespace PicsApp
         private List<string> archivosCarpeta2 = new List<string>();
 
         List<List<object>> imageParameters = new List<List<object>>();
+
 
         public Imagenes objetoBuscado1;
         public Imagenes objetoBuscado2;
@@ -119,6 +131,44 @@ namespace PicsApp
 
         HashSet<string> archivosParaBorrar1 = new HashSet<string>();
         HashSet<string> archivosParaBorrar2 = new HashSet<string>();
+
+
+
+
+
+
+
+
+        public string rutaMiniaturas = "C:\\Picsapp";
+
+        public List<string> rutasDeImagenesRepetidas1 = new List<string>();
+        public List<string> rutasDeImagenesRepetidas2 = new List<string>();
+
+        public string resolucionesDeImagenesRepetidasX1;
+        public string resolucionesDeImagenesRepetidasY1;
+        public string resolucionesDeImagenesRepetidasX2;
+        public string resolucionesDeImagenesRepetidasY2;
+
+        public string rutaDeThumb1;
+        public string rutaDeThumb2;
+        public string nombreDeThumb1;
+        public string nombreDeThumb2;
+
+        public Size resolucionDeThumb1;
+        public Size resolucionDeThumb2;
+
+        List<List<object>> imageParametersThumb = new List<List<object>>();
+        List<ThumbsInfo> listaDeThumbs = new List<ThumbsInfo>();
+
+
+
+
+
+
+
+
+
+
 
         public Form1()
         {
@@ -196,7 +246,14 @@ namespace PicsApp
 
         private void btntobar_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            //this.WindowState = FormWindowState.Minimized;
+            //CrearThumbnails("C:\\Users\\cread\\OneDrive\\Pictures\\Apolo\\002.jpg", "C:\\Picsapp\\002.jpeg", 1200, 1600);
+            //ObtenerResolucionImagen("C:\\Picsapp\\002.jpeg");
+            //IntroducirResoluciones();
+
+            ObtenerRutasdeRepetidas();
+            SuministrarInfoThumbs();
+            CrearInstanciasParaThumbnails();
         }
 
 
@@ -252,7 +309,7 @@ namespace PicsApp
         {
             checkBoxImagen1.Visible = false;
             checkBoxImagen2.Visible = false;
-            lblBorrar.Visible= false;
+            lblBorrar.Visible = false;
             await Task.Run(() => AccionBotonCarpeta2());
         }
 
@@ -299,7 +356,7 @@ namespace PicsApp
             {
                 CalcularRepetidos();
             }
-            if (listaDeImagenes1 != null && listaDeImagenes2 != null  && cantidadDeRepetidos != 0)
+            if (listaDeImagenes1 != null && listaDeImagenes2 != null && cantidadDeRepetidos != 0)
             {
                 listBox1.Items.Clear();
                 nombresDuplicados.Clear();
@@ -312,6 +369,17 @@ namespace PicsApp
                 {
                     listBox1.Items.Add(duplicado);
                 }
+                /*foreach (Imagenes Imagen in interseccionPrincipal1)
+                {
+                    rutasDeImagenesRepetidas1.Add(Imagen);
+                    nombresParaThumbnails1.Add(Imagen);
+                    resolucionesDeImagenesRepetidasX1.Add(Imagen);
+                }
+                foreach (Imagenes Imagen in interseccionPrincipal2)
+                {
+                    rutasDeImagenesRepetidas2.Add(Imagen);
+                    nombresParaThumbnails2.Add(Imagen);
+                }*/
 
                 if (cantidadDeRepetidos == 0)
                 {
@@ -586,7 +654,7 @@ namespace PicsApp
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
                 filePath1 = openFileDialog.FileName;
-                fileName1 = Path.GetFileName(filePath1);
+            fileName1 = Path.GetFileName(filePath1);
         }
 
         private void AbrirArchivoEnHiloPrincipal2()
@@ -745,10 +813,7 @@ namespace PicsApp
                 }
             }
         }
-        private List<Imagenes> listaDeImagenes1 = new List<Imagenes>();
-        List<string> imagePaths1 = new List<string> { };
-        private List<Imagenes> listaDeImagenes2 = new List<Imagenes>();
-        List<string> imagePaths2 = new List<string> { };
+
 
         private void HacerVisibleListbox1()
         {
@@ -780,7 +845,7 @@ namespace PicsApp
                     Path.GetExtension(archivo).Equals(".jfif", StringComparison.OrdinalIgnoreCase) ||
                     Path.GetExtension(archivo).Equals(".webp", StringComparison.OrdinalIgnoreCase))
                 {
-                    if(listBox1.InvokeRequired)
+                    if (listBox1.InvokeRequired)
                     {
                         listBox1.Invoke(new Action(() => HacerVisibleListbox1()));
                     }
@@ -1136,7 +1201,7 @@ namespace PicsApp
                 {
                     barraCarpeta1.Invoke(new Action(() => ActualizarCarpetaDeCarga1()));
                 }
-                
+
             }
             else if (pressedBtn == 2)
             {
@@ -1167,7 +1232,7 @@ namespace PicsApp
             ObtenerResolucionImagenes(rutaImagen);
         }
 
-     
+
         public void ViaAlternativa1()
         {
             interseccionPrincipal1.Clear();
@@ -1176,13 +1241,13 @@ namespace PicsApp
                                 imagen2 => imagen2.Name,
                                 (imagen1, imagen2) => imagen1).ToList();
 
-                cantidadDeRepetidos = interseccionPrincipal1.Count();
+            cantidadDeRepetidos = interseccionPrincipal1.Count();
 
             for (int i = 0; i < cantidadDeRepetidos; i++)
             {
                 nombresDuplicados.Add(interseccionPrincipal1[i].Name);
             }
-            
+
         }
 
 
@@ -1246,7 +1311,7 @@ namespace PicsApp
                 {
                     MessageBox.Show($"The file in the route '{archivo}' couldn't be found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            } 
+            }
         }
 
         private void BorrarSeleccionados2()
@@ -1336,6 +1401,8 @@ namespace PicsApp
             lblBorrar.Hide();
             checkBoxImagen1.Hide();
             checkBoxImagen2.Hide();
+            archivosParaBorrar1.Clear();
+            archivosParaBorrar2.Clear();
 
             nombresDuplicados.Clear();
             listaTotalDeImagenes1.Clear();
@@ -1371,6 +1438,7 @@ namespace PicsApp
             shortPath1 = null;
             shortPath2 = null;
 
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -1395,6 +1463,171 @@ namespace PicsApp
             else
             {
                 checkBoxImagen2.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void CrearCarpetaMiniaturas()
+        {
+            if (Directory.Exists(rutaMiniaturas)) { }
+            else
+            {
+                // Crear la carpeta si no existe
+                Directory.CreateDirectory(rutaMiniaturas);
+            }
+        }
+
+        private void BorrarCarpetaMiniaturas()
+        {
+            if (Directory.Exists(rutaMiniaturas))
+            {
+                Directory.Delete(rutaMiniaturas);
+            }
+        }
+
+        public void CrearThumbnails(string rutaImagenOriginal, string rutaThumbnail, int ancho, int alto)
+        {
+            using (Image imagenOriginal = Image.FromFile(rutaImagenOriginal))
+            {
+                // Calcular nuevas dimensiones manteniendo la proporción
+                int nuevaAncho, nuevaAlto;
+                MantenerProporcion(imagenOriginal.Width, imagenOriginal.Height, ancho, alto, out nuevaAncho, out nuevaAlto);
+                using (Bitmap thumbnail = new Bitmap(nuevaAncho, nuevaAlto))
+                {
+                    using (Graphics g = Graphics.FromImage(thumbnail))
+                    {
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.SmoothingMode = SmoothingMode.HighQuality;
+                        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        g.CompositingQuality = CompositingQuality.HighQuality;
+
+                        // Dibujar la miniatura
+                        g.DrawImage(imagenOriginal, 0, 0, nuevaAncho, nuevaAlto);
+
+                    }
+                    thumbnail.Save(rutaThumbnail, ImageFormat.Jpeg);
+                }
+            }
+
+        }
+
+        static void MantenerProporcion(int originalAncho, int originalAlto, int nuevoAnchoDeseado, int nuevoAltoDeseado, out int nuevoAncho, out int nuevoAlto)
+        {
+            nuevoAnchoDeseado = (int)(originalAncho * 0.25);
+            nuevoAltoDeseado = (int)(originalAlto * 0.25);
+
+            double proporcionOriginal = (double)originalAncho / originalAlto;
+
+            if (originalAncho > originalAlto)
+            {
+                nuevoAncho = nuevoAnchoDeseado;
+                nuevoAlto = (int)(nuevoAncho / proporcionOriginal);
+            }
+            else
+            {
+                nuevoAlto = nuevoAltoDeseado;
+                nuevoAncho = (int)(nuevoAlto * proporcionOriginal);
+            }
+        }
+
+        static Size ObtenerResolucionImagen(string rutaArchivo)
+        {
+            using (Image imagen = Image.FromFile(rutaArchivo))
+            {
+                return new Size(imagen.Width, imagen.Height);
+            }
+        }
+
+        /*private void IntroducirResoluciones()
+        {
+            foreach (Imagenes rutaArchivo1 in rutasDeImagenesRepetidas1)
+            {
+                try
+                {
+                    Size resolucion1 = ObtenerResolucionImagen(rutaArchivo1.Path);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al procesar {rutaArchivo1}: {ex.Message}");
+                }
+            }
+            foreach (Imagenes rutaArchivo2 in rutasDeImagenesRepetidas2)
+            {
+                try
+                {
+                    Size resolucion2 = ObtenerResolucionImagen(rutaArchivo2.Path);
+                    //resolucionesDeImagenesRepetidasX2.Add(resolucion2.Width);
+                    //resolucionesDeImagenesRepetidasY2.Add(resolucion2.Height);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al procesar {rutaArchivo2}: {ex.Message}");
+                }
+            }
+        }*/
+
+
+
+
+
+
+
+
+
+        public void CrearInstanciasParaThumbnails()
+        {
+
+            ThumbsInfo newImage = new ThumbsInfo(rutaArchivo: rutaDeThumb1, resolucion: resolucionDeThumb1, nombre: nombreDeThumb1);
+
+            List<object> parameters = new List<object>
+                    {
+                        newImage.Resolucion,
+                        newImage.RutaArchivo,
+                        newImage.Nombre,
+                    };
+            imageParametersThumb.Add(parameters);
+            listaDeThumbs.Add(newImage);
+
+        }
+
+
+
+        class ThumbsInfo
+        {
+            public string RutaArchivo { get; set; }
+            public Size Resolucion { get; set; }
+            public string Nombre { get; set; }
+
+            public ThumbsInfo(string rutaArchivo, Size resolucion, string nombre)
+            {
+                RutaArchivo = rutaArchivo;
+                Resolucion = resolucion;
+                Nombre = nombre;
+            }
+        }
+
+
+        public void ObtenerRutasdeRepetidas()
+        {
+            foreach (var imagen in interseccionPrincipal1)
+            {
+                rutasDeImagenesRepetidas1.Add(imagen.Path);
+            }
+            foreach (var imagen in interseccionPrincipal2)
+            {
+                rutasDeImagenesRepetidas2.Add(imagen.Path);
+            }
+        }
+        public void SuministrarInfoThumbs()
+        {
+            foreach (var ruta in interseccionPrincipal1)
+            {
+                nombreDeThumb1 = ruta.Name;
+                rutaDeThumb1 = ruta.Path;
+                using (Bitmap imagen = new Bitmap(ruta.ToString()))
+                {
+                    resolucionesDeImagenesRepetidasX1 = imagen.Width.ToString();
+                    resolucionesDeImagenesRepetidasY1 = imagen.Height.ToString();
+                }
             }
         }
     }
