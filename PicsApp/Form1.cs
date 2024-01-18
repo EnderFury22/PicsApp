@@ -219,6 +219,10 @@ namespace PicsApp
             btntobar.FlatStyle = FlatStyle.Flat;
             btntobar.BringToFront();
             btntobar.FlatAppearance.BorderSize = 0;
+            btnBorrar1.FlatStyle = FlatStyle.Flat;
+            btnBorrar1.FlatAppearance.BorderSize = 0;
+            btnBorrar2.FlatStyle = FlatStyle.Flat;
+            btnBorrar2.FlatAppearance.BorderSize = 0;
             lblRes1.Hide();
             lblRes2.Hide();
             lblFecha1.Hide();
@@ -238,6 +242,8 @@ namespace PicsApp
             btnMostrarIgualesMenos.Hide();
             checkBoxImagen1.Hide();
             checkBoxImagen2.Hide();
+            btnBorrar1.Hide();
+            btnBorrar2.Hide();
             lblBorrar.Hide();
             label1.MouseDown += TitleLabel_MouseDown;
             label1.MouseMove += TitleLabel_MouseMove;
@@ -288,8 +294,10 @@ namespace PicsApp
 
         private async void btnCarpeta1_Click(object sender, EventArgs e)
         {
-            checkBoxImagen1.Visible = false;
-            checkBoxImagen2.Visible = false;
+            //checkBoxImagen1.Visible = false;
+            // checkBoxImagen2.Visible = false;
+            btnBorrar1.Visible = false;
+            btnBorrar2.Visible = false;
             lblBorrar.Visible = false;
             await Task.Run(() => AccionBotonCarpeta1());
         }
@@ -316,8 +324,10 @@ namespace PicsApp
 
         private async void btnCarpeta2_Click(object sender, EventArgs e)
         {
-            checkBoxImagen1.Visible = false;
-            checkBoxImagen2.Visible = false;
+            //checkBoxImagen1.Visible = false;
+            //checkBoxImagen2.Visible = false;
+            btnBorrar1.Visible = false;
+            btnBorrar2.Visible = false;
             lblBorrar.Visible = false;
             await Task.Run(() => AccionBotonCarpeta2());
         }
@@ -358,8 +368,10 @@ namespace PicsApp
 
         private void btnComparar_Click(object sender, EventArgs e)
         {
-            checkBoxImagen1.Visible = false;
-            checkBoxImagen2.Visible = false;
+            //checkBoxImagen1.Visible = false;
+            //checkBoxImagen2.Visible = false;
+            btnBorrar1.Visible = false;
+            btnBorrar2.Visible = false;
             lblBorrar.Visible = false;
             if (repetidosVerificados == false)
             {
@@ -417,8 +429,10 @@ namespace PicsApp
             //cantidadDeRepetidos = nombresDuplicados.Count;
             //ViaAlternativa1();
             //ViaAlternativa2();
-            checkBoxImagen1.Visible = true;
-            checkBoxImagen2.Visible = true;
+            //checkBoxImagen1.Visible = true;
+            //checkBoxImagen2.Visible = true;
+            btnBorrar1.Visible = true;
+            btnBorrar2.Visible = true;
             lblBorrar.Visible = true;
             btnBorrar.Text = "Erase";
 
@@ -469,16 +483,20 @@ namespace PicsApp
             btnruta1_Click(sender, e);
             btnruta2_Click_1(sender, e);
 
-            CheckCheck1();
-            CheckCheck2();
+            //CheckCheck1();
+            //CheckCheck2();
+            CheckBtn1();
+            Checkbtn2();
         }
 
         private void btnMostrarIgualesMenos_Click(object sender, EventArgs e)
         {
             //ViaAlternativa1();
             //ViaAlternativa2();
-            checkBoxImagen1.Visible = true;
-            checkBoxImagen2.Visible = true;
+            //checkBoxImagen1.Visible = true;
+            //checkBoxImagen2.Visible = true;
+            btnBorrar1.Visible = true;
+            btnBorrar2.Visible = true;
             lblBorrar.Visible = true;
             btnBorrar.Text = "Erase";
 
@@ -528,8 +546,10 @@ namespace PicsApp
             //CargarDatosActuales();
             //btnruta1_Click(sender, e);
             //btnruta2_Click_1(sender, e);
-            CheckCheck1();
-            CheckCheck2();
+            //CheckCheck1();
+            //CheckCheck2();
+            CheckBtn1();
+            Checkbtn2();
         }
 
         private void checkBoxImagen1_CheckedChanged(object sender, EventArgs e)
@@ -1320,6 +1340,7 @@ namespace PicsApp
                     BorrarSeleccionados2();
                     archivosParaBorrar1.Clear();
                     archivosParaBorrar2.Clear();
+                    Directory.Delete(rutaMiniaturas);
                     //Application.Restart();
                 }
             }
@@ -1364,6 +1385,8 @@ namespace PicsApp
             lblBorrar.Hide();
             checkBoxImagen1.Hide();
             checkBoxImagen2.Hide();
+            btnBorrar1.Hide();
+            btnBorrar2.Hide();
             archivosParaBorrar1.Clear();
             archivosParaBorrar2.Clear();
 
@@ -1376,6 +1399,14 @@ namespace PicsApp
 
             interseccionPrincipal1.Clear();
             interseccionPrincipal2.Clear();
+
+            rutasDeImagenesRepetidas1.Clear();
+            rutasDeImagenesRepetidas2.Clear();
+            imageParametersThumb.Clear();
+            listaDeThumbs1.Clear();
+            imageParametersThumb2.Clear();
+            listaDeThumbs2.Clear();
+
             /*nombreBuscadoActual1 = "";
             nombreBuscadoActual2 = "";
             nombreDuplicadoACtual = "";
@@ -1684,6 +1715,60 @@ namespace PicsApp
             fechaDuplicadoActual2 = interseccionPrincipal2[cont - 1].Date;
             resolucionDuplicadoActualX2 = listaDeThumbs2[cont - 1].ResolucionX;
             resolucionDuplicadoActualY2 = listaDeThumbs2[cont - 1].ResolucionY;
+        }
+
+
+
+        private void btnBorrar1_Click(object sender, EventArgs e)
+        {
+            if (btnBorrar1.BackColor == Color.FromArgb(46, 46, 46))
+            {
+                archivosParaBorrar1.Add(rutaThumbActual1);
+                btnBorrar1.BackColor = Color.Red;
+            }
+            else
+            {
+                archivosParaBorrar1.Remove(rutaThumbActual1);
+                btnBorrar1.BackColor = Color.FromArgb(46, 46, 46);
+            }
+        }
+
+        private void btnBorrar2_Click(object sender, EventArgs e)
+        {
+            if (btnBorrar2.BackColor == Color.FromArgb(46, 46, 46))
+            {
+                archivosParaBorrar2.Add(rutaThumbActual2);
+                btnBorrar2.BackColor = Color.Red;
+            }
+            else
+            {
+                archivosParaBorrar2.Remove(rutaThumbActual2);
+                btnBorrar2.BackColor = Color.FromArgb(46, 46, 46);
+            }
+        }
+
+        private void CheckBtn1()
+        {
+            if (archivosParaBorrar1.Contains(rutaThumbActual1))
+            {
+                btnBorrar1.BackColor = Color.Red;
+            }
+            else
+            {
+                btnBorrar1.BackColor = Color.FromArgb(46, 46, 46);
+            }
+        }
+
+        private void Checkbtn2()
+        {
+            if (archivosParaBorrar2.Contains(rutaThumbActual2))
+            {
+                btnBorrar2.BackColor = Color.Red;
+            }
+            else
+            {
+                btnBorrar2.BackColor = Color.FromArgb(46, 46, 46);
+            }
         }
     }
 }

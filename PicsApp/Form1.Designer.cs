@@ -56,6 +56,8 @@
             this.checkBoxImagen1 = new System.Windows.Forms.CheckBox();
             this.checkBoxImagen2 = new System.Windows.Forms.CheckBox();
             this.btnBorrar = new System.Windows.Forms.Button();
+            this.btnBorrar1 = new System.Windows.Forms.Button();
+            this.btnBorrar2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -104,7 +106,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1300, 40);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Image Comparer";
+            this.label1.Text = "Picsapp";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -386,12 +388,40 @@
             this.btnBorrar.UseVisualStyleBackColor = false;
             this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
             // 
+            // btnBorrar1
+            // 
+            this.btnBorrar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnBorrar1.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBorrar1.ForeColor = System.Drawing.Color.White;
+            this.btnBorrar1.Location = new System.Drawing.Point(586, 152);
+            this.btnBorrar1.Name = "btnBorrar1";
+            this.btnBorrar1.Size = new System.Drawing.Size(35, 35);
+            this.btnBorrar1.TabIndex = 32;
+            this.btnBorrar1.Text = "1";
+            this.btnBorrar1.UseVisualStyleBackColor = false;
+            this.btnBorrar1.Click += new System.EventHandler(this.btnBorrar1_Click);
+            // 
+            // btnBorrar2
+            // 
+            this.btnBorrar2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btnBorrar2.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBorrar2.ForeColor = System.Drawing.Color.White;
+            this.btnBorrar2.Location = new System.Drawing.Point(690, 152);
+            this.btnBorrar2.Name = "btnBorrar2";
+            this.btnBorrar2.Size = new System.Drawing.Size(35, 35);
+            this.btnBorrar2.TabIndex = 33;
+            this.btnBorrar2.Text = "2";
+            this.btnBorrar2.UseVisualStyleBackColor = false;
+            this.btnBorrar2.Click += new System.EventHandler(this.btnBorrar2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.Controls.Add(this.btnBorrar2);
+            this.Controls.Add(this.btnBorrar1);
             this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.checkBoxImagen2);
             this.Controls.Add(this.checkBoxImagen1);
@@ -461,6 +491,8 @@
         private System.Windows.Forms.CheckBox checkBoxImagen1;
         private System.Windows.Forms.CheckBox checkBoxImagen2;
         private System.Windows.Forms.Button btnBorrar;
+        private System.Windows.Forms.Button btnBorrar1;
+        private System.Windows.Forms.Button btnBorrar2;
     }
 }
 
