@@ -175,7 +175,8 @@ namespace PicsApp
         List<ThumbsInfo> listaDeThumbs2 = new List<ThumbsInfo>();
 
 
-
+        public List<Imagenes> interseccionThumbs1 = new List<Imagenes>();
+        public List<Imagenes> interseccionThumbs2 = new List<Imagenes>();
 
 
 
@@ -192,6 +193,10 @@ namespace PicsApp
         private void Form1_Load(object sender, EventArgs e)
         {
             formStyles(sender, e);
+
+            this.KeyDown += MainForm_KeyDown;
+            // Permitir que el formulario reciba eventos de teclado
+            this.KeyPreview = true;
         }
 
         private void formStyles(object sender, EventArgs e)
@@ -266,10 +271,8 @@ namespace PicsApp
 
         private void btntobar_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
-            //CrearThumbnails("C:\\Users\\cread\\OneDrive\\Pictures\\Apolo\\002.jpg", "C:\\Picsapp\\002.jpeg", 1200, 1600);
-            //ObtenerResolucionImagen("C:\\Picsapp\\002.jpeg");
-            //IntroducirResoluciones();
+            //this.WindowState = FormWindowState.Minimized;
+            InterseccionThumbs1();
         }
 
 
@@ -761,7 +764,7 @@ namespace PicsApp
         private void BtnCompararVisible()
         {
             btnComparar.Visible = true;
-            btnBorrar.Location = new Point(610, 196);
+            btnBorrar.Location = new Point(611, 129);
         }
 
         private void BtnCarpeta2Visible()
@@ -1326,48 +1329,69 @@ namespace PicsApp
                 DialogResult selection = MessageBox.Show("Are you sure you want to delete all selected files?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (selection == DialogResult.Yes)
                 {
-                    pictureBox1.Enabled = false;
-                    pictureBox2.Enabled = false;
-                    pictureBox1.Image.Dispose();
-                    pictureBox2.Image.Dispose();
-                    rutaDuplicadoActual1 = null;
-                    rutaDuplicadoActual2 = null;
-                    rutaThumbActual1 = null;
-                    rutaThumbActual2 = null;
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    
-                    BorrarSeleccionados1();
-                    BorrarSeleccionados2();
-                    RefreshAll();
-                    archivosParaBorrar1.Clear();
-                    archivosParaBorrar2.Clear();
-                    string[] archivos1 = Directory.GetFiles(rutaCarpetaThumbs1);
-                    foreach (string archivo in archivos1)
-                    {
-                        File.Delete(archivo);
-                    }
-                    Directory.Delete(rutaCarpetaThumbs1);
-
-                    string[] archivos2 = Directory.GetFiles(rutaCarpetaThumbs2);
-                    foreach (string archivo in archivos2)
-                    {
-                        File.Delete(archivo);
-                    }
-                    Directory.Delete(rutaCarpetaThumbs2);
-
-                    Directory.Delete(rutaMiniaturas);
+                    LimpiarDatosImagenes();
+                    BorrarCarpetas();
                     //Application.Restart();
                 }
             }
+            pictureBox1.Enabled = false;
+            pictureBox2.Enabled = false;
+            pictureBox1.Image.Dispose();
+            pictureBox2.Image.Dispose();
+            rutaDuplicadoActual1 = null;
+            rutaDuplicadoActual2 = null;
+            rutaThumbActual1 = null;
+            rutaThumbActual2 = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
             RefreshAll();
+            //RefreshAll();
             //Application.Restart();
+        }
+
+        private void LimpiarDatosImagenes()
+        {
+            pictureBox1.Enabled = false;
+            pictureBox2.Enabled = false;
+            pictureBox1.Image.Dispose();
+            pictureBox2.Image.Dispose();
+            rutaDuplicadoActual1 = null;
+            rutaDuplicadoActual2 = null;
+            rutaThumbActual1 = null;
+            rutaThumbActual2 = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            BorrarSeleccionados1();
+            BorrarSeleccionados2();
+            RefreshAll();
+            archivosParaBorrar1.Clear();
+            archivosParaBorrar2.Clear();
+        }
+
+        private void BorrarCarpetas()
+        {
+            string[] archivos1 = Directory.GetFiles(rutaCarpetaThumbs1);
+            foreach (string archivo in archivos1)
+            {
+                File.Delete(archivo);
+            }
+            Directory.Delete(rutaCarpetaThumbs1);
+
+            string[] archivos2 = Directory.GetFiles(rutaCarpetaThumbs2);
+            foreach (string archivo in archivos2)
+            {
+                File.Delete(archivo);
+            }
+            Directory.Delete(rutaCarpetaThumbs2);
+
+            Directory.Delete(rutaMiniaturas);
         }
 
         private void RefreshAll()
         {
             btnBorrar.Text = "Refresh";
-            btnBorrar.Location = new Point(610, 275);
+            btnBorrar.Location = new Point(611, 208);
             cont = 1;
             spins = 0;
             barraCarpeta1.Value = 0;
@@ -1422,6 +1446,7 @@ namespace PicsApp
             listaDeThumbs1.Clear();
             imageParametersThumb2.Clear();
             listaDeThumbs2.Clear();
+
 
             /*nombreBuscadoActual1 = "";
             nombreBuscadoActual2 = "";
@@ -1528,7 +1553,6 @@ namespace PicsApp
                     thumbnail.Save(rutaThumbnail, ImageFormat.Jpeg);
                 }
             }
-
         }
 
         static void MantenerProporcion(int originalAncho, int originalAlto, int nuevoAnchoDeseado, int nuevoAltoDeseado, out int nuevoAncho, out int nuevoAlto)
@@ -1784,6 +1808,47 @@ namespace PicsApp
             else
             {
                 btnBorrar2.BackColor = Color.FromArgb(46, 46, 46);
+            }
+        }
+
+        private void InterseccionThumbs1()
+        {
+            /*interseccionThumbs1.Clear();
+            interseccionThumbs1 = interseccionPrincipal1.Join(listaDeImagenes1,
+                                imagen1 => imagen1.Name,
+                                imagen2 => imagen2.Name,
+                                (imagen1, imagen2) => imagen1).ToList();*/
+
+            Imagenes imagenEncontrada = interseccionPrincipal1.FirstOrDefault(p => p.Name == nombreBuscadoActual1);
+
+            rutaDeThumb1 = imagenEncontrada.Path;
+
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Shift && e.KeyCode == Keys.Left)
+            {
+                btnBorrar1.PerformClick();
+            }
+            else if (e.Shift && e.KeyCode == Keys.Right)
+            {
+                btnBorrar2.PerformClick();
+            }
+            else 
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        // Acción para la tecla de dirección izquierda
+                        btnMostrarIgualesMenos.PerformClick(); // Simular clic en el botón izquierdo
+                        break;
+
+                    case Keys.Right:
+                        // Acción para la tecla de dirección derecha
+                        btnMostrarIguales.PerformClick(); // Simular clic en el botón derecho
+                        break;
+                }
             }
         }
     }
