@@ -64,11 +64,12 @@
             // 
             // btnclose
             // 
+            this.btnclose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnclose.BackColor = System.Drawing.Color.Red;
             this.btnclose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnclose.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnclose.ForeColor = System.Drawing.Color.DarkRed;
-            this.btnclose.Location = new System.Drawing.Point(1260, -1);
+            this.btnclose.Location = new System.Drawing.Point(1245, 0);
             this.btnclose.Margin = new System.Windows.Forms.Padding(0);
             this.btnclose.Name = "btnclose";
             this.btnclose.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -80,11 +81,12 @@
             // 
             // btntobar
             // 
+            this.btntobar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btntobar.BackColor = System.Drawing.Color.LightBlue;
             this.btntobar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btntobar.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btntobar.ForeColor = System.Drawing.Color.DarkRed;
-            this.btntobar.Location = new System.Drawing.Point(1220, -1);
+            this.btntobar.Location = new System.Drawing.Point(1205, 0);
             this.btntobar.Margin = new System.Windows.Forms.Padding(0);
             this.btntobar.Name = "btntobar";
             this.btntobar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -96,9 +98,9 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("AniMe Matrix - MB_EN", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
@@ -111,6 +113,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox1.Location = new System.Drawing.Point(83, 129);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(448, 448);
@@ -120,6 +123,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox2.Location = new System.Drawing.Point(786, 129);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(448, 448);
@@ -154,6 +158,7 @@
             // 
             // lblRes1
             // 
+            this.lblRes1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblRes1.AutoSize = true;
             this.lblRes1.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRes1.ForeColor = System.Drawing.Color.White;
@@ -165,6 +170,7 @@
             // 
             // lblPeso1
             // 
+            this.lblPeso1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblPeso1.AutoSize = true;
             this.lblPeso1.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPeso1.ForeColor = System.Drawing.Color.White;
@@ -176,6 +182,7 @@
             // 
             // lblFecha1
             // 
+            this.lblFecha1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblFecha1.AutoSize = true;
             this.lblFecha1.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha1.ForeColor = System.Drawing.Color.White;
@@ -187,6 +194,7 @@
             // 
             // lblFecha2
             // 
+            this.lblFecha2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblFecha2.AutoSize = true;
             this.lblFecha2.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha2.ForeColor = System.Drawing.Color.White;
@@ -198,6 +206,7 @@
             // 
             // lblPeso2
             // 
+            this.lblPeso2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblPeso2.AutoSize = true;
             this.lblPeso2.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPeso2.ForeColor = System.Drawing.Color.White;
@@ -209,6 +218,7 @@
             // 
             // lblRes2
             // 
+            this.lblRes2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblRes2.AutoSize = true;
             this.lblRes2.Font = new System.Drawing.Font("ROG Fonts", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRes2.ForeColor = System.Drawing.Color.White;
@@ -220,6 +230,7 @@
             // 
             // lblNombre1
             // 
+            this.lblNombre1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblNombre1.AutoSize = true;
             this.lblNombre1.Font = new System.Drawing.Font("ROG Fonts", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre1.ForeColor = System.Drawing.Color.White;
@@ -231,6 +242,7 @@
             // 
             // lblNombre2
             // 
+            this.lblNombre2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblNombre2.AutoSize = true;
             this.lblNombre2.Font = new System.Drawing.Font("ROG Fonts", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre2.ForeColor = System.Drawing.Color.White;
@@ -242,6 +254,7 @@
             // 
             // btnCarpeta1
             // 
+            this.btnCarpeta1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnCarpeta1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnCarpeta1.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarpeta1.ForeColor = System.Drawing.Color.White;
@@ -255,6 +268,7 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(83, 129);
             this.listBox1.Name = "listBox1";
@@ -263,6 +277,7 @@
             // 
             // listBox2
             // 
+            this.listBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(786, 129);
             this.listBox2.Name = "listBox2";
@@ -271,6 +286,7 @@
             // 
             // btnComparar
             // 
+            this.btnComparar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnComparar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnComparar.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComparar.ForeColor = System.Drawing.Color.White;
@@ -284,6 +300,7 @@
             // 
             // btnMostrarIguales
             // 
+            this.btnMostrarIguales.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnMostrarIguales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnMostrarIguales.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostrarIguales.ForeColor = System.Drawing.Color.White;
@@ -297,6 +314,7 @@
             // 
             // barraCarpeta1
             // 
+            this.barraCarpeta1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.barraCarpeta1.BackColor = System.Drawing.Color.White;
             this.barraCarpeta1.Location = new System.Drawing.Point(611, 306);
             this.barraCarpeta1.Name = "barraCarpeta1";
@@ -306,6 +324,7 @@
             // 
             // barraCarpeta2
             // 
+            this.barraCarpeta2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.barraCarpeta2.Location = new System.Drawing.Point(611, 393);
             this.barraCarpeta2.Name = "barraCarpeta2";
             this.barraCarpeta2.Size = new System.Drawing.Size(97, 10);
@@ -314,6 +333,7 @@
             // 
             // btnCarpeta2
             // 
+            this.btnCarpeta2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnCarpeta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnCarpeta2.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarpeta2.ForeColor = System.Drawing.Color.White;
@@ -327,6 +347,7 @@
             // 
             // btnMostrarIgualesMenos
             // 
+            this.btnMostrarIgualesMenos.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnMostrarIgualesMenos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnMostrarIgualesMenos.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostrarIgualesMenos.ForeColor = System.Drawing.Color.White;
@@ -340,6 +361,7 @@
             // 
             // lblBorrar
             // 
+            this.lblBorrar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblBorrar.AutoSize = true;
             this.lblBorrar.Font = new System.Drawing.Font("AniMe Matrix - MB_EN", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBorrar.ForeColor = System.Drawing.SystemColors.Control;
@@ -377,6 +399,7 @@
             // 
             // btnBorrar
             // 
+            this.btnBorrar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnBorrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnBorrar.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrar.ForeColor = System.Drawing.Color.White;
@@ -390,6 +413,7 @@
             // 
             // btnBorrar1
             // 
+            this.btnBorrar1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnBorrar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnBorrar1.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrar1.ForeColor = System.Drawing.Color.White;
@@ -403,6 +427,7 @@
             // 
             // btnBorrar2
             // 
+            this.btnBorrar2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnBorrar2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.btnBorrar2.Font = new System.Drawing.Font("Franklin Gothic Medium", 12.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrar2.ForeColor = System.Drawing.Color.White;
@@ -419,7 +444,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1300, 754);
+            this.ClientSize = new System.Drawing.Size(1284, 701);
             this.Controls.Add(this.btnBorrar2);
             this.Controls.Add(this.btnBorrar1);
             this.Controls.Add(this.btnBorrar);
@@ -446,10 +471,10 @@
             this.Controls.Add(this.btntobar);
             this.Controls.Add(this.btnclose);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.listBox2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

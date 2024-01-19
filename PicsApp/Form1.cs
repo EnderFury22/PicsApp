@@ -179,8 +179,8 @@ namespace PicsApp
         public List<Imagenes> interseccionThumbs2 = new List<Imagenes>();
 
 
-
-
+        public int anchoPantalla;
+        public int altoPantalla;
 
 
 
@@ -192,6 +192,7 @@ namespace PicsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            AdaptForms();
             formStyles(sender, e);
 
             this.KeyDown += MainForm_KeyDown;
@@ -256,6 +257,37 @@ namespace PicsApp
             label1.MouseUp += TitleLabel_MouseUp;
             btnruta1.Click += btnruta1_Click;
         }
+
+        private void AdaptForms()
+        {
+            Screen pantallaPrincipal = Screen.PrimaryScreen;
+
+            anchoPantalla = pantallaPrincipal.Bounds.Width;
+            altoPantalla = pantallaPrincipal.Bounds.Height;
+            int nuevoAltoPantalla;
+            int nuevoAnchoPantalla;
+
+            if (anchoPantalla == 1600 && altoPantalla == 900)
+            {
+                float formsNewSizeNegaY = ((float)altoPantalla / 1080) * 100 -100;
+                float formsNewSiZePosY = -formsNewSizeNegaY;
+                double FormsSizeY = (double)formsNewSiZePosY / 100;
+                nuevoAltoPantalla = (int)Math.Round(altoPantalla * FormsSizeY);
+
+                float formsNewSizeNegaX = ((float)anchoPantalla / 1920) * 100 - 100;
+                float formsNewSiZePosX = -formsNewSizeNegaX;
+                double FormsSizeX = (double)formsNewSiZePosX / 100;
+                nuevoAnchoPantalla = (int)Math.Round(anchoPantalla * FormsSizeX);
+
+                this.Size = new System.Drawing.Size(1318,750);
+
+                btnclose.Location = new System.Drawing.Point(1260, 0);
+                btntobar.Location = new System.Drawing.Point(1220, 0);
+                label1.Size = new System.Drawing.Size(1300- nuevoAnchoPantalla - 17, 40 - nuevoAltoPantalla - 17);
+                //pictureBox1.Location = new System.Drawing.Point(83 - nuevoAnchoPantalla, 129- nuevoAltoPantalla);
+            }
+        }
+
 
         private async void btnclose_Click(object sender, EventArgs e)
         {
@@ -1886,6 +1918,15 @@ namespace PicsApp
                         break;
                 }
             }
+        }
+
+        private void ObtenerResolucionDePantalla(out int anchoPantalla, out int altoPantalla)
+        {
+            Screen pantallaPrincipal = Screen.PrimaryScreen;
+
+            // Obtener la resolución
+            anchoPantalla = pantallaPrincipal.Bounds.Width;
+            altoPantalla = pantallaPrincipal.Bounds.Height;
         }
     }
 }
