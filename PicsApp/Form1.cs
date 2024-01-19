@@ -265,6 +265,7 @@ namespace PicsApp
         private async Task CloseApp()
         {
             await Task.Delay(0);
+            BorrarCarpetas();
             Application.Exit();
         }
 
@@ -1371,6 +1372,19 @@ namespace PicsApp
 
         private void BorrarCarpetas()
         {
+            pictureBox1.Enabled = false;
+            pictureBox2.Enabled = false;
+            pictureBox1.Image.Dispose();
+            pictureBox2.Image.Dispose();
+            rutaDuplicadoActual1 = null;
+            rutaDuplicadoActual2 = null;
+            rutaThumbActual1 = null;
+            rutaThumbActual2 = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            RefreshAll();
+
             string[] archivos1 = Directory.GetFiles(rutaCarpetaThumbs1);
             foreach (string archivo in archivos1)
             {
@@ -1535,9 +1549,9 @@ namespace PicsApp
             using (Image imagenOriginal = Image.FromFile(rutaImagenOriginal))
             {
                 // Calcular nuevas dimensiones manteniendo la proporción
-                int nuevaAncho, nuevaAlto;
-                MantenerProporcion(imagenOriginal.Width, imagenOriginal.Height, ancho, alto, out nuevaAncho, out nuevaAlto);
-                using (Bitmap thumbnail = new Bitmap(nuevaAncho, nuevaAlto))
+                int nuevoAncho, nuevoAlto;
+                MantenerProporcion(imagenOriginal.Width, imagenOriginal.Height, ancho, alto, out nuevoAncho, out nuevoAlto);
+                using (Bitmap thumbnail = new Bitmap(nuevoAncho, nuevoAlto))
                 {
                     using (Graphics g = Graphics.FromImage(thumbnail))
                     {
@@ -1547,7 +1561,7 @@ namespace PicsApp
                         g.CompositingQuality = CompositingQuality.HighQuality;
 
                         // Dibujar la miniatura
-                        g.DrawImage(imagenOriginal, 0, 0, nuevaAncho, nuevaAlto);
+                        g.DrawImage(imagenOriginal, 0, 0, nuevoAncho , nuevoAlto);
 
                     }
                     thumbnail.Save(rutaThumbnail, ImageFormat.Jpeg);
@@ -1557,19 +1571,29 @@ namespace PicsApp
 
         static void MantenerProporcion(int originalAncho, int originalAlto, int nuevoAnchoDeseado, int nuevoAltoDeseado, out int nuevoAncho, out int nuevoAlto)
         {
-            nuevoAnchoDeseado = (int)(originalAncho * 0.50);
+            /*nuevoAnchoDeseado = (int)(originalAncho * 0.50);
             nuevoAltoDeseado = (int)(originalAlto * 0.50);
+            double proporcionOriginal = (double)originalAncho / originalAlto;*/
 
             double proporcionOriginal = (double)originalAncho / originalAlto;
 
-            if (originalAncho > originalAlto)
+            // Calcular las dimensiones basadas en el ancho deseado
+            nuevoAncho = nuevoAnchoDeseado;
+            nuevoAlto = (int)(nuevoAncho / proporcionOriginal);
+
+            // Verificar si las dimensiones basadas en el ancho deseado cumplen con el requisito mínimo de 448
+            if (nuevoAncho < 448)
             {
-                nuevoAncho = nuevoAnchoDeseado;
+                // Ajustar al mínimo de 448
+                nuevoAncho = 448;
                 nuevoAlto = (int)(nuevoAncho / proporcionOriginal);
             }
-            else
+
+            // Verificar si las dimensiones basadas en el alto deseado cumplen con el requisito mínimo de 448
+            if (nuevoAlto < 448)
             {
-                nuevoAlto = nuevoAltoDeseado;
+                // Ajustar al mínimo de 448
+                nuevoAlto = 448;
                 nuevoAncho = (int)(nuevoAlto * proporcionOriginal);
             }
         }
@@ -1669,7 +1693,7 @@ namespace PicsApp
                     resolucionesDeImagenesRepetidasY1 = imagen.Height;
                 }
                 rutaRealThumb1 = rutaCarpetaThumbs1 + "\\" + ruta.Name;
-                CrearThumbnails(ruta.Path, rutaRealThumb1, resolucionesDeImagenesRepetidasX1, resolucionesDeImagenesRepetidasY1);
+                CrearThumbnails(ruta.Path, rutaRealThumb1, resolucionesDeImagenesRepetidasX1 / 25, resolucionesDeImagenesRepetidasY1 / 25);
                 CrearInstanciasParaThumbnails1();
             }
         }
@@ -1687,7 +1711,7 @@ namespace PicsApp
                     resolucionesDeImagenesRepetidasY2 = imagen.Height;
                 }
                 rutaRealThumb2 = rutaCarpetaThumbs2 + "\\" + ruta.Name;
-                CrearThumbnails(ruta.Path, rutaRealThumb2, resolucionesDeImagenesRepetidasX2, resolucionesDeImagenesRepetidasY2);
+                CrearThumbnails(ruta.Path, rutaRealThumb2, resolucionesDeImagenesRepetidasX2 / 25, resolucionesDeImagenesRepetidasY2 / 25);
                 CrearInstanciasParaThumbnails2();
             }
         }

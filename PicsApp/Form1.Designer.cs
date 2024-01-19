@@ -447,8 +447,8 @@
             this.Controls.Add(this.btnclose);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.listBox2);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.listBox2);
             this.Controls.Add(this.pictureBox2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
