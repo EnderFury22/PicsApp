@@ -265,15 +265,17 @@ namespace PicsApp
         private async Task CloseApp()
         {
             await Task.Delay(0);
-            BorrarCarpetas();
+            if (Directory.Exists(rutaMiniaturas))
+            {
+                BorrarCarpetas();
+            }
             Application.Exit();
         }
 
 
         private void btntobar_Click(object sender, EventArgs e)
         {
-            //this.WindowState = FormWindowState.Minimized;
-            InterseccionThumbs1();
+            this.WindowState = FormWindowState.Minimized;
         }
 
 
@@ -321,9 +323,9 @@ namespace PicsApp
             {
                 btnMostrarIguales.Invoke(new Action(() => MostrarIgualesFalse()));
             }
-            btnCarpeta1.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta1, listBox1);
             OrdenDeLasCosas();
+            //btnCarpeta1.BackColor = Color.FromArgb(46, 46, 46);
             pressedBtn = 0;
         }
 
@@ -346,9 +348,9 @@ namespace PicsApp
                 btnMostrarIguales.Invoke(new Action(() => MostrarIgualesFalse()));
                 btnMostrarIgualesMenos.Invoke(new Action(() => MostrarIgualesFalse()));
             }
-            btnCarpeta2.BackColor = Color.FromArgb(46, 46, 46);
             SeleccionarCarpeta(archivosCarpeta2, listBox2);
             OrdenDeLasCosas();
+            //btnCarpeta2.BackColor = Color.FromArgb(46, 46, 46);
             pressedBtn = 0;
         }
 
@@ -803,11 +805,11 @@ namespace PicsApp
                             btnComparar.Invoke(new Action(() => BtnCompararVisible()));
                         }
                     }
-                    if (btnComparar.InvokeRequired && barraCarpeta2.InvokeRequired)
+                    /*if (btnComparar.InvokeRequired && barraCarpeta2.InvokeRequired)
                     {
                         btnComparar.Invoke(new Action(() => BtnCarpeta2Visible()));
                         barraCarpeta2.Invoke(new Action(() => BtnCarpeta2Visible()));
-                    }
+                    }*/
                 }
                 else
                 {
@@ -922,7 +924,7 @@ namespace PicsApp
                 }
                 if (validImage1)
                 {
-                    btnCarpeta1.BackColor = Color.Green;
+                    //btnCarpeta1.BackColor = Color.Green;
                 }
             }
             else if (pressedBtn == 2)
@@ -974,7 +976,7 @@ namespace PicsApp
                 }
                 if (validImage2)
                 {
-                    btnCarpeta2.BackColor = Color.Green;
+                    //btnCarpeta2.BackColor = Color.Green;
                 }
             }
         }
@@ -1167,12 +1169,22 @@ namespace PicsApp
         {
             barraCarpeta1.Maximum = cantidadEnNumero;
             barraCarpeta1.PerformStep();
+            if (barraCarpeta1.Value == cantidadEnNumero)
+            {
+                btnCarpeta1.BackColor = Color.Green;
+                btnCarpeta2.Visible = true;
+                barraCarpeta2.Visible = true;
+            }
         }
 
         private void ActualizarCarpetaDeCarga2()
         {
             barraCarpeta2.Maximum = cantidadEnNumero;
             barraCarpeta2.PerformStep();
+            if (barraCarpeta2.Value == cantidadEnNumero)
+            {
+                btnCarpeta2.BackColor = Color.Green;
+            }
         }
 
         private void BarraDeCarga()
